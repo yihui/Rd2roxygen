@@ -1,0 +1,10 @@
+Convert Rd to roxygen documentation
+
+	* use Rd2roxygen('path/to/your/package') to update 
+		the R scripts under ./R directory
+	* other functions might be useful for individual files
+		* parse_file
+		* create_roxygen
+		* parse_and_save
+
+Originally written by Hadley Wickham; improved by Yihui Xie
