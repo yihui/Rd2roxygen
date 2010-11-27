@@ -1,6 +1,12 @@
-# ESS users may use options(roxygen.comment = "##' ")
-
-# Parse input Rd file -------------------------------------------------------
+##' Parse the input Rd file to a list
+##'
+##' This function uses the function \code{parse_Rd} in the \pkg{tools} package
+##' to parse the Rd file.
+##'
+##' @param path the path of the Rd file
+##' @return a named list containing the documentation sections as strings
+##' @export
+##' @author Hadley Wickham; modified by Yihui Xie <\url{http://yihui.name}>
 parse_file <- function(path) {
   rd <- tools::parse_Rd(path)
 
@@ -12,7 +18,7 @@ parse_file <- function(path) {
   rd <- rd[tags != "TEXT"]
 
   out <- list()
-  # Title, description, value and examples, need to be stitched into a 
+  # Title, description, value and examples, need to be stitched into a
   # single string.
   out$title <- reconstruct(untag(rd$title))
   out$docType <- reconstruct(untag(rd$docType))
@@ -42,15 +48,27 @@ parse_file <- function(path) {
   arguments <- rd$arguments
   arguments <- arguments[sapply(arguments, tag) != "TEXT"]
   out$params <- sapply(arguments, function(argument) {
-    paste(if (tag(argument[[1]][[1]]) == "\\dots") 
-		"\\dots" else argument[[1]], 
+    paste(if (tag(argument[[1]][[1]]) == "\\dots")
+		"\\dots" else argument[[1]],
 	reconstruct(argument[[2]]))
   })
-  
+
   out
 }
 
-# Create output --------------------------------------------------------------
+
+##' Create the roxygen documentation
+##'
+##' The parsed information is converted to a vector of roxygen tags.
+##'
+##' @param info the named list of the parsed documentation
+##' @param usage logical: whether to include the usage section in the output (this
+##' can be useful when there are multiple functions in a single usage section, but
+##' generally it is not necessary because roxygen can generate the usage section
+##' automatically)
+##' @export
+##' @return a character vector
+##' @author Hadley Wickham; modified by Yihui Xie <\url{http://yihui.name}>
 create_roxygen <- function(info, usage = FALSE) {
   c(
     comment_line(info$title),
@@ -58,9 +76,9 @@ create_roxygen <- function(info, usage = FALSE) {
     comment_line(),
     comment_line(info$details),
     comment_line(),
-	if (!is.null(info$docType) && 
+	if (!is.null(info$docType) &&
 		(info$docType %in% c('package', 'data', 'methods', 'class')))
-			comment_tag("@name", info$name), 
+			comment_tag("@name", info$name),
     comment_tag("@aliases", paste(info$aliases, collapse = " ")),
     comment_tag("@docType", info$docType),
 	if (usage) comment_tag("@usage", info$usage),
@@ -75,10 +93,10 @@ create_roxygen <- function(info, usage = FALSE) {
     comment_tag("@keywords", paste(info$keywords, collapse = " ")),
     if (!is.null(info$examples)) {
       c(
-        comment_line("@examples\n"), 
-        paste(comment_prefix(), 
-			gsub("\n", paste("\n", comment_prefix(), sep = ""), 
-				info$examples), 
+        comment_line("@examples\n"),
+        paste(comment_prefix(),
+			gsub("\n", paste("\n", comment_prefix(), sep = ""),
+				info$examples),
 			sep = "")
       )
     },
@@ -86,6 +104,16 @@ create_roxygen <- function(info, usage = FALSE) {
   )
 }
 
+##' Parse the input Rd file and save to a file
+##' Parse the input Rd file and save the roxygen documentation into a file
+##'
+##' @param path the path of the Rd file
+##' @param file the path to save the roxygen documentation
+##' @param usage logical: whether to include the usage section in the output
+##' @return a character vector if \code{file} is not specified, or write the vector
+##' into a file
+##' @export
+##' @author Hadley Wickham; modified by Yihui Xie <\url{http://yihui.name}>
 parse_and_save <- function(path, file, usage = FALSE) {
   parsed <- parse_file(path)
   output <- create_roxygen(parsed, usage = usage)
@@ -93,13 +121,31 @@ parse_and_save <- function(path, file, usage = FALSE) {
 	cat(paste(output, collapse = "\n"), file = file)
 }
 
+
+##' Convert all the Rd files of a package to roxygen documentations
+##'
+##' This function takes a package root directory, parses all its Rd files under the
+##' man directory and update the corresponding R source code by inserting roxygen
+##' documentation in to the R scripts.
+##'
+##' @param pkg the root directory of the package
+##' @param nomatch the file name (base name only) to use when an object in the Rd file
+##' is not found in any R source files (typically this happens to the data documentation);
+##' if not specified, the default will be `pkg'-package.R
+##' @param usage logical: whether to include the usage section in the output
+##' @return NULL (but the process of conversion will be printed on screen)
+##' @note ESS users may use \code{options(roxygen.comment = "##' ")} to ensure the
+##' generated roxygen comments begin with \code{"##' "}, which is the default setting
+##' in Emacs/ESS.
+##' @export
+##' @author Yihui Xie <\url{http://yihui.name}>
 Rd2roxygen <- function(pkg, nomatch, usage = FALSE) {
 	if (!all(c('man', 'R') %in% list.files(pkg)))
 		stop("'pkg' has to be the root directory of a source package")
 	man.dir <- file.path(pkg, 'man')
 	R.dir <- file.path(pkg, 'R')
 	files <- list.files(man.dir, '\\.[Rr]d$')
-	if (missing(nomatch)) 
+	if (missing(nomatch))
 		nomatch <- paste(basename(pkg), '-package.R', sep = '')
 	unlink(p <- file.path(R.dir, nomatch))
 	for (f in files) {
@@ -110,14 +156,14 @@ Rd2roxygen <- function(pkg, nomatch, usage = FALSE) {
 		message('parsed: ', f)
 		fname <- parsed$name
 		tryf <- paste(fname, c('.R', '.r'), sep = '')
-		tryf <- unique(c(tryf[file.exists(file.path(R.dir, tryf))], 
+		tryf <- unique(c(tryf[file.exists(file.path(R.dir, tryf))],
 				list.files(R.dir, '\\.[Rr]$')))
 		idx <- integer(0)
 		message("looking for the object '", fname, "' in:")
 		for (i in tryf) {
 			r <- file.path(R.dir, i)
-			idx <- grep(sprintf('^[[:space:]]*(`|)(%s)(`|)[[:space:]]*(<-|=)', 
-				gsub('\\.', '\\\\.', fname)), 
+			idx <- grep(sprintf('^[[:space:]]*(`|)(%s)(`|)[[:space:]]*(<-|=)',
+				gsub('\\.', '\\\\.', fname)),
 			(r.Rd <- readLines(r, warn = FALSE)))
 			message('  ', i, ': ', appendLF = FALSE)
 			message(ifelse(length(idx), paste('row', idx), 'not found'))
