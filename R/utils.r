@@ -13,12 +13,21 @@ reconstruct <- function(rd) {
   if (is.null(rd)) return()
 
   if (is.list(rd)) {
-    special <- tag(rd) == toupper(tag(rd))
-    prefix <- ifelse(special, "", paste(tag(rd), "{", sep = ""))
-    suffix <- ifelse(special, "", "}")
-
-    paste(prefix, paste(sapply(rd, reconstruct), collapse = ""), suffix,
-     sep = "")
+	if (length(tag(rd)) && tag(rd) %in% c('\\item', '\\tabular', '\\eqn', '\\deqn', '\\link')){
+		if (tag(rd) == '\\link') 
+			return(paste('\\link', sprintf('[%s]', attr(rd, 'Rd_option')), '{', rd, '}', sep = ""))
+		if (length(rd) == 2) 
+			return(paste(tag(rd), '{', rd[[1]], '}{', 
+				paste(sapply(rd[[2]], reconstruct), collapse = ""),
+				'}', sep = "", collapse = "")) else if (length(rd) == 0) return(tag(rd))
+	}
+	special <- tag(rd) == toupper(tag(rd))
+	singles <- tag(rd) %in% c('\\tab', '\\cr')
+	prefix <- ifelse(special, "", 
+		paste(tag(rd), ifelse(singles, "", "{"), sep = ""))
+	suffix <- ifelse(special, "", ifelse(singles, "", "}"))
+	paste(prefix, paste(sapply(rd, reconstruct), collapse = ""), suffix,
+		 sep = "")
   } else {
     rd
   }

@@ -49,7 +49,7 @@ parse_file <- function(path) {
   arguments <- arguments[sapply(arguments, tag) != "TEXT"]
   out$params <- sapply(arguments, function(argument) {
     paste(if (tag(argument[[1]][[1]]) == "\\dots")
-		"\\dots" else argument[[1]],
+		"\\dots" else gsub(' +', '', argument[[1]]),
 	reconstruct(argument[[2]]))
   })
 
