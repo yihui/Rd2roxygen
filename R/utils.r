@@ -98,7 +98,7 @@ rm_undocumented = function(pkg, len = 5) {
 roxygen_and_build = function(pkg, roxygen.dir = NULL, install = FALSE,
     check = FALSE, check.opts = "", escape = TRUE, ...) {
     if (is.null(roxygen.dir)) roxygen.dir = paste(basename(pkg), '.roxygen', sep = '')
-    roxygen::roxygenize(pkg, roxygen.dir, ...)
+    roxygenize(pkg, roxygen.dir, ...)
     unlink(sprintf("%s/.git", roxygen.dir), recursive = TRUE)
     if (!length(list.files((inst.dir <- file.path(roxygen.dir, 'inst')), recursive = TRUE)))
         unlink(inst.dir, recursive = TRUE)
