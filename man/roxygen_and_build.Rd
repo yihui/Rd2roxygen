@@ -1,0 +1,21 @@
+\name{roxygen_and_build}
+\alias{roxygen_and_build}
+\title{Roxygenize a package, clean up and build/check the package.}
+\usage{roxygen_and_build(pkg, roxygen.dir, install=FALSE, check=FALSE,
+    check.opts="", escape=TRUE, ...)}
+\description{Roxygenize a package, clean up and build/check the package.
+After the source package is roxygenized, this function first removes the
+unnecessary Rd files, replaces `\%' with `\\\%', and build the package. Optionally
+it also installs or checks the package.}
+\value{NULL}
+\author{Yihui Xie <\url{http://yihui.name}>}
+\arguments{\item{pkg}{the root directory of the source package}
+\item{roxygen.dir}{the directory for the roxygenized package}
+\item{install}{whether to install the package}
+\item{check}{whether to check the package}
+\item{check.opts}{options to check the package (e.g. \code{"--no-examples"})}
+\item{escape}{whether to escape \code{"\%"}}
+\item{...}{other arguments passed to \code{\link[roxygen]{roxygenize}}}}
+\examples{\dontrun{
+roxygen_and_build("./Rd2roxygen", install = TRUE)
+}}
