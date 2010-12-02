@@ -1,8 +1,8 @@
 Package: Rd2roxygen
 Type: Package
 Title: Convert Rd to roxygen documentation
-Version: 0.1-0
-Date: 2010-11-30
+Version: 0.1-1
+Date: 2010-12-04
 Author@R: c(person("Hadley", "Wickham", email = "h.wickham@gmail.com",
     role = "aut"), person("Yihui", "Xie", email = "xie@yihui.name",
     role = c("aut", "cre")))

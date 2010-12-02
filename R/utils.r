@@ -119,5 +119,5 @@ roxygen_and_build = function(pkg, roxygen.dir = NULL, install = FALSE,
         system(sprintf("R CMD INSTALL %s.roxygen", pkg))
     if (check)
         system(sprintf("R CMD check %s.roxygen %s", pkg, check.opts))
-    return()
+    invisible(NULL)
 }
