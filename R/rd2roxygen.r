@@ -1,4 +1,4 @@
-##' Parse the input Rd file to a list
+##' Parse the input Rd file to a list.
 ##'
 ##' This function uses the function \code{parse_Rd} in the \pkg{tools} package
 ##' to parse the Rd file.
@@ -57,7 +57,7 @@ parse_file <- function(path) {
 }
 
 
-##' Create the roxygen documentation
+##' Create the roxygen documentation.
 ##'
 ##' The parsed information is converted to a vector of roxygen tags.
 ##'
@@ -104,8 +104,7 @@ create_roxygen <- function(info, usage = FALSE) {
   )
 }
 
-##' Parse the input Rd file and save to a file
-##' Parse the input Rd file and save the roxygen documentation into a file
+##' Parse the input Rd file and save the roxygen documentation into a file.
 ##'
 ##' @param path the path of the Rd file
 ##' @param file the path to save the roxygen documentation
@@ -122,7 +121,7 @@ parse_and_save <- function(path, file, usage = FALSE) {
 }
 
 
-##' Convert all the Rd files of a package to roxygen documentations
+##' Convert all the Rd files of a package to roxygen documentations.
 ##'
 ##' This function takes a package root directory, parses all its Rd files under the
 ##' man directory and update the corresponding R source code by inserting roxygen
