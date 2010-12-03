@@ -7,6 +7,9 @@
 After the source package is roxygenized, this function first removes the
 unnecessary Rd files, replaces `\%' with `\\\%', and build the package. Optionally
 it also installs or checks the package.}
+\note{This function also tries to remove directories \file{pkg/inst/doc} and
+\file{pkg/inst} if they are empty; this is due to the fact that roxygen
+will generate these directories no matter if they are needed.}
 \value{NULL}
 \author{Yihui Xie <\url{http://yihui.name}>}
 \arguments{\item{pkg}{the root directory of the source package}

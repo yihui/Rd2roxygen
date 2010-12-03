@@ -89,6 +89,9 @@ rm_undocumented = function(pkg, len = 5) {
 ##' @param check.opts options to check the package (e.g. \code{"--no-examples"})
 ##' @param escape whether to escape \code{"\%"}
 ##' @param ... other arguments passed to \code{\link[roxygen]{roxygenize}}
+##' @note This function also tries to remove directories \file{pkg/inst/doc} and
+##' \file{pkg/inst} if they are empty; this is due to the fact that roxygen
+##' will generate these directories no matter if they are needed.
 ##' @return NULL
 ##' @author Yihui Xie <\url{http://yihui.name}>
 ##' @export
@@ -100,6 +103,8 @@ roxygen_and_build = function(pkg, roxygen.dir = NULL, install = FALSE,
     if (is.null(roxygen.dir)) roxygen.dir = paste(basename(pkg), '.roxygen', sep = '')
     roxygenize(pkg, roxygen.dir, ...)
     unlink(sprintf("%s/.git", roxygen.dir), recursive = TRUE)
+    if (!length(list.files((inst.dir <- file.path(roxygen.dir, 'inst', 'doc')), recursive = TRUE)))
+        unlink(inst.dir, recursive = TRUE)
     if (!length(list.files((inst.dir <- file.path(roxygen.dir, 'inst')), recursive = TRUE)))
         unlink(inst.dir, recursive = TRUE)
     rm_undocumented(roxygen.dir)
