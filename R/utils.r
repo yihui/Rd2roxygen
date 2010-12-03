@@ -1,7 +1,7 @@
 ## extract tags
 tag <- function(x) attr(x, "Rd_tag")
 
-##' replace tags
+## replace tags
 untag <- function(x) {
   if (is.null(x)) return(NULL)
   attr(x, "Rd_tag") <- "TEXT"
@@ -85,6 +85,7 @@ rm_undocumented = function(pkg) {
 ##' unnecessary Rd files, replaces `\%' with `\\\%', and build the package. Optionally
 ##' it also installs or checks the package.
 ##'
+##' @aliases roxygen_and_build rab
 ##' @param pkg the root directory of the source package
 ##' @param roxygen.dir the directory for the roxygenized package
 ##' @param install whether to install the package
@@ -99,11 +100,15 @@ rm_undocumented = function(pkg) {
 ##' @note This function also tries to remove directories \file{pkg/inst/doc} and
 ##' \file{pkg/inst} if they are empty; this is due to the fact that roxygen
 ##' will generate these directories no matter if they are needed.
+##'
+##' This function also has a short name \code{rab} to avoid typing efforts.
 ##' @return NULL
 ##' @author Yihui Xie <\url{http://yihui.name}>
 ##' @export
 ##' @examples \dontrun{
 ##' roxygen_and_build("./Rd2roxygen", install = TRUE)
+##' ## or simply
+##' rab('./Rd2roxygen', install = TRUE)
 ##' }
 roxygen_and_build = function(pkg, roxygen.dir = NULL, install = FALSE,
     check = FALSE, check.opts = "", escape = TRUE, remove.check = TRUE, ...) {
@@ -135,3 +140,6 @@ roxygen_and_build = function(pkg, roxygen.dir = NULL, install = FALSE,
     }
     invisible(NULL)
 }
+
+##' @export
+rab = roxygen_and_build

@@ -15,4 +15,3 @@ Description: Functions to convert Rd to roxygen documentation. It can
     definition of the function) accordingly.
 License: GPL
 URL: https://github.com/yihui/Rd2roxygen
-Collate: 'rd2roxygen.r' 'utils.r'
