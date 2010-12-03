@@ -56,20 +56,23 @@ comment_prefix <- function() {
 
 ##' Remove Rd files for the undocumented functions.
 ##' Usually roxygen will generate Rd files even for the undocumented functions, and
-##' the length of such files will be less or equal to 5. This function removes all the
-##' Rd files which are shorter than 5 lines under the 'man' directory.
+##' the \command{name} and \command{title} tags of such files will be the same.
+##' This function removes all such Rd files under the 'man' directory.
 ##'
 ##' @param pkg the directory of the source package
-##' @param len the maximum number of lines of Rd files which are not
-##' actually needed
 ##' @return \code{NULL} (if such Rd files exist, there will be messages printed in the
 ##' console showing which files are deleted)
 ##' @export
 ##' @author Yihui Xie <\url{http://yihui.name}>
-rm_undocumented = function(pkg, len = 5) {
+rm_undocumented = function(pkg) {
     for (f in list.files(file.path(pkg, "man"), ".*\\.Rd$", all.files = TRUE,
-        full.names = TRUE)) {
-        if (length(readLines(f)) <= len) {
+                         full.names = TRUE)) {
+        x = readLines(f)
+        cond = identical(
+            gsub('\\\\name\\{(.*)\\}', '\\1', grep('^\\\\name', x, value=TRUE)),
+            gsub('\\\\title\\{(.*)\\}', '\\1', grep('^\\\\title', x, value=TRUE))
+        )
+        if (cond) {
             unlink(f)
             message("deleted: ", f)
             flush.console()
