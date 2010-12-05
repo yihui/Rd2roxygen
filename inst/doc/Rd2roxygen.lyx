@@ -1,0 +1,130 @@
+#LyX 1.6.7 created this file. For more info see http://www.lyx.org/
+\lyxformat 345
+\begin_document
+\begin_header
+\textclass literate-article
+\begin_preamble
+\renewcommand{\rmdefault}{ppl}
+\renewcommand{\sfdefault}{aess}
+\renewcommand{\ttdefault}{aett}
+%\VignetteIndexEntry{Rd2roxygen: Convert Rd to roxygen documentation}
+\end_preamble
+\use_default_options true
+\language english
+\inputencoding auto
+\font_roman ae
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_amsmath 1
+\use_esint 1
+\cite_engine natbib_authoryear
+\use_bibtopic false
+\paperorientation portrait
+\leftmargin 3cm
+\topmargin 3cm
+\rightmargin 3cm
+\bottommargin 3cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\author "" 
+\author "" 
+\end_header
+
+\begin_body
+
+\begin_layout Title
+
+\series bold
+Rd2roxygen
+\series default
+: Convert Rd to 
+\series bold
+roxygen
+\series default
+ documentation
+\end_layout
+
+\begin_layout Author
+Yihui Xie
+\end_layout
+
+\begin_layout Scrap
+<<setup>>=
+\end_layout
+
+\begin_layout Scrap
+library(Rd2roxygen)
+\end_layout
+
+\begin_layout Scrap
+args(Rd2roxygen)
+\end_layout
+
+\begin_layout Scrap
+args(rab)
+\end_layout
+
+\begin_layout Scrap
+@
+\end_layout
+
+\begin_layout Standard
+The package 
+\series bold
+Rd2roxygen
+\series default
+ 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Rd2roxygen"
+
+\end_inset
+
+ helps R package developers who used to write R documentation in the raw
+ LaTeX-like commands but want to switch their documentation to 
+\series bold
+roxygen
+\series default
+ 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "roxygen"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "Rd2roxygen"
+options "jss"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
