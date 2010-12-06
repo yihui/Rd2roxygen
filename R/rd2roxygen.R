@@ -7,6 +7,9 @@
 ##' @return a named list containing the documentation sections as strings
 ##' @export
 ##' @author Hadley Wickham; modified by Yihui Xie <\url{http://yihui.name}>
+##' @examples
+##' rd.file = system.file('examples', 'parse_and_save.Rd', package='Rd2roxygen')
+##' parse_file(rd.file)
 parse_file <- function(path) {
   rd <- tools::parse_Rd(path)
 
@@ -69,6 +72,10 @@ parse_file <- function(path) {
 ##' @export
 ##' @return a character vector
 ##' @author Hadley Wickham; modified by Yihui Xie <\url{http://yihui.name}>
+##' @examples
+##' rd.file = system.file('examples','parse_and_save.Rd',package='Rd2roxygen')
+##' options(roxygen.comment = "##' ")
+##' create_roxygen(parse_file(rd.file))
 create_roxygen <- function(info, usage = FALSE) {
   c(
     comment_line(info$title),
@@ -138,6 +145,10 @@ parse_and_save <- function(path, file, usage = FALSE) {
 ##' in Emacs/ESS.
 ##' @export
 ##' @author Yihui Xie <\url{http://yihui.name}>
+##' @examples
+##' \dontrun{
+##' Rd2roxygen('path/to/your/source/package', install=TRUE)
+##' }
 Rd2roxygen <- function(pkg, nomatch, usage = FALSE) {
 	if (!all(c('man', 'R') %in% list.files(pkg)))
 		stop("'pkg' has to be the root directory of a source package")

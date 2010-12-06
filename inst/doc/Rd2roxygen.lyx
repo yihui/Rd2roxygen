@@ -24,7 +24,17 @@
 \graphics default
 \paperfontsize default
 \spacing single
-\use_hyperref false
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered true
+\pdf_bookmarksopen true
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks true
+\pdf_pdfborder false
+\pdf_colorlinks false
+\pdf_backref false
+\pdf_pdfusetitle true
+\pdf_quoted_options "pdfstartview=FitH"
 \papersize default
 \use_geometry true
 \use_amsmath 1
@@ -68,20 +78,26 @@ roxygen
 Yihui Xie
 \end_layout
 
-\begin_layout Scrap
-<<setup>>=
+\begin_layout Standard
+\begin_inset Flex Sweave Options
+status open
+
+\begin_layout Plain Layout
+
+tidy=TRUE
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Scrap
-library(Rd2roxygen)
+<<setup, echo=FALSE>>=
 \end_layout
 
 \begin_layout Scrap
-args(Rd2roxygen)
-\end_layout
-
-\begin_layout Scrap
-args(rab)
+options(keep.blank.line = FALSE)
 \end_layout
 
 \begin_layout Scrap
@@ -109,6 +125,315 @@ roxygen
 \begin_inset CommandInset citation
 LatexCommand citep
 key "roxygen"
+
+\end_inset
+
+, which is a convenient tool for developers, since we can write documentation
+ as inline comments, e.g.
+\end_layout
+
+\begin_layout Scrap
+<<roxygen-ex>>=
+\end_layout
+
+\begin_layout Scrap
+## the source code of the function `parse_and_save`
+\end_layout
+
+\begin_layout Scrap
+ex.file = system.file('examples','parse_and_save.R',package='Rd2roxygen')
+\end_layout
+
+\begin_layout Scrap
+cat(readLines(ex.file), sep='
+\backslash
+n')
+\end_layout
+
+\begin_layout Scrap
+@
+\end_layout
+
+\begin_layout Standard
+With 
+\series bold
+roxygen
+\series default
+ (typically using 
+\emph on
+roxygenize()
+\emph default
+), we can create the real Rd file from the above source code like this:
+\end_layout
+
+\begin_layout Scrap
+<<rd-ex>>=
+\end_layout
+
+\begin_layout Scrap
+rd.file = system.file('examples','parse_and_save.Rd',package='Rd2roxygen')
+\end_layout
+
+\begin_layout Scrap
+cat(readLines(rd.file), sep='
+\backslash
+n')
+\end_layout
+
+\begin_layout Scrap
+@
+\end_layout
+
+\begin_layout Standard
+The 
+\series bold
+Rd2roxygen
+\series default
+ package goes exactly in the 
+\emph on
+opposite
+\emph default
+ way -- it parses the Rd files and turns them back to roxygen comments.
+ We can either do this job on single Rd files, or just convert the whole
+ package.
+ The latter might be more useful for developers who are considering the
+ switch.
+\end_layout
+
+\begin_layout Section
+Convert a whole package
+\end_layout
+
+\begin_layout Standard
+The function 
+\emph on
+Rd2roxygen()
+\emph default
+ can take a path of a source package, parse all the Rd files under the 
+\family typewriter
+man
+\family default
+ directory, and write the roxygen comments right above the source code of
+ the functions under the 
+\family typewriter
+R
+\family default
+ directory.
+\end_layout
+
+\begin_layout Scrap
+<<Rd2roxygen>>=
+\end_layout
+
+\begin_layout Scrap
+library(Rd2roxygen)
+\end_layout
+
+\begin_layout Scrap
+args(Rd2roxygen)
+\end_layout
+
+\begin_layout Scrap
+## e.g.
+ Rd2roxygen('somewhere/to/source/pkg')
+\end_layout
+
+\begin_layout Scrap
+## there must be 'man' and 'R' directories under this path
+\end_layout
+
+\begin_layout Scrap
+@
+\end_layout
+
+\begin_layout Section
+Parse a single Rd file
+\end_layout
+
+\begin_layout Standard
+We can parse a single Rd file and create the roxygen comments as well with
+ 
+\emph on
+parse_file()
+\emph default
+ and 
+\emph on
+create_roxygen()
+\emph default
+, e.g.:
+\end_layout
+
+\begin_layout Scrap
+<<parse-file>>=
+\end_layout
+
+\begin_layout Scrap
+## we can specify the roxygen comments prefix (#' by default)
+\end_layout
+
+\begin_layout Scrap
+options(roxygen.comment = "##' ")
+\end_layout
+
+\begin_layout Scrap
+(info = parse_file(rd.file))
+\end_layout
+
+\begin_layout Scrap
+create_roxygen(info)
+\end_layout
+
+\begin_layout Scrap
+## parse_and_save() combines the above two steps
+\end_layout
+
+\begin_layout Scrap
+@
+\end_layout
+
+\begin_layout Section
+Roxygenize and build a package
+\end_layout
+
+\begin_layout Standard
+This package also provides a tool 
+\emph on
+roxygen_and_build()
+\emph default
+ (or in short 
+\emph on
+rab()
+\emph default
+) to help us build the package.
+\end_layout
+
+\begin_layout Scrap
+<<rab>>=
+\end_layout
+
+\begin_layout Scrap
+args(rab)
+\end_layout
+
+\begin_layout Scrap
+@
+\end_layout
+
+\begin_layout Standard
+By default, 
+\series bold
+roxygen
+\series default
+ will generate Rd files for all the objects in the package, which is sometimes
+ not necessary, e.g.
+ the functions which are not exported to the user.
+ These Rd files are removed from the roxygenized package.
+ Another problem is, we often forget to escape the percent symbol 
+\family typewriter
+%
+\family default
+ in our documentation
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+One situation which made me crazy for a long time is, it is hard to debug
+ the R documentation when we have 
+\family typewriter
+%
+\family default
+ in the arguments of the function or in the examples.
+ Image you write a function like this: 
+\family typewriter
+f = function(a = '%03d') {}
+\family default
+, and it is really easy to forget to escape the percent symbol correctly
+ in your documentation as 
+\family typewriter
+
+\backslash
+usage{f(a = '
+\series bold
+
+\backslash
+
+\series default
+%03d')}
+\family default
+! Besides, roxygen will generate the documentation without escaping percent
+ symbols, which is often error-prone.
+ That is the reasoning behind the default value 
+\family typewriter
+escape = TRUE
+\family default
+.
+\end_layout
+
+\end_inset
+
+, which will make R treat such texts as comments; 
+\emph on
+rab()
+\emph default
+ will escape 
+\family typewriter
+%
+\family default
+ by default (can be turned off by 
+\family typewriter
+escape = FALSE
+\family default
+).
+ Besides, 
+\emph on
+rab()
+\emph default
+ also provides options to install or check the package.
+\end_layout
+
+\begin_layout Section*
+About this vignette
+\end_layout
+
+\begin_layout Standard
+You might be curious about how this vignette was generated, because it looks
+ different from other Sweave-based vignettes.
+ The answer is 
+\series bold
+pgfSweave
+\series default
+ 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "pgfSweave"
+
+\end_inset
+
+.
+ The real vignette is in LyX, which can be found here:
+\end_layout
+
+\begin_layout Scrap
+<<lyx-doc, eval=FALSE>>=
+\end_layout
+
+\begin_layout Scrap
+system.file('doc', 'Rd2roxygen.lyx', package='Rd2roxygen')
+\end_layout
+
+\begin_layout Scrap
+@
+\end_layout
+
+\begin_layout Standard
+Read this blog entry for details: 
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+http://yihui.name/en/?p=602
+\end_layout
 
 \end_inset
 
