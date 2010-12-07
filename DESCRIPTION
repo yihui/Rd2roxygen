@@ -9,6 +9,7 @@ Author@R: c(person("Hadley", "Wickham", email = "h.wickham@gmail.com",
 Author: Hadley Wickham and Yihui Xie
 Maintainer: Yihui Xie <xie@yihui.name>
 Depends: roxygen
+Enhances: formatR
 Description: Functions to convert Rd to roxygen documentation. It can
     parse an Rd file to a list, create the roxygen documentation and
     update the original R script (e.g. the one containing the
