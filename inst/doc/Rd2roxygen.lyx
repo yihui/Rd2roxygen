@@ -1,4 +1,4 @@
-#LyX 1.6.7 created this file. For more info see http://www.lyx.org/
+#LyX 1.6.8 created this file. For more info see http://www.lyx.org/
 \lyxformat 345
 \begin_document
 \begin_header
@@ -71,11 +71,33 @@ Rd2roxygen
 \series bold
 roxygen
 \series default
- documentation
+ documentation and utilities to enhance 
+\series bold
+roxygen
 \end_layout
 
 \begin_layout Author
 Yihui Xie
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Department of Statistics, Iowa State University.
+ Email: 
+\begin_inset CommandInset href
+LatexCommand href
+name "xie@yihui.name"
+target "xie@yihui.name"
+type "mailto:"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -391,6 +413,119 @@ rab()
  also provides options to install or check the package.
 \end_layout
 
+\begin_layout Standard
+Yet another feature to mention about 
+\emph on
+rab()
+\emph default
+ is that it has an option to 
+\begin_inset Quotes eld
+\end_inset
+
+reformat
+\begin_inset Quotes erd
+\end_inset
+
+ the code in the usage and example sections; this is due to the fact that
+ roxygen will remove all the leading spaces and indent in the R code, which
+ makes it difficult to read especially when the code is long.
+ If we specify 
+\family typewriter
+reformat = TRUE
+\family default
+ in 
+\emph on
+rab()
+\emph default
+, the code will be reformated like this:
+\end_layout
+
+\begin_layout Scrap
+<<reformat-ex1,echo=FALSE>>=
+\end_layout
+
+\begin_layout Scrap
+oopts=options(prompt=' ',continue=' ')
+\end_layout
+
+\begin_layout Scrap
+cat("## original code
+\begin_inset Newline newline
+\end_inset
+
+roxygen_and_build=function(pkg,roxygen.dir=NULL,install=FALSE,check=FALSE,
+\begin_inset Newline newline
+\end_inset
+
+check.opts='',remove.check=TRUE,escape=TRUE,reformat=TRUE,...){}",'
+\backslash
+n')
+\end_layout
+
+\begin_layout Scrap
+@
+\end_layout
+
+\begin_layout Scrap
+<<reformat-ex2,tidy=TRUE,eval=FALSE>>=
+\end_layout
+
+\begin_layout Scrap
+## the reformatted code
+\end_layout
+
+\begin_layout Scrap
+roxygen_and_build=function(pkg,roxygen.dir=NULL,install=FALSE,check=FALSE,
+\begin_inset Newline newline
+\end_inset
+
+check.opts="",remove.check=TRUE,escape=TRUE,reformat=TRUE,...){}
+\end_layout
+
+\begin_layout Scrap
+@
+\end_layout
+
+\begin_layout Scrap
+<<restore-opts,echo=FALSE>>=
+\end_layout
+
+\begin_layout Scrap
+options(oopts)
+\end_layout
+
+\begin_layout Scrap
+@
+\end_layout
+
+\begin_layout Standard
+Note this functionality depends on the package 
+\series bold
+formatR
+\series default
+ 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "formatR"
+
+\end_inset
+
+, and sometimes it might be not be appropriate to reformat the code, e.g.
+ the 
+\family typewriter
+
+\backslash
+dontrun{}
+\family default
+ command in Rd can contain arbitrary texts, which means there could be illegal
+ R expressions and 
+\series bold
+formatR
+\series default
+ will be unable to format the code.
+ In case of errors, we can consider turning this feature off.
+\end_layout
+
 \begin_layout Section*
 About this vignette
 \end_layout
@@ -426,7 +561,7 @@ system.file('doc', 'Rd2roxygen.lyx', package='Rd2roxygen')
 \end_layout
 
 \begin_layout Standard
-Read this blog entry for details: 
+Read this blog entry for details and how to reproduce the vignette: 
 \begin_inset Flex URL
 status open
 

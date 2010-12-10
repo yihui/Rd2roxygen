@@ -399,11 +399,13 @@
 \pgfrealjobname{Rd2roxygen}
 \begin{document}
 
+\title{\textbf{Rd2roxygen}: Convert Rd to \textbf{roxygen} documentation
+and utilities to enhance \textbf{roxygen}}
 
-\title{\textbf{Rd2roxygen}: Convert Rd to \textbf{roxygen} documentation}
 
-
-\author{Yihui Xie}
+\author{Yihui Xie%
+\thanks{Department of Statistics, Iowa State University. Email: \protect\href{mailto:xie@yihui.name}{xie@yihui.name}%
+}}
 
 \maketitle
 
@@ -608,7 +610,8 @@ in short \emph{rab()}) to help us build the package.
 \hlstd{}\begin{Schunk}
 \begin{Soutput}
 function (pkg, roxygen.dir = NULL, install = FALSE, check = FALSE, 
-    check.opts = "", escape = TRUE, remove.check = TRUE, ...) 
+    check.opts = "", remove.check = TRUE, escape = TRUE, reformat = TRUE, 
+    ...) 
 NULL
 \end{Soutput}
 
@@ -634,6 +637,48 @@ escape \texttt{\%} by default (can be turned off by \texttt{escape
 = FALSE}). Besides, \emph{rab()} also provides options to install
 or check the package.
 
+Yet another feature to mention about \emph{rab()} is that it has an
+option to {}``reformat'' the code in the usage and example sections;
+this is due to the fact that roxygen will remove all the leading spaces
+and indent in the R code, which makes it difficult to read especially
+when the code is long. If we specify \texttt{reformat = TRUE} in \emph{rab()},
+the code will be reformated like this:
+\begin{par}
+\begin{Schunk}
+\begin{Soutput}
+## original code
+roxygen_and_build=function(pkg,roxygen.dir=NULL,install=FALSE,check=FALSE,
+check.opts='',remove.check=TRUE,escape=TRUE,reformat=TRUE,...){} 
+\end{Soutput}
+
+\end{Schunk}
+
+
+\hspace*{\fill}\\
+\hlstd{}\ttfamily\noindent
+\hlprompt{{\ }}{\ }{\ }\hlcomment{\usebox{\hlnormalsizeboxhash}\usebox{\hlnormalsizeboxhash}{\ }the{\ }reformatted{\ }code}\mbox{}
+\normalfont
+\hspace*{\fill}\\
+\hlstd{}\ttfamily\noindent
+\hlprompt{{\ }}\hlsymbol{roxygen\usebox{\hlnormalsizeboxunderscore}and\usebox{\hlnormalsizeboxunderscore}build}{\ }\hlassignement{=}{\ }\hlkeyword{function}\hlkeyword{(}\hlformalargs{pkg}\hlkeyword{,}{\ }\hlformalargs{roxygen.dir}{\ }\hleqformalargs{=}{\ }NULL\hlkeyword{,}{\ }\hlformalargs{install}{\ }\hleqformalargs{=}{\ }\hlnumber{FALSE}\hlkeyword{,}\hspace*{\fill}\\
+\hlstd{}\hlprompt{{\ }}{\ }{\ }{\ }{\ }\hlformalargs{check}{\ }\hleqformalargs{=}{\ }\hlnumber{FALSE}\hlkeyword{,}{\ }\hlformalargs{check.opts}{\ }\hleqformalargs{=}{\ }\hlstring{""}\hlkeyword{,}{\ }\hlformalargs{remove.check}{\ }\hleqformalargs{=}{\ }\hlnumber{TRUE}\hlkeyword{,}{\ }\hlformalargs{escape}{\ }\hleqformalargs{=}{\ }\hlnumber{TRUE}\hlkeyword{,}\hspace*{\fill}\\
+\hlstd{}\hlprompt{{\ }}{\ }{\ }{\ }{\ }\hlformalargs{reformat}{\ }\hleqformalargs{=}{\ }\hlnumber{TRUE}\hlkeyword{,}{\ }\hlformalargs{...}\hlkeyword{)}{\ }\hlkeyword{\usebox{\hlnormalsizeboxopenbrace}}\hspace*{\fill}\\
+\hlstd{}\hlprompt{{\ }}\hlkeyword{\usebox{\hlnormalsizeboxclosebrace}}\mbox{}
+\normalfont
+\hspace*{\fill}\\
+\hlstd{}
+
+
+
+
+\end{par}
+Note this functionality depends on the package \textbf{formatR} \citep{formatR},
+and sometimes it might be not be appropriate to reformat the code,
+e.g. the \texttt{\textbackslash{}dontrun\{\}} command in Rd can contain
+arbitrary texts, which means there could be illegal R expressions
+and \textbf{formatR} will be unable to format the code. In case of
+errors, we can consider turning this feature off.
+
 
 \section*{About this vignette}
 
@@ -650,10 +695,10 @@ which can be found here:
 \hlstd{}
 
 \end{par}
-Read this blog entry for details: \url{http://yihui.name/en/?p=602}.
+Read this blog entry for details and how to reproduce the vignette:
+\url{http://yihui.name/en/?p=602}.
 
 \bibliographystyle{jss}
 \bibliography{Rd2roxygen}
-
 
 \end{document}

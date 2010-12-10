@@ -90,6 +90,7 @@ rm_undocumented = function(pkg) {
 ##' @aliases roxygen_and_build rab
 ##' @param pkg the root directory of the source package
 ##' @param roxygen.dir the directory for the roxygenized package
+##' (by default it is \code{pkg.roxygen})
 ##' @param install whether to install the package
 ##' @param check whether to check the package
 ##' @param check.opts options to check the package
