@@ -89,8 +89,8 @@ rm_undocumented = function(pkg) {
 ##'
 ##' @aliases roxygen_and_build rab
 ##' @param pkg the root directory of the source package
-##' @param roxygen.dir the directory for the roxygenized package
-##' (by default it is \code{pkg.roxygen})
+##' @param roxygen.dir the directory for the roxygenized package (by
+##' default it is \code{pkg.roxygen})
 ##' @param install whether to install the package
 ##' @param check whether to check the package
 ##' @param check.opts options to check the package
@@ -101,6 +101,7 @@ rm_undocumented = function(pkg) {
 ##' @param reformat whether to reformat the examples and usage and
 ##' escape the percent symbol sections; see
 ##' \code{\link{reformat_code}}
+##' @param use.Rd2 passed to \code{\link[roxygen]{roxygenize}}
 ##' @param ... other arguments passed to
 ##' \code{\link[roxygen]{roxygenize}}
 ##' @note This function also tries to remove directories \file{pkg/inst/doc} and
@@ -110,6 +111,7 @@ rm_undocumented = function(pkg) {
 ##' This function also has a short name \code{rab} to avoid typing efforts.
 ##' @return NULL
 ##' @author Yihui Xie <\url{http://yihui.name}>
+##' @rdname roxygen_and_build
 ##' @export
 ##' @examples \dontrun{
 ##' roxygen_and_build("./Rd2roxygen", install = TRUE)
@@ -118,10 +120,10 @@ rm_undocumented = function(pkg) {
 ##' }
 roxygen_and_build = function(pkg, roxygen.dir = NULL, install = FALSE,
     check = FALSE, check.opts = "", remove.check = TRUE, escape = TRUE,
-    reformat = TRUE, ...) {
+    reformat = TRUE, use.Rd2 = TRUE, ...) {
     if (is.null(roxygen.dir)) roxygen.dir = file.path(dirname(pkg), paste(basename(pkg), '.roxygen', sep = ''))
     if (file.exists(roxygen.dir) && normalizePath(pkg) != normalizePath(roxygen.dir)) unlink(roxygen.dir, recursive = TRUE)
-    roxygenize(pkg, roxygen.dir, ...)
+    roxygenize(pkg, roxygen.dir, use.Rd2 = use.Rd2, ...)
     unlink(sprintf("%s/.git", roxygen.dir), recursive = TRUE)
     if (!length(list.files((inst.dir <- file.path(roxygen.dir, 'inst', 'doc')), recursive = TRUE)))
         unlink(inst.dir, recursive = TRUE)
@@ -157,8 +159,11 @@ roxygen_and_build = function(pkg, roxygen.dir = NULL, install = FALSE,
     invisible(NULL)
 }
 
+##' @rdname roxygen_and_build
 ##' @export
-rab = roxygen_and_build
+rab = function(...) {
+    roxygen_and_build(...)
+}
 
 
 ##' Format the code in the usage and examples sections.
@@ -204,7 +209,7 @@ reformat_code = function(path, section = c('examples', 'usage'), ...) {
                 txt = gsub('tag_name_dontrun = function() {', '\\dontrun{', txt, fixed = TRUE)
                 rd[[idx]] = structure(list(structure(txt, Rd_tag = 'TEXT')), Rd_tag = paste('\\', sec, sep = ''))
                 flag = TRUE
-                message('section ', sec, ' in ', path, ' reformatted')
+                message('reformatted section ', sec, ' in ', path)
             } else message('section ', sec, ' not found in ', path)
         }
         if (flag) {
