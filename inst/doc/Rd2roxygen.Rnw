@@ -399,6 +399,7 @@
 \pgfrealjobname{Rd2roxygen}
 \begin{document}
 
+
 \title{\textbf{Rd2roxygen}: Convert Rd to \textbf{roxygen} documentation
 and utilities to enhance \textbf{roxygen}}
 
@@ -604,14 +605,14 @@ in short \emph{rab()}) to help us build the package.
 \begin{par}
 \hspace*{\fill}\\
 \hlstd{}\ttfamily\noindent
-\hlprompt{\usebox{\hlnormalsizeboxgreaterthan}{\ }}\hlfunctioncall{args}\hlkeyword{(}\hlsymbol{rab}\hlkeyword{)}\mbox{}
+\hlprompt{\usebox{\hlnormalsizeboxgreaterthan}{\ }}\hlfunctioncall{args}\hlkeyword{(}\hlsymbol{roxygen\usebox{\hlnormalsizeboxunderscore}and\usebox{\hlnormalsizeboxunderscore}build}\hlkeyword{)}\mbox{}
 \normalfont
 \hspace*{\fill}\\
 \hlstd{}\begin{Schunk}
 \begin{Soutput}
 function (pkg, roxygen.dir = NULL, install = FALSE, check = FALSE, 
     check.opts = "", remove.check = TRUE, escape = TRUE, reformat = TRUE, 
-    ...) 
+    use.Rd2 = TRUE, ...) 
 NULL
 \end{Soutput}
 
@@ -621,8 +622,10 @@ NULL
 By default, \textbf{roxygen} will generate Rd files for all the objects
 in the package, which is sometimes not necessary, e.g. the functions
 which are not exported to the user. These Rd files are removed from
-the roxygenized package. Another problem is, we often forget to escape
-the percent symbol \texttt{\%} in our documentation%
+the roxygenized package; in fact, we can also use Rd2 in roxygen and
+specify the tag \texttt{@nord} (no Rd) to suppress Rd creation. Another
+problem is, we often forget to escape the percent symbol \texttt{\%}
+in our documentation%
 \footnote{One situation which made me crazy for a long time is, it is hard to
 debug the R documentation when we have \texttt{\%} in the arguments
 of the function or in the examples. Image you write a function like
@@ -700,5 +703,6 @@ Read this blog entry for details and how to reproduce the vignette:
 
 \bibliographystyle{jss}
 \bibliography{Rd2roxygen}
+
 
 \end{document}

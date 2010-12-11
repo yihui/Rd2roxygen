@@ -64,6 +64,10 @@ comment_prefix <- function() {
 ##' console showing which files are deleted)
 ##' @export
 ##' @author Yihui Xie <\url{http://yihui.name}>
+##' @note
+##' We can also specify the tag '@@nord' to suppress Rd creation, in which case
+##' we have to use Rd2 in roxygen (this defaults to be \code{FALSE} but was changed
+##' to default to \code{TRUE} in \code{\link{rab}}).
 rm_undocumented = function(pkg) {
     for (f in list.files(file.path(pkg, "man"), ".*\\.Rd$", all.files = TRUE,
                          full.names = TRUE)) {
@@ -101,7 +105,8 @@ rm_undocumented = function(pkg) {
 ##' @param reformat whether to reformat the examples and usage and
 ##' escape the percent symbol sections; see
 ##' \code{\link{reformat_code}}
-##' @param use.Rd2 passed to \code{\link[roxygen]{roxygenize}}
+##' @param use.Rd2 passed to \code{\link[roxygen]{roxygenize}}; see
+##' \code{\link[roxygen]{make.Rd2.roclet}}
 ##' @param ... other arguments passed to
 ##' \code{\link[roxygen]{roxygenize}}
 ##' @note This function also tries to remove directories \file{pkg/inst/doc} and
@@ -189,7 +194,7 @@ rab = function(...) {
 ##' }
 reformat_code = function(path, section = c('examples', 'usage'), ...) {
     if (require('formatR')) {
-        rd = tools::parse_Rd(path)
+        rd = parse_Rd(path)
         flag = FALSE
         for (sec in section) {
             idx = which(sapply(rd, tag) == paste('\\', sec, sep = ''))

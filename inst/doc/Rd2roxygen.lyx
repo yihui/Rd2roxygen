@@ -334,7 +334,7 @@ rab()
 \end_layout
 
 \begin_layout Scrap
-args(rab)
+args(roxygen_and_build)
 \end_layout
 
 \begin_layout Scrap
@@ -349,7 +349,12 @@ roxygen
  will generate Rd files for all the objects in the package, which is sometimes
  not necessary, e.g.
  the functions which are not exported to the user.
- These Rd files are removed from the roxygenized package.
+ These Rd files are removed from the roxygenized package; in fact, we can
+ also use Rd2 in roxygen and specify the tag 
+\family typewriter
+@nord
+\family default
+ (no Rd) to suppress Rd creation.
  Another problem is, we often forget to escape the percent symbol 
 \family typewriter
 %
