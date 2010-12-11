@@ -11,7 +11,6 @@
 ##' @aliases Rd2roxygen-package
 ##' @docType package
 ##' @author Hadley Wickham and Yihui Xie
-##' @importFrom tools parse_Rd
 ##' @examples
 ##' ## see the package vignette: vignette('Rd2roxygen')
 NULL

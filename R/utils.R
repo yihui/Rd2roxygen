@@ -194,7 +194,7 @@ rab = function(...) {
 ##' }
 reformat_code = function(path, section = c('examples', 'usage'), ...) {
     if (require('formatR')) {
-        rd = parse_Rd(path)
+        rd = tools::parse_Rd(path)
         flag = FALSE
         for (sec in section) {
             idx = which(sapply(rd, tag) == paste('\\', sec, sep = ''))

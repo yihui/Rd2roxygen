@@ -11,7 +11,7 @@
 ##' rd.file = system.file('examples', 'parse_and_save.Rd', package='Rd2roxygen')
 ##' parse_file(rd.file)
 parse_file <- function(path) {
-  rd <- parse_Rd(path)
+  rd <- tools::parse_Rd(path)
 
   tags <- sapply(rd, tag)
   tags <- gsub("\\\\", "", tags)
