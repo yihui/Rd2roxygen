@@ -193,7 +193,7 @@ rab = function(...) {
 ##' file.show(fmt.file)
 ##' }
 reformat_code = function(path, section = c('examples', 'usage'), ...) {
-    if (require('formatR')) {
+    if (require('formatR', quietly = TRUE)) {
         rd = tools::parse_Rd(path)
         flag = FALSE
         for (sec in section) {
