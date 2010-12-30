@@ -199,6 +199,7 @@ reformat_code = function(path, section = c('examples', 'usage'), ...) {
         for (sec in section) {
             idx = which(sapply(rd, tag) == paste('\\', sec, sep = ''))
             if (length(idx)) {
+                message('reformatting section ', sec, ' in ', path)
                 txt = rd[idx]
                 class(txt) = 'Rd'
                 txt = as.character(txt)
@@ -214,7 +215,6 @@ reformat_code = function(path, section = c('examples', 'usage'), ...) {
                 txt = gsub('tag_name_dontrun = function() {', '\\dontrun{', txt, fixed = TRUE)
                 rd[[idx]] = structure(list(structure(txt, Rd_tag = 'TEXT')), Rd_tag = paste('\\', sec, sep = ''))
                 flag = TRUE
-                message('reformatted section ', sec, ' in ', path)
             } else message('section ', sec, ' not found in ', path)
         }
         if (flag) {
