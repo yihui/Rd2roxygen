@@ -136,6 +136,15 @@ roxygen_and_build = function(pkg, roxygen.dir = NULL, install = FALSE,
         unlink(inst.dir, recursive = TRUE)
     rm_undocumented(roxygen.dir)
     rd.list = list.files(file.path(roxygen.dir, "man"), ".*\\.Rd$", all.files = TRUE, full.names = TRUE)
+    if (reformat) {
+        for (f in rd.list) {
+            if (isTRUE(reformat_code(f))) {
+                x = readLines(f)
+                x = gsub('\\\\dontrun', '\\dontrun', x, fixed = TRUE)
+                writeLines(x, con = f)
+            }
+        }
+    }
     if (escape) {
         for (f in rd.list) {
             x = readLines(f)
@@ -143,15 +152,6 @@ roxygen_and_build = function(pkg, roxygen.dir = NULL, install = FALSE,
                 x = gsub("(^|[^\\])%", "\\1\\\\%", x)
                 writeLines(x, con = f)
                 message("updated % --> \\%: ", f)
-            }
-        }
-    }
-    if (reformat) {
-        for (f in rd.list) {
-            if (isTRUE(reformat_code(f))) {
-                x = readLines(f)
-                x = gsub('\\\\dontrun', '\\dontrun', x, fixed = TRUE)
-                writeLines(x, con = f)
             }
         }
     }
@@ -221,12 +221,17 @@ reformat_code = function(path, section = c('examples', 'usage'), ...) {
                     message('  reformatting section usage')
                     ## \description always comes after \usage
                     idx1 = idx1 - 2
+                    ## users may provide \usage{f()} (the right bracket on the same line)
+                    if (flag <- idx1 < idx0) idx1 = idx0
                     tmp = rd[idx0:idx1]
                     tmp[1] = sub('^\\\\usage\\{', '', tmp[1])
+                    if (flag) tmp = sub('\\}[ ]*$', '', tmp)
                     txt = paste(tidy.source(text = tmp, output = FALSE,
                                 keep.blank.line = TRUE, ...)$text.tidy, collapse = '\n')
                     txt = paste('\\usage{', txt, sep = '')
-                    rd[idx0:(idx1 + 1)] = c(txt, rep('', idx1 - idx0), '}')
+                    if (flag)
+                        rd[idx0] = paste(txt, '}', sep = '') else rd[idx0:(idx1 + 1)] =
+                            c(txt, rep('', idx1 - idx0), '}')
                 }
             }
             if ('examples' %in% section) {
