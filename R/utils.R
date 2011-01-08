@@ -127,9 +127,11 @@ roxygen_and_build = function(pkg, roxygen.dir = NULL, install = FALSE,
     check = FALSE, check.opts = "", remove.check = TRUE, escape = TRUE,
     reformat = TRUE, use.Rd2 = TRUE, ...) {
     if (is.null(roxygen.dir)) roxygen.dir = file.path(dirname(pkg), paste(basename(pkg), '.roxygen', sep = ''))
-    if (file.exists(roxygen.dir) && normalizePath(pkg) != normalizePath(roxygen.dir)) unlink(roxygen.dir, recursive = TRUE)
+    if (file.exists(roxygen.dir) && normalizePath(pkg) != normalizePath(roxygen.dir))
+        unlink(roxygen.dir, recursive = TRUE)
     roxygenize(pkg, roxygen.dir, use.Rd2 = use.Rd2, ...)
-    unlink(sprintf("%s/.git", roxygen.dir), recursive = TRUE)
+    if (normalizePath(pkg) != normalizePath(roxygen.dir))
+        unlink(sprintf("%s/.git", roxygen.dir), recursive = TRUE)
     if (!length(list.files((inst.dir <- file.path(roxygen.dir, 'inst', 'doc')), recursive = TRUE)))
         unlink(inst.dir, recursive = TRUE)
     if (!length(list.files((inst.dir <- file.path(roxygen.dir, 'inst')), recursive = TRUE)))
