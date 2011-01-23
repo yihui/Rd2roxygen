@@ -227,7 +227,8 @@ reformat_code = function(path, section = c('examples', 'usage'), ...) {
                     if (flag <- idx1 < idx0) idx1 = idx0
                     tmp = rd[idx0:idx1]
                     tmp[1] = sub('^\\\\usage\\{', '', tmp[1])
-                    if (flag) tmp = sub('\\}[ ]*$', '', tmp)
+                    idx2 = if (flag) 1 else length(tmp)
+                    tmp[idx2] = sub('\\}[ ]*$', '', tmp[idx2])
                     txt = paste(tidy.source(text = tmp, output = FALSE,
                                 keep.blank.line = TRUE, ...)$text.tidy, collapse = '\n')
                     txt = paste('\\usage{', txt, sep = '')
