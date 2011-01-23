@@ -222,19 +222,19 @@ reformat_code = function(path, section = c('examples', 'usage'), ...) {
                 if (length(idx0) && length(idx1)) {
                     message('  reformatting section usage')
                     ## \description always comes after \usage
-                    idx1 = idx1 - 2
+                    idx1 = idx1 - 1
                     ## users may provide \usage{f()} (the right bracket on the same line)
-                    if (flag <- idx1 < idx0) idx1 = idx0
+                    if (flag <- idx1 <= idx0) idx1 = idx0
                     tmp = rd[idx0:idx1]
                     tmp[1] = sub('^\\\\usage\\{', '', tmp[1])
-                    idx2 = if (flag) 1 else length(tmp)
+                    idx2 = length(tmp)
                     tmp[idx2] = sub('\\}[ ]*$', '', tmp[idx2])
                     txt = paste(tidy.source(text = tmp, output = FALSE,
                                 keep.blank.line = TRUE, ...)$text.tidy, collapse = '\n')
                     txt = paste('\\usage{', txt, sep = '')
                     if (flag)
-                        rd[idx0] = paste(txt, '}', sep = '') else rd[idx0:(idx1 + 1)] =
-                            c(txt, rep('', idx1 - idx0), '}')
+                        rd[idx0] = paste(txt, '}', sep = '') else rd[idx0:idx1] =
+                            c(txt, '}', rep('', idx1 - idx0 - 1))
                 }
             }
             if ('examples' %in% section) {
