@@ -104,7 +104,11 @@ rm_undocumented = function(pkg) {
 ##' @param escape whether to escape \code{"\%"}
 ##' @param reformat whether to reformat the examples and usage and
 ##' escape the percent symbol sections; see
-##' \code{\link{reformat_code}}
+##' \code{\link{reformat_code}}. Note roxygen will also write the
+##' title in the description by default unless the user specifies a
+##' @@title tag, and this \code{reformat} option can also remove the
+##' redundant title string in the description as well as the period in
+##' the end of the title
 ##' @param use.Rd2 passed to \code{\link[roxygen]{roxygenize}}; see
 ##' \code{\link[roxygen]{make.Rd2.roclet}}
 ##' @param ... other arguments passed to
@@ -143,6 +147,17 @@ roxygen_and_build = function(pkg, roxygen.dir = NULL, install = FALSE,
             if (isTRUE(reformat_code(f))) {
                 x = readLines(f)
                 x = gsub('\\\\dontrun', '\\dontrun', x, fixed = TRUE)
+                writeLines(x, con = f)
+            }
+            x = readLines(f)
+            t.idx = grep('^\\\\title\\{', x)        # title index
+            d.idx = grep('^\\\\description\\{', x)  # description index
+            if (length(t.idx) && length(d.idx) ) {
+                t.str = gsub('^\\\\title\\{|\\}$', '', x[t.idx])
+                x[d.idx] = gsub(t.str, '', x[d.idx], fixed = TRUE)  # remove duplicate des
+                if (x[d.idx] == '\\description{}')  # when descption is empty
+                    x[d.idx] = paste('\\description{', t.str, '}', sep = '')
+                x[t.idx] = gsub('\\.\\}$', '}', x[t.idx])           # remove the period
                 writeLines(x, con = f)
             }
         }
