@@ -231,7 +231,7 @@ reformat_code = function(path, section = c('examples', 'usage'), ...) {
         ## easy to deal with when there are no \\dontrun's
         if (!any(grepl('\\\\dontrun', rd))) {
             message('(*) good, I did not detect the \\dontrun macro in your Rd \n  ', path)
-            if ('usage' %in% section) {
+            if (('usage' %in% section) && !any(grepl('^\\\\method\\{', rd))) {
                 idx0 = grep('^\\\\usage\\{', rd)
                 idx1 = grep('^\\\\description\\{', rd)
                 if (length(idx0) && length(idx1)) {
