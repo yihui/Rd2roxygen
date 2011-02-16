@@ -231,7 +231,7 @@ reformat_code = function(path, section = c('examples', 'usage'), ...) {
         ## easy to deal with when there are no \\dontrun's
         if (!any(grepl('\\\\dontrun', rd))) {
             message('(*) good, I did not detect the \\dontrun macro in your Rd \n  ', path)
-            if (('usage' %in% section) && !any(grepl('^\\\\method\\{', rd))) {
+            if ('usage' %in% section) {
                 idx0 = grep('^\\\\usage\\{', rd)
                 idx1 = grep('^\\\\description\\{', rd)
                 if (length(idx0) && length(idx1)) {
@@ -244,12 +244,14 @@ reformat_code = function(path, section = c('examples', 'usage'), ...) {
                     tmp[1] = sub('^\\\\usage\\{', '', tmp[1])
                     idx2 = length(tmp)
                     tmp[idx2] = sub('\\}[ ]*$', '', tmp[idx2])
-                    txt = paste(tidy.source(text = tmp, output = FALSE,
-                                keep.blank.line = TRUE, ...)$text.tidy, collapse = '\n')
-                    txt = paste('\\usage{', txt, sep = '')
-                    if (flag)
-                        rd[idx0] = paste(txt, '}', sep = '') else rd[idx0:idx1] =
-                            c(txt, '}', rep('', idx1 - idx0 - 1))
+                    txt = try(paste(tidy.source(text = tmp, output = FALSE,
+                                    keep.blank.line = TRUE, ...)$text.tidy, collapse = '\n'))
+                    if (!inherits(txt, 'try-error')) {
+                        txt = paste('\\usage{', txt, sep = '')
+                        if (flag)
+                            rd[idx0] = paste(txt, '}', sep = '') else rd[idx0:idx1] =
+                                c(txt, '}', rep('', idx1 - idx0 - 1))
+                    }
                 }
             }
             if ('examples' %in% section) {
@@ -268,13 +270,15 @@ reformat_code = function(path, section = c('examples', 'usage'), ...) {
                     tmp[1] = sub('^\\\\examples\\{', '', tmp[1])
                     nn = length(tmp)
                     tmp[nn] = sub('\\}$', '', tmp[nn])
-                    txt = tidy.source(text = tmp, output = FALSE,
-                                keep.blank.line = TRUE, ...)$text.tidy
-                    txt[1] = paste('\\examples{', txt[1], sep = '')
-                    nn0 = length(txt)
-                    txt[nn0] = paste(txt[nn0], '}', sep = '')
-                    txt = paste(txt, collapse = '\n')
-                    rd[idx0:idx1] = c(txt, rep('', idx1 - idx0))
+                    txt = try(tidy.source(text = tmp, output = FALSE,
+                                          keep.blank.line = TRUE, ...)$text.tidy)
+                    if (!inherits(txt, 'try-error')) {
+                        txt[1] = paste('\\examples{', txt[1], sep = '')
+                        nn0 = length(txt)
+                        txt[nn0] = paste(txt[nn0], '}', sep = '')
+                        txt = paste(txt, collapse = '\n')
+                        rd[idx0:idx1] = c(txt, rep('', idx1 - idx0))
+                    }
                 }
             }
             writeLines(rd, path)
@@ -295,10 +299,12 @@ reformat_code = function(path, section = c('examples', 'usage'), ...) {
                 txt = gsub('^[[:space:]]+', '', txt)
                 txt = sub('^\\\\dontrun', 'tag_name_dontrun = function() ', txt)
                 txt[txt == ''] = '\n'
-                con = textConnection(paste(txt, collapse = ''))
-                txt = tidy.source(con, output = FALSE, keep.blank.line = TRUE, ...)
+                txt = try(tidy.source(text = txt, output = FALSE, keep.blank.line = TRUE, ...))
+                if (inherits(txt, 'try-error')) {
+                    message('(!) unable to reformat the section ', sec)
+                    next
+                }
                 txt = txt$text.tidy
-                close(con)
                 txt = paste(txt, rep(c('\n', ''), c(length(txt) - 1, 1)), sep = '', collapse = '')
                 txt = gsub('tag_name_dontrun = function() {', '\\dontrun{', txt, fixed = TRUE)
                 rd[[idx]] = structure(list(structure(txt, Rd_tag = 'TEXT')), Rd_tag = paste('\\', sec, sep = ''))
