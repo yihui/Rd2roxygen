@@ -54,36 +54,6 @@ comment_prefix <- function() {
 }
 
 
-##' Remove Rd files for the undocumented functions.
-##' Usually roxygen will generate Rd files even for the undocumented functions, and
-##' the \command{name} and \command{title} tags of such files will be the same.
-##' This function removes all such Rd files under the 'man' directory.
-##'
-##' @param pkg the directory of the source package
-##' @return \code{NULL} (if such Rd files exist, there will be messages printed in the
-##' console showing which files are deleted)
-##' @export
-##' @author Yihui Xie <\url{http://yihui.name}>
-##' @note
-##' We can also specify the tag '@@nord' to suppress Rd creation, in which case
-##' we have to use Rd2 in roxygen (this defaults to be \code{FALSE} but was changed
-##' to default to \code{TRUE} in \code{\link{rab}}).
-rm_undocumented = function(pkg) {
-    for (f in list.files(file.path(pkg, "man"), ".*\\.Rd$", all.files = TRUE,
-                         full.names = TRUE)) {
-        x = readLines(f)
-        cond = identical(
-            gsub('\\\\name\\{(.*)\\}', '\\1', grep('^\\\\name', x, value=TRUE)),
-            gsub('\\\\title\\{(.*)\\}', '\\1', grep('^\\\\title', x, value=TRUE))
-        )
-        if (cond) {
-            unlink(f)
-            message("deleted: ", f)
-            flush.console()
-        }
-    }
-}
-
 ##' Roxygenize a package, clean up and build/check the package.
 ##'
 ##' After the source package is roxygenized, this function first removes the
@@ -140,7 +110,6 @@ roxygen_and_build = function(pkg, roxygen.dir = NULL, install = FALSE,
         unlink(inst.dir, recursive = TRUE)
     if (!length(list.files((inst.dir <- file.path(roxygen.dir, 'inst')), recursive = TRUE)))
         unlink(inst.dir, recursive = TRUE)
-    rm_undocumented(roxygen.dir)
     rd.list = list.files(file.path(roxygen.dir, "man"), ".*\\.Rd$", all.files = TRUE, full.names = TRUE)
     if (reformat) {
         for (f in rd.list) {
