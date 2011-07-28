@@ -1,21 +1,33 @@
 Package: Rd2roxygen
 Type: Package
-Title: Convert Rd to roxygen documentation and utilities to enhance roxygen
+Title: Convert Rd to roxygen documentation and utilities to
+    improve documentation
 Version: 0.1-8
 Date: 2011-02-15
-Author@R: c(person("Hadley", "Wickham", email = "h.wickham@gmail.com",
-    role = "aut"), person("Yihui", "Xie", email = "xie@yihui.name",
-    role = c("aut", "cre")))
+Author@R: c(person("Hadley", "Wickham", email =
+    "h.wickham@gmail.com", role = "aut"), person("Yihui",
+    "Xie", email = "xie@yihui.name", role = c("aut",
+    "cre")))
 Author: Hadley Wickham and Yihui Xie
 Maintainer: Yihui Xie <xie@yihui.name>
-Depends: roxygen2
-Imports: formatR
-Description: Functions to convert Rd to roxygen documentation. It can
-    parse an Rd file to a list, create the roxygen documentation and
-    update the original R script (e.g. the one containing the
-    definition of the function) accordingly. This package also provides
-    utilities which can help developers build packages using roxygen more
-    easily.
+Depends:
+    roxygen2
+Imports:
+    formatR
+Description: Functions to convert Rd to roxygen
+    documentation. It can parse an Rd file to a list,
+    create the roxygen documentation and update the
+    original R script (e.g. the one containing the
+    definition of the function) accordingly. This package
+    also provides utilities which can help developers build
+    packages using roxygen more easily. The formatR package
+    can be used to reformat the R code in the examples
+    sections so that the code will be more readable.
 License: GPL
-URL: https://github.com/yihui/Rd2roxygen, http://yihui.name/en/?p=645
+URL: https://github.com/yihui/Rd2roxygen,
+    http://yihui.name/en/?p=645
 BugReports: https://github.com/yihui/Rd2roxygen/issues
+Collate:
+    'Rd2roxygen-package.R'
+    'rd2roxygen.R'
+    'utils.R'
