@@ -102,27 +102,6 @@ roxygen_and_build = function(pkg, roxygen.dir = pkg, install = FALSE,
                 x = gsub('\\\\dontrun', '\\dontrun', x, fixed = TRUE)
                 writeLines(x, con = f)
             }
-            x = readLines(f)
-            t.idx = grep('^\\\\title\\{', x)        # title index
-            d.idx = grep('^\\\\description\\{', x)  # description index
-            if (length(t.idx) && length(d.idx) ) {
-                t.str = gsub('^\\\\title\\{|\\}$', '', x[t.idx])
-                x[d.idx] = gsub(t.str, '', x[d.idx], fixed = TRUE)  # remove duplicate des
-                if (x[d.idx] == '\\description{}')  # when descption is empty
-                    x[d.idx] = paste('\\description{', t.str, '}', sep = '')
-                x[t.idx] = gsub('\\.\\}$', '}', x[t.idx])           # remove the period
-                writeLines(x, con = f)
-            }
-        }
-    }
-    if (escape) {
-        for (f in rd.list) {
-            x = readLines(f)
-            if (length(grep("(^|[^\\])%", x))) {
-                x = gsub("(^|[^\\])%", "\\1\\\\%", x)
-                writeLines(x, con = f)
-                message("updated % --> \\%: ", f)
-            }
         }
     }
     system(sprintf("R CMD build %s ", roxygen.dir))
