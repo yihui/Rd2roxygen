@@ -1,27 +1,38 @@
-#LyX 1.6.8 created this file. For more info see http://www.lyx.org/
-\lyxformat 345
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
 \begin_document
 \begin_header
-\textclass literate-article
+\textclass article
 \begin_preamble
 \renewcommand{\rmdefault}{ppl}
 \renewcommand{\sfdefault}{aess}
 \renewcommand{\ttdefault}{aett}
-%\VignetteIndexEntry{Rd2roxygen: Convert Rd to roxygen documentation}
+%\VignetteIndexEntry{Rd2roxygen: Convert Rd to roxygen documentation and utilities to enhance R documentation}
 \end_preamble
-\use_default_options true
+\use_default_options false
+\begin_modules
+pgfsweave
+\end_modules
+\maintain_unincluded_children false
 \language english
+\language_package default
 \inputencoding auto
+\fontencoding global
 \font_roman ae
 \font_sans default
 \font_typewriter default
 \font_default_family default
+\use_non_tex_fonts false
 \font_sc false
 \font_osf false
 \font_sf_scale 100
 \font_tt_scale 100
 
 \graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
 \paperfontsize default
 \spacing single
 \use_hyperref true
@@ -39,9 +50,18 @@
 \use_geometry true
 \use_amsmath 1
 \use_esint 1
+\use_mhchem 1
+\use_mathdots 1
 \cite_engine natbib_authoryear
 \use_bibtopic false
+\use_indices false
 \paperorientation portrait
+\suppress_date false
+\use_refstyle 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
 \leftmargin 3cm
 \topmargin 3cm
 \rightmargin 3cm
@@ -49,15 +69,16 @@
 \secnumdepth 3
 \tocdepth 3
 \paragraph_separation indent
-\defskip medskip
+\paragraph_indentation default
 \quotes_language english
 \papercolumns 1
 \papersides 1
 \paperpagestyle default
 \tracking_changes false
 \output_changes false
-\author "" 
-\author "" 
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
 \end_header
 
 \begin_body
@@ -71,9 +92,7 @@ Rd2roxygen
 \series bold
 roxygen
 \series default
- documentation and utilities to enhance 
-\series bold
-roxygen
+ documentation and utilities to enhance R documentation
 \end_layout
 
 \begin_layout Author
@@ -105,7 +124,6 @@ type "mailto:"
 status open
 
 \begin_layout Plain Layout
-
 tidy=TRUE
 \end_layout
 
@@ -114,15 +132,18 @@ tidy=TRUE
 
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Chunk
+
 <<setup, echo=FALSE>>=
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Chunk
+
 options(keep.blank.line = FALSE)
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Chunk
+
 @
 \end_layout
 
@@ -141,12 +162,12 @@ key "Rd2roxygen"
  helps R package developers who used to write R documentation in the raw
  LaTeX-like commands but want to switch their documentation to 
 \series bold
-roxygen
+roxygen2
 \series default
  
 \begin_inset CommandInset citation
 LatexCommand citep
-key "roxygen"
+key "roxygen2"
 
 \end_inset
 
@@ -154,32 +175,37 @@ key "roxygen"
  as inline comments, e.g.
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Chunk
+
 <<roxygen-ex>>=
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Chunk
+
 ## the source code of the function `parse_and_save`
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Chunk
+
 ex.file = system.file('examples','parse_and_save.R',package='Rd2roxygen')
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Chunk
+
 cat(readLines(ex.file), sep='
 \backslash
 n')
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Chunk
+
 @
 \end_layout
 
 \begin_layout Standard
 With 
 \series bold
-roxygen
+roxygen2
 \series default
  (typically using 
 \emph on
@@ -188,21 +214,25 @@ roxygenize()
 ), we can create the real Rd file from the above source code like this:
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Chunk
+
 <<rd-ex>>=
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Chunk
+
 rd.file = system.file('examples','parse_and_save.Rd',package='Rd2roxygen')
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Chunk
+
 cat(readLines(rd.file), sep='
 \backslash
 n')
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Chunk
+
 @
 \end_layout
 
@@ -219,7 +249,7 @@ opposite
  We can either do this job on single Rd files, or just convert the whole
  package.
  The latter might be more useful for developers who are considering the
- switch.
+ transition from Rd to roxygen.
 \end_layout
 
 \begin_layout Section
@@ -243,28 +273,34 @@ R
  directory.
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Chunk
+
 <<Rd2roxygen>>=
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Chunk
+
 library(Rd2roxygen)
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Chunk
+
 args(Rd2roxygen)
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Chunk
+
 ## e.g.
  Rd2roxygen('somewhere/to/source/pkg')
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Chunk
+
 ## there must be 'man' and 'R' directories under this path
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Chunk
+
 @
 \end_layout
 
@@ -285,31 +321,40 @@ create_roxygen()
 , e.g.:
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Chunk
+
 <<parse-file>>=
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Chunk
+
 ## we can specify the roxygen comments prefix (#' by default)
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Chunk
+
 options(roxygen.comment = "##' ")
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Chunk
+
 (info = parse_file(rd.file))
 \end_layout
 
-\begin_layout Scrap
-create_roxygen(info)
+\begin_layout Chunk
+
+cat(create_roxygen(info), sep='
+\backslash
+n')
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Chunk
+
 ## parse_and_save() combines the above two steps
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Chunk
+
 @
 \end_layout
 
@@ -329,101 +374,27 @@ rab()
 ) to help us build the package.
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Chunk
+
 <<rab>>=
 \end_layout
 
-\begin_layout Scrap
-args(roxygen_and_build)
+\begin_layout Chunk
+
+args(rab)
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Chunk
+
 @
 \end_layout
 
 \begin_layout Standard
-By default, 
-\series bold
-roxygen
-\series default
- will generate Rd files for all the objects in the package, which is sometimes
- not necessary, e.g.
- the functions which are not exported to the user.
- These Rd files are removed from the roxygenized package; in fact, we can
- also use Rd2 in roxygen and specify the tag 
-\family typewriter
-@nord
-\family default
- (no Rd) to suppress Rd creation.
- Another problem is, we often forget to escape the percent symbol 
-\family typewriter
-%
-\family default
- in our documentation
-\begin_inset Foot
-status open
-
-\begin_layout Plain Layout
-One situation which made me crazy for a long time is, it is hard to debug
- the R documentation when we have 
-\family typewriter
-%
-\family default
- in the arguments of the function or in the examples.
- Image you write a function like this: 
-\family typewriter
-f = function(a = '%03d') {}
-\family default
-, and it is really easy to forget to escape the percent symbol correctly
- in your documentation as 
-\family typewriter
-
-\backslash
-usage{f(a = '
-\series bold
-
-\backslash
-
-\series default
-%03d')}
-\family default
-! Besides, roxygen will generate the documentation without escaping percent
- symbols, which is often error-prone.
- That is the reasoning behind the default value 
-\family typewriter
-escape = TRUE
-\family default
-.
-\end_layout
-
-\end_inset
-
-, which will make R treat such texts as comments; 
+The main feature of 
 \emph on
 rab()
 \emph default
- will escape 
-\family typewriter
-%
-\family default
- by default (can be turned off by 
-\family typewriter
-escape = FALSE
-\family default
-).
- Besides, 
-\emph on
-rab()
-\emph default
- also provides options to install or check the package.
-\end_layout
-
-\begin_layout Standard
-Yet another feature to mention about 
-\emph on
-rab()
-\emph default
- is that it has an option to 
+ is the option to 
 \begin_inset Quotes eld
 \end_inset
 
@@ -431,9 +402,7 @@ reformat
 \begin_inset Quotes erd
 \end_inset
 
- the code in the usage and example sections; this is due to the fact that
- roxygen will remove all the leading spaces and indent in the R code, which
- makes it difficult to read especially when the code is long.
+ the code in the example sections.
  If we specify 
 \family typewriter
 reformat = TRUE
@@ -445,61 +414,75 @@ rab()
 , the code will be reformated like this:
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Chunk
+
 <<reformat-ex1,echo=FALSE>>=
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Chunk
+
 oopts=options(prompt=' ',continue=' ')
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Chunk
+
 cat("## original code
-\begin_inset Newline newline
-\end_inset
+\end_layout
 
-roxygen_and_build=function(pkg,roxygen.dir=NULL,install=FALSE,check=FALSE,
-\begin_inset Newline newline
-\end_inset
+\begin_layout Chunk
 
-check.opts='',remove.check=TRUE,escape=TRUE,reformat=TRUE,...){}",'
+rab=function(pkg,roxygen.dir=pkg,build=TRUE,install=FALSE,
+\end_layout
+
+\begin_layout Chunk
+
+check=FALSE,check.opts='',remove.check=TRUE,reformat=TRUE,...){}",'
 \backslash
 n')
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Chunk
+
 @
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Chunk
+
 <<reformat-ex2,tidy=TRUE,eval=FALSE>>=
 \end_layout
 
-\begin_layout Scrap
-## the reformatted code
+\begin_layout Chunk
+
+## the reformatted code; note the spaces and indent
 \end_layout
 
-\begin_layout Scrap
-roxygen_and_build=function(pkg,roxygen.dir=NULL,install=FALSE,check=FALSE,
-\begin_inset Newline newline
-\end_inset
+\begin_layout Chunk
 
-check.opts="",remove.check=TRUE,escape=TRUE,reformat=TRUE,...){}
+rab=function(pkg,roxygen.dir=pkg,build=TRUE,install=FALSE,
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Chunk
+
+check=FALSE,check.opts='',remove.check=TRUE,reformat=TRUE,...){}
+\end_layout
+
+\begin_layout Chunk
+
 @
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Chunk
+
 <<restore-opts,echo=FALSE>>=
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Chunk
+
 options(oopts)
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Chunk
+
 @
 \end_layout
 
@@ -515,7 +498,7 @@ key "formatR"
 
 \end_inset
 
-, and sometimes it might be not be appropriate to reformat the code, e.g.
+, and sometimes it might be not be possible to reformat the code, e.g.
  the 
 \family typewriter
 
@@ -528,7 +511,8 @@ dontrun{}
 formatR
 \series default
  will be unable to format the code.
- In case of errors, we can consider turning this feature off.
+ In this case, the original code will not be reformatted and a message will
+ be printed on screen.
 \end_layout
 
 \begin_layout Section*
@@ -553,15 +537,18 @@ key "pgfSweave"
  The real vignette is in LyX, which can be found here:
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Chunk
+
 <<lyx-doc, eval=FALSE>>=
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Chunk
+
 system.file('doc', 'Rd2roxygen.lyx', package='Rd2roxygen')
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Chunk
+
 @
 \end_layout
 

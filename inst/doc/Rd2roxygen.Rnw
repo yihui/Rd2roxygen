@@ -1,25 +1,4 @@
 \documentclass{article}
-\usepackage{ae,aecompl}
-\usepackage[T1]{fontenc}
-\usepackage[latin9]{inputenc}
-\usepackage[letterpaper]{geometry}
-\geometry{verbose,tmargin=3cm,bmargin=3cm,lmargin=3cm,rmargin=3cm}
-\usepackage{url}
-\usepackage[authoryear]{natbib}
-\usepackage[unicode=true, pdfusetitle,
- bookmarks=true,bookmarksnumbered=true,bookmarksopen=true,bookmarksopenlevel=1,
- breaklinks=true,pdfborder={0 0 1},backref=false,colorlinks=false]
- {hyperref}
-\hypersetup{
- pdfstartview=FitH}
-
-\makeatletter
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
-\providecommand{\LyX}{L\kern-.1667em\lower.25em\hbox{Y}\kern-.125emX\@}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Textclass specific LaTeX commands.
-\usepackage{tikz}
 \newcommand{\hlnumber}[1]{\textcolor[rgb]{0.0823529411764706,0.0784313725490196,0.709803921568627}{#1}}%
 \newcommand{\hlfunctioncall}[1]{\textcolor[rgb]{1,0,0}{#1}}%
 \newcommand{\hlstring}[1]{\textcolor[rgb]{0.6,0.6,1}{#1}}%
@@ -383,25 +362,72 @@
 \newcommand{\hlkwc}[1]{\textcolor[rgb]{0,0,0}{\bf{#1}}}
 \newcommand{\hlkwd}[1]{\textcolor[rgb]{0,0,0.51}{#1}}
 
-\usepackage[nogin,noae]{Sweave}
-\DefineVerbatimEnvironment{Sinput}{Verbatim}{fontshape=sl,numbers=left,baselinestretch=1}
-\DefineVerbatimEnvironment{Soutput}{Verbatim}{baselinestretch=1}
-\DefineVerbatimEnvironment{Scode}{Verbatim}{fontshape=sl,numbers=left,baselinestretch=1}
+\newenvironment{Hinput}{\begin{trivlist}\item}{\end{trivlist}}
+\usepackage{ae,aecompl}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{geometry}
+\geometry{verbose,tmargin=3cm,bmargin=3cm,lmargin=3cm,rmargin=3cm}
+\usepackage{url}
+\usepackage[authoryear]{natbib}
+\usepackage[unicode=true,pdfusetitle,
+ bookmarks=true,bookmarksnumbered=true,bookmarksopen=true,bookmarksopenlevel=1,
+ breaklinks=true,pdfborder={0 0 1},backref=false,colorlinks=false]
+ {hyperref}
+\hypersetup{
+ pdfstartview=FitH}
+\usepackage{breakurl}
+
+\makeatletter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
+\providecommand{\LyX}{\texorpdfstring%
+  {L\kern-.1667em\lower.25em\hbox{Y}\kern-.125emX\@}
+  {LyX}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Textclass specific LaTeX commands.
+%\usepackage{Sweave}
+\ifdefined\Sinput
+\else
+\IfFileExists{Sweave.sty}{
+  \usepackage{Sweave}
+}{
+  \usepackage{graphicx,fancyvrb}
+  \DefineVerbatimEnvironment{Sinput}{Verbatim}{fontshape=sl}
+  \DefineVerbatimEnvironment{Soutput}{Verbatim}{}
+  \DefineVerbatimEnvironment{Scode}{Verbatim}{fontshape=sl}
+  \newenvironment{Schunk}{}{}
+  \newcommand{\Sconcordance}[1]{%
+    \ifx\pdfoutput\undefined%
+      \csname newcount\endcsname\pdfoutput\fi%
+      \ifcase\pdfoutput\special{##1}%
+    \else%
+      \begingroup%
+      \pdfcompresslevel=0%
+      \immediate\pdfobj stream{##1}%
+      \pdfcatalog{/SweaveConcordance \the\pdflastobj\space 0 R}%
+      \endgroup%
+    \fi}
+}
+\fi
+\usepackage{tikz}
+%% \usetikzlibrary{external}
+%% \tikzexternalize[mode=list and make]
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
 \renewcommand{\rmdefault}{ppl}
 \renewcommand{\sfdefault}{aess}
 \renewcommand{\ttdefault}{aett}
-%\VignetteIndexEntry{Rd2roxygen: Convert Rd to roxygen documentation}
+%\VignetteIndexEntry{Rd2roxygen: Convert Rd to roxygen documentation and utilities to enhance R documentation}
 
 \makeatother
 
-\pgfrealjobname{Rd2roxygen}
 \begin{document}
 
 
 \title{\textbf{Rd2roxygen}: Convert Rd to \textbf{roxygen} documentation
-and utilities to enhance \textbf{roxygen}}
+and utilities to enhance R documentation}
 
 
 \author{Yihui Xie%
@@ -410,19 +436,19 @@ and utilities to enhance \textbf{roxygen}}
 
 \maketitle
 
-\begin{par}
 
 
-\end{par}
+
+
 The package \textbf{Rd2roxygen} \citep{Rd2roxygen} helps R package
 developers who used to write R documentation in the raw \LaTeX{}-like
-commands but want to switch their documentation to \textbf{roxygen}
-\citep{roxygen}, which is a convenient tool for developers, since
+commands but want to switch their documentation to \textbf{roxygen2}
+\citep{roxygen2}, which is a convenient tool for developers, since
 we can write documentation as inline comments, e.g.
-\begin{par}
-\hspace*{\fill}\\
-\hlstd{}\ttfamily\noindent
-\hlprompt{\usebox{\hlnormalsizeboxgreaterthan}{\ }}{\ }{\ }\hlcomment{\usebox{\hlnormalsizeboxhash}\usebox{\hlnormalsizeboxhash}{\ }the{\ }source{\ }code{\ }of{\ }the{\ }function{\ }\usebox{\hlnormalsizeboxbacktick}parse\usebox{\hlnormalsizeboxunderscore}and\usebox{\hlnormalsizeboxunderscore}save\usebox{\hlnormalsizeboxbacktick}}\mbox{}
+
+\begin{Schunk}
+\begin{Hinput}\ttfamily\noindent
+\hlprompt{\usebox{\hlnormalsizeboxgreaterthan}{\ }}\hlcomment{\usebox{\hlnormalsizeboxhash}\usebox{\hlnormalsizeboxhash}{\ }the{\ }source{\ }code{\ }of{\ }the{\ }function{\ }\usebox{\hlnormalsizeboxbacktick}parse\usebox{\hlnormalsizeboxunderscore}and\usebox{\hlnormalsizeboxunderscore}save\usebox{\hlnormalsizeboxbacktick}}\mbox{}
 \normalfont
 \hspace*{\fill}\\
 \hlstd{}\ttfamily\noindent
@@ -432,8 +458,8 @@ we can write documentation as inline comments, e.g.
 \hlstd{}\ttfamily\noindent
 \hlprompt{\usebox{\hlnormalsizeboxgreaterthan}{\ }}\hlfunctioncall{cat}\hlkeyword{(}\hlfunctioncall{readLines}\hlkeyword{(}\hlsymbol{ex.file}\hlkeyword{)}\hlkeyword{,}{\ }\hlargument{sep}{\ }\hlargument{=}{\ }\hlstring{"\usebox{\hlnormalsizeboxbackslash}n"}\hlkeyword{)}\mbox{}
 \normalfont
-\hspace*{\fill}\\
-\hlstd{}\begin{Schunk}
+
+\end{Hinput}
 \begin{Soutput}
 ##' Parse the input Rd file and save the roxygen documentation into a file.
 ##'
@@ -454,20 +480,20 @@ parse_and_save <- function(path, file, usage = FALSE) {
 
 \end{Schunk}
 
-\end{par}
-With \textbf{roxygen} (typically using \emph{roxygenize()}), we can
+
+With \textbf{roxygen2} (typically using \emph{roxygenize()}), we can
 create the real Rd file from the above source code like this:
-\begin{par}
-\hspace*{\fill}\\
-\hlstd{}\ttfamily\noindent
+
+\begin{Schunk}
+\begin{Hinput}\ttfamily\noindent
 \hlprompt{\usebox{\hlnormalsizeboxgreaterthan}{\ }}\hlsymbol{rd.file}{\ }\hlassignement{=}{\ }\hlfunctioncall{system.file}\hlkeyword{(}\hlstring{"examples"}\hlkeyword{,}{\ }\hlstring{"parse\usebox{\hlnormalsizeboxunderscore}and\usebox{\hlnormalsizeboxunderscore}save.Rd"}\hlkeyword{,}{\ }\hlargument{package}{\ }\hlargument{=}{\ }\hlstring{"Rd2roxygen"}\hlkeyword{)}\mbox{}
 \normalfont
 \hspace*{\fill}\\
 \hlstd{}\ttfamily\noindent
 \hlprompt{\usebox{\hlnormalsizeboxgreaterthan}{\ }}\hlfunctioncall{cat}\hlkeyword{(}\hlfunctioncall{readLines}\hlkeyword{(}\hlsymbol{rd.file}\hlkeyword{)}\hlkeyword{,}{\ }\hlargument{sep}{\ }\hlargument{=}{\ }\hlstring{"\usebox{\hlnormalsizeboxbackslash}n"}\hlkeyword{)}\mbox{}
 \normalfont
-\hspace*{\fill}\\
-\hlstd{}\begin{Schunk}
+
+\end{Hinput}
 \begin{Soutput}
 \name{parse_and_save}
 \alias{parse_and_save}
@@ -484,12 +510,12 @@ into a file}
 
 \end{Schunk}
 
-\end{par}
+
 The \textbf{Rd2roxygen} package goes exactly in the \emph{opposite}
 way -- it parses the Rd files and turns them back to roxygen comments.
 We can either do this job on single Rd files, or just convert the
 whole package. The latter might be more useful for developers who
-are considering the switch.
+are considering the transition from Rd to roxygen.
 
 
 \section{Convert a whole package}
@@ -498,42 +524,47 @@ The function \emph{Rd2roxygen()} can take a path of a source package,
 parse all the Rd files under the \texttt{man} directory, and write
 the roxygen comments right above the source code of the functions
 under the \texttt{R} directory.
-\begin{par}
-\hspace*{\fill}\\
-\hlstd{}\ttfamily\noindent
+
+\begin{Schunk}
+\begin{Hinput}\ttfamily\noindent
 \hlprompt{\usebox{\hlnormalsizeboxgreaterthan}{\ }}\hlfunctioncall{library}\hlkeyword{(}\hlsymbol{Rd2roxygen}\hlkeyword{)}\mbox{}
 \normalfont
 \hspace*{\fill}\\
 \hlstd{}\ttfamily\noindent
 \hlprompt{\usebox{\hlnormalsizeboxgreaterthan}{\ }}\hlfunctioncall{args}\hlkeyword{(}\hlsymbol{Rd2roxygen}\hlkeyword{)}\mbox{}
 \normalfont
-\hspace*{\fill}\\
-\hlstd{}\begin{Schunk}
+
+\end{Hinput}
 \begin{Soutput}
 function (pkg, nomatch, usage = FALSE) 
 NULL
 \end{Soutput}
-\ttfamily\noindent
-\hlprompt{\usebox{\hlnormalsizeboxgreaterthan}{\ }}{\ }{\ }\hlcomment{\usebox{\hlnormalsizeboxhash}\usebox{\hlnormalsizeboxhash}{\ }e.g.{\ }Rd2roxygen(\usebox{\hlnormalsizeboxsinglequote}somewhere/to/source/pkg\usebox{\hlnormalsizeboxsinglequote})}\mbox{}
+\begin{Hinput}\ttfamily\noindent
+\hlprompt{\usebox{\hlnormalsizeboxgreaterthan}{\ }}\hlcomment{\usebox{\hlnormalsizeboxhash}\usebox{\hlnormalsizeboxhash}{\ }e.g.{\ }Rd2roxygen(\usebox{\hlnormalsizeboxsinglequote}somewhere/to/source/pkg\usebox{\hlnormalsizeboxsinglequote})}\mbox{}
 \normalfont
 \hspace*{\fill}\\
 \hlstd{}\ttfamily\noindent
-\hlprompt{\usebox{\hlnormalsizeboxgreaterthan}{\ }}{\ }{\ }\hlcomment{\usebox{\hlnormalsizeboxhash}\usebox{\hlnormalsizeboxhash}{\ }there{\ }must{\ }be{\ }\usebox{\hlnormalsizeboxsinglequote}man\usebox{\hlnormalsizeboxsinglequote}{\ }and{\ }\usebox{\hlnormalsizeboxsinglequote}R\usebox{\hlnormalsizeboxsinglequote}{\ }directories{\ }under{\ }this{\ }path}\mbox{}
+\hlprompt{\usebox{\hlnormalsizeboxgreaterthan}{\ }}\hlcomment{\usebox{\hlnormalsizeboxhash}\usebox{\hlnormalsizeboxhash}{\ }there{\ }must{\ }be{\ }\usebox{\hlnormalsizeboxsinglequote}man\usebox{\hlnormalsizeboxsinglequote}{\ }and{\ }\usebox{\hlnormalsizeboxsinglequote}R\usebox{\hlnormalsizeboxsinglequote}{\ }directories{\ }under{\ }this{\ }path}\mbox{}
 \normalfont
-\hspace*{\fill}\\
-\hlstd{}
+
+
+\end{Hinput}
 \end{Schunk}
 
-\end{par}
+
 
 \section{Parse a single Rd file}
 
 We can parse a single Rd file and create the roxygen comments as well
 with \emph{parse\_file()} and \emph{create\_roxygen()}, e.g.:
-\begin{par}
+
+\begin{Schunk}
+\begin{Hinput}\ttfamily\noindent
+\hlprompt{\usebox{\hlnormalsizeboxgreaterthan}{\ }}\hlcomment{\usebox{\hlnormalsizeboxhash}\usebox{\hlnormalsizeboxhash}{\ }we{\ }can{\ }specify{\ }the{\ }roxygen{\ }comments{\ }prefix{\ }(\usebox{\hlnormalsizeboxhash}\usebox{\hlnormalsizeboxsinglequote}{\ }by}\mbox{}
+\normalfont
 \hspace*{\fill}\\
 \hlstd{}\ttfamily\noindent
-\hlprompt{\usebox{\hlnormalsizeboxgreaterthan}{\ }}{\ }{\ }\hlcomment{\usebox{\hlnormalsizeboxhash}\usebox{\hlnormalsizeboxhash}{\ }we{\ }can{\ }specify{\ }the{\ }roxygen{\ }comments{\ }prefix{\ }(\usebox{\hlnormalsizeboxhash}\usebox{\hlnormalsizeboxsinglequote}{\ }by{\ }default)}\mbox{}
+\hlprompt{\usebox{\hlnormalsizeboxgreaterthan}{\ }}\hlcomment{\usebox{\hlnormalsizeboxhash}{\ }{\ }{\ }default)}\mbox{}
 \normalfont
 \hspace*{\fill}\\
 \hlstd{}\ttfamily\noindent
@@ -543,8 +574,8 @@ with \emph{parse\_file()} and \emph{create\_roxygen()}, e.g.:
 \hlstd{}\ttfamily\noindent
 \hlprompt{\usebox{\hlnormalsizeboxgreaterthan}{\ }}\hlkeyword{(}\hlsymbol{info}{\ }\hlassignement{=}{\ }\hlfunctioncall{parse\usebox{\hlnormalsizeboxunderscore}file}\hlkeyword{(}\hlsymbol{rd.file}\hlkeyword{)}\hlkeyword{)}\mbox{}
 \normalfont
-\hspace*{\fill}\\
-\hlstd{}\begin{Schunk}
+
+\end{Hinput}
 \begin{Soutput}
 $title
 [1] "Parse the input Rd file and save the roxygen documentation into a file."
@@ -572,115 +603,92 @@ $params
 [2] "file the path to save the roxygen documentation"                  
 [3] "usage logical: whether to include the usage section in the output"
 \end{Soutput}
-\ttfamily\noindent
-\hlprompt{\usebox{\hlnormalsizeboxgreaterthan}{\ }}\hlfunctioncall{create\usebox{\hlnormalsizeboxunderscore}roxygen}\hlkeyword{(}\hlsymbol{info}\hlkeyword{)}\mbox{}
+\begin{Hinput}\ttfamily\noindent
+\hlprompt{\usebox{\hlnormalsizeboxgreaterthan}{\ }}\hlfunctioncall{cat}\hlkeyword{(}\hlfunctioncall{create\usebox{\hlnormalsizeboxunderscore}roxygen}\hlkeyword{(}\hlsymbol{info}\hlkeyword{)}\hlkeyword{,}{\ }\hlargument{sep}{\ }\hlargument{=}{\ }\hlstring{"\usebox{\hlnormalsizeboxbackslash}n"}\hlkeyword{)}\mbox{}
 \normalfont
-\hspace*{\fill}\\
-\hlstd{}\begin{Soutput}
- [1] "##' Parse the input Rd file and save the roxygen documentation into a file."  
- [2] "##' Parse the input Rd file and save the roxygen documentation into a file."  
- [3] "##' "                                                                         
- [4] "##' "                                                                         
- [5] "##' @param path the path of the Rd file"                                      
- [6] "##' @param file the path to save the roxygen documentation"                   
- [7] "##' @param usage logical: whether to include the usage section in the output" 
- [8] "##' @return a character vector if \\code{file} is not specified, or write the"
- [9] "##'   vector into a file"                                                     
-[10] "##' @author Hadley Wickham; modified by Yihui Xie <\\url{http://yihui.name}>" 
-[11] "\n"                                                                           
+
+\end{Hinput}
+\begin{Soutput}
+##' Parse the input Rd file and save the roxygen documentation into a file.
+##' 
+##' Parse the input Rd file and save the roxygen documentation into a file.
+##' 
+##' 
+##' @param path the path of the Rd file
+##' @param file the path to save the roxygen documentation
+##' @param usage logical: whether to include the usage section in the output
+##' @return a character vector if \code{file} is not specified, or write the
+##'   vector into a file
+##' @author Hadley Wickham; modified by Yihui Xie <\url{http://yihui.name}>
 \end{Soutput}
-\ttfamily\noindent
-\hlprompt{\usebox{\hlnormalsizeboxgreaterthan}{\ }}{\ }{\ }\hlcomment{\usebox{\hlnormalsizeboxhash}\usebox{\hlnormalsizeboxhash}{\ }parse\usebox{\hlnormalsizeboxunderscore}and\usebox{\hlnormalsizeboxunderscore}save(){\ }combines{\ }the{\ }above{\ }two{\ }steps}\mbox{}
+\begin{Hinput}\ttfamily\noindent
+\hlprompt{\usebox{\hlnormalsizeboxgreaterthan}{\ }}\hlcomment{\usebox{\hlnormalsizeboxhash}\usebox{\hlnormalsizeboxhash}{\ }parse\usebox{\hlnormalsizeboxunderscore}and\usebox{\hlnormalsizeboxunderscore}save(){\ }combines{\ }the{\ }above{\ }two{\ }steps}\mbox{}
 \normalfont
-\hspace*{\fill}\\
-\hlstd{}
+
+
+\end{Hinput}
 \end{Schunk}
 
-\end{par}
+
 
 \section{Roxygenize and build a package}
 
 This package also provides a tool \emph{roxygen\_and\_build()} (or
 in short \emph{rab()}) to help us build the package.
-\begin{par}
-\hspace*{\fill}\\
-\hlstd{}\ttfamily\noindent
-\hlprompt{\usebox{\hlnormalsizeboxgreaterthan}{\ }}\hlfunctioncall{args}\hlkeyword{(}\hlsymbol{roxygen\usebox{\hlnormalsizeboxunderscore}and\usebox{\hlnormalsizeboxunderscore}build}\hlkeyword{)}\mbox{}
+
+\begin{Schunk}
+\begin{Hinput}\ttfamily\noindent
+\hlprompt{\usebox{\hlnormalsizeboxgreaterthan}{\ }}\hlfunctioncall{args}\hlkeyword{(}\hlsymbol{rab}\hlkeyword{)}\mbox{}
 \normalfont
-\hspace*{\fill}\\
-\hlstd{}\begin{Schunk}
+
+\end{Hinput}
 \begin{Soutput}
-function (pkg, roxygen.dir = NULL, install = FALSE, check = FALSE, 
-    check.opts = "", remove.check = TRUE, escape = TRUE, reformat = TRUE, 
-    use.Rd2 = TRUE, ...) 
+function (pkg, roxygen.dir = pkg, build = TRUE, install = FALSE, 
+    check = FALSE, check.opts = "", remove.check = TRUE, reformat = TRUE, 
+    ...) 
 NULL
 \end{Soutput}
 
 \end{Schunk}
 
-\end{par}
-By default, \textbf{roxygen} will generate Rd files for all the objects
-in the package, which is sometimes not necessary, e.g. the functions
-which are not exported to the user. These Rd files are removed from
-the roxygenized package; in fact, we can also use Rd2 in roxygen and
-specify the tag \texttt{@nord} (no Rd) to suppress Rd creation. Another
-problem is, we often forget to escape the percent symbol \texttt{\%}
-in our documentation%
-\footnote{One situation which made me crazy for a long time is, it is hard to
-debug the R documentation when we have \texttt{\%} in the arguments
-of the function or in the examples. Image you write a function like
-this: \texttt{f = function(a = '\%03d') \{\}}, and it is really easy
-to forget to escape the percent symbol correctly in your documentation
-as \texttt{\textbackslash{}usage\{f(a = '}\texttt{\textbf{\textbackslash{}}}\texttt{\%03d')\}}!
-Besides, roxygen will generate the documentation without escaping
-percent symbols, which is often error-prone. That is the reasoning
-behind the default value \texttt{escape = TRUE}.%
-}, which will make R treat such texts as comments; \emph{rab()} will
-escape \texttt{\%} by default (can be turned off by \texttt{escape
-= FALSE}). Besides, \emph{rab()} also provides options to install
-or check the package.
 
-Yet another feature to mention about \emph{rab()} is that it has an
-option to {}``reformat'' the code in the usage and example sections;
-this is due to the fact that roxygen will remove all the leading spaces
-and indent in the R code, which makes it difficult to read especially
-when the code is long. If we specify \texttt{reformat = TRUE} in \emph{rab()},
-the code will be reformated like this:
-\begin{par}
+The main feature of \emph{rab()} is the option to {}``reformat''
+the code in the example sections. If we specify \texttt{reformat =
+TRUE} in \emph{rab()}, the code will be reformated like this:
+
 \begin{Schunk}
 \begin{Soutput}
 ## original code
-roxygen_and_build=function(pkg,roxygen.dir=NULL,install=FALSE,check=FALSE,
-check.opts='',remove.check=TRUE,escape=TRUE,reformat=TRUE,...){} 
+rab=function(pkg,roxygen.dir=pkg,build=TRUE,install=FALSE,
+check=FALSE,check.opts='',remove.check=TRUE,reformat=TRUE,...){} 
 \end{Soutput}
 
 \end{Schunk}
-
-
-\hspace*{\fill}\\
-\hlstd{}\ttfamily\noindent
-\hlprompt{{\ }}{\ }{\ }\hlcomment{\usebox{\hlnormalsizeboxhash}\usebox{\hlnormalsizeboxhash}{\ }the{\ }reformatted{\ }code}\mbox{}
+\begin{Schunk}
+\begin{Hinput}\ttfamily\noindent
+\hlprompt{{\ }}\hlcomment{\usebox{\hlnormalsizeboxhash}\usebox{\hlnormalsizeboxhash}{\ }the{\ }reformatted{\ }code;{\ }note{\ }the{\ }spaces{\ }and{\ }indent}\mbox{}
 \normalfont
 \hspace*{\fill}\\
 \hlstd{}\ttfamily\noindent
-\hlprompt{{\ }}\hlsymbol{roxygen\usebox{\hlnormalsizeboxunderscore}and\usebox{\hlnormalsizeboxunderscore}build}{\ }\hlassignement{=}{\ }\hlkeyword{function}\hlkeyword{(}\hlformalargs{pkg}\hlkeyword{,}{\ }\hlformalargs{roxygen.dir}{\ }\hleqformalargs{=}{\ }NULL\hlkeyword{,}{\ }\hlformalargs{install}{\ }\hleqformalargs{=}{\ }\hlnumber{FALSE}\hlkeyword{,}\hspace*{\fill}\\
-\hlstd{}\hlprompt{{\ }}{\ }{\ }{\ }{\ }\hlformalargs{check}{\ }\hleqformalargs{=}{\ }\hlnumber{FALSE}\hlkeyword{,}{\ }\hlformalargs{check.opts}{\ }\hleqformalargs{=}{\ }\hlstring{""}\hlkeyword{,}{\ }\hlformalargs{remove.check}{\ }\hleqformalargs{=}{\ }\hlnumber{TRUE}\hlkeyword{,}{\ }\hlformalargs{escape}{\ }\hleqformalargs{=}{\ }\hlnumber{TRUE}\hlkeyword{,}\hspace*{\fill}\\
-\hlstd{}\hlprompt{{\ }}{\ }{\ }{\ }{\ }\hlformalargs{reformat}{\ }\hleqformalargs{=}{\ }\hlnumber{TRUE}\hlkeyword{,}{\ }\hlformalargs{...}\hlkeyword{)}{\ }\hlkeyword{\usebox{\hlnormalsizeboxopenbrace}}\hspace*{\fill}\\
+\hlprompt{{\ }}\hlsymbol{rab}{\ }\hlassignement{=}{\ }\hlkeyword{function}\hlkeyword{(}\hlformalargs{pkg}\hlkeyword{,}{\ }\hlformalargs{roxygen.dir}{\ }\hleqformalargs{=}{\ }\hlsymbol{pkg}\hlkeyword{,}{\ }\hlformalargs{build}{\ }\hleqformalargs{=}{\ }\hlnumber{TRUE}\hlkeyword{,}{\ }\hlformalargs{install}{\ }\hleqformalargs{=}{\ }\hlnumber{FALSE}\hlkeyword{,}\hspace*{\fill}\\
+\hlstd{}\hlprompt{{\ }}{\ }{\ }{\ }{\ }\hlformalargs{check}{\ }\hleqformalargs{=}{\ }\hlnumber{FALSE}\hlkeyword{,}{\ }\hlformalargs{check.opts}{\ }\hleqformalargs{=}{\ }\hlstring{""}\hlkeyword{,}{\ }\hlformalargs{remove.check}{\ }\hleqformalargs{=}{\ }\hlnumber{TRUE}\hlkeyword{,}{\ }\hlformalargs{reformat}{\ }\hleqformalargs{=}{\ }\hlnumber{TRUE}\hlkeyword{,}\hspace*{\fill}\\
+\hlstd{}\hlprompt{{\ }}{\ }{\ }{\ }{\ }\hlformalargs{...}\hlkeyword{)}{\ }\hlkeyword{\usebox{\hlnormalsizeboxopenbrace}}\hspace*{\fill}\\
 \hlstd{}\hlprompt{{\ }}\hlkeyword{\usebox{\hlnormalsizeboxclosebrace}}\mbox{}
 \normalfont
-\hspace*{\fill}\\
-\hlstd{}
+
+
+\end{Hinput}
+\end{Schunk}
 
 
 
-
-\end{par}
 Note this functionality depends on the package \textbf{formatR} \citep{formatR},
-and sometimes it might be not be appropriate to reformat the code,
-e.g. the \texttt{\textbackslash{}dontrun\{\}} command in Rd can contain
+and sometimes it might be not be possible to reformat the code, e.g.
+the \texttt{\textbackslash{}dontrun\{\}} command in Rd can contain
 arbitrary texts, which means there could be illegal R expressions
-and \textbf{formatR} will be unable to format the code. In case of
-errors, we can consider turning this feature off.
+and \textbf{formatR} will be unable to format the code. In this case,
+the original code will not be reformatted and a message will be printed
+on screen.
 
 
 \section*{About this vignette}
@@ -689,15 +697,17 @@ You might be curious about how this vignette was generated, because
 it looks different from other Sweave-based vignettes. The answer is
 \textbf{pgfSweave} \citep{pgfSweave}. The real vignette is in \LyX{},
 which can be found here:
-\begin{par}
-\hspace*{\fill}\\
-\hlstd{}\ttfamily\noindent
+
+\begin{Schunk}
+\begin{Hinput}\ttfamily\noindent
 \hlprompt{\usebox{\hlnormalsizeboxgreaterthan}{\ }}\hlfunctioncall{system.file}\hlkeyword{(}\hlstring{"doc"}\hlkeyword{,}{\ }\hlstring{"Rd2roxygen.lyx"}\hlkeyword{,}{\ }\hlargument{package}{\ }\hlargument{=}{\ }\hlstring{"Rd2roxygen"}\hlkeyword{)}\mbox{}
 \normalfont
-\hspace*{\fill}\\
-\hlstd{}
 
-\end{par}
+
+\end{Hinput}
+\end{Schunk}
+
+
 Read this blog entry for details and how to reproduce the vignette:
 \url{http://yihui.name/en/?p=602}.
 
