@@ -1,4 +1,6 @@
-##' Convert Rd to roxygen documentation and utilities to enhance roxygen.
+##' Convert Rd to roxygen documentation and utilities to enhance
+##' documentation and building packages
+##'
 ##' This package contains functions to convert Rd to roxygen documentation.
 ##' It can parse an Rd file to a list (\code{\link{parse_file}}),
 ##' create the roxygen documentation (\code{\link{create_roxygen}}) and
@@ -8,7 +10,6 @@
 ##' build packages using roxygen more easily (\code{\link{rab}}).
 ##'
 ##' @name Rd2roxygen-package
-##' @aliases Rd2roxygen-package
 ##' @docType package
 ##' @author Hadley Wickham and Yihui Xie
 ##' @importFrom formatR tidy.source
