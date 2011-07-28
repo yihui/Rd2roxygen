@@ -147,7 +147,7 @@ parse_and_save <- function(path, file, usage = FALSE) {
 ##' @author Yihui Xie <\url{http://yihui.name}>
 ##' @examples
 ##' \dontrun{
-##' Rd2roxygen('path/to/your/source/package', install=TRUE)
+##' Rd2roxygen('path/to/your/source/package')
 ##' }
 Rd2roxygen <- function(pkg, nomatch, usage = FALSE) {
 	if (!all(c('man', 'R') %in% list.files(pkg)))
