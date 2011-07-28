@@ -56,12 +56,11 @@ comment_prefix <- function() {
 
 ##' Roxygenize a package, clean up and build/check the package.
 ##'
-##' After the source package is roxygenized, this function first removes the
-##' unnecessary Rd files, and build the package. Optionally
-##' it also installs or checks the package, reformats the code in the usage and
-##' examples section, and replaces `\%' with `\\\%'.
+##' After the source package is roxygenized, this function will build
+##' the package. Optionally it also installs or checks the package,
+##' reformats the code in the examples section. Note \code{\link{rab}}
+##' is an alias of \code{\link{roxygen_and_build}}.
 ##'
-##' @aliases roxygen_and_build rab
 ##' @param pkg the root directory of the source package
 ##' @param roxygen.dir the directory for the roxygenized package (by
 ##' default it is the same as \code{pkg})
@@ -74,13 +73,8 @@ comment_prefix <- function() {
 ##' @param reformat whether to reformat the examples code; see
 ##' \code{\link{reformat_code}}
 ##' @param ... other arguments passed to
-##' \code{\link[roxygen]{roxygenize}}
-##' @note This function also tries to remove directories \file{pkg/inst/doc} and
-##' \file{pkg/inst} if they are empty; this is due to the fact that roxygen
-##' will generate these directories no matter if they are needed.
-##'
-##' This function also has a short name \code{rab} to avoid typing efforts.
-##' @return NULL
+##' \code{\link[roxygen2]{roxygenize}}
+##' @return \code{NULL}
 ##' @author Yihui Xie <\url{http://yihui.name}>
 ##' @rdname roxygen_and_build
 ##' @export
