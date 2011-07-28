@@ -3,19 +3,21 @@
 \alias{roxygen_and_build}
 \title{Roxygenize a package, clean up and build/check the package}
 \usage{
-  roxygen_and_build(pkg, roxygen.dir = pkg, install =
+  roxygen_and_build(pkg, roxygen.dir = pkg, build = TRUE,
+  install = FALSE, check = FALSE, check.opts = "",
+  remove.check = TRUE, reformat = TRUE, ...)
+
+  rab(pkg, roxygen.dir = pkg, build = TRUE, install =
   FALSE, check = FALSE, check.opts = "", remove.check =
   TRUE, reformat = TRUE, ...)
-
-  rab(pkg, roxygen.dir = pkg, install = FALSE, check =
-  FALSE, check.opts = "", remove.check = TRUE, reformat =
-  TRUE, ...)
 }
 \arguments{
   \item{pkg}{the root directory of the source package}
 
   \item{roxygen.dir}{the directory for the roxygenized
   package (by default it is the same as \code{pkg})}
+
+  \item{build}{whether to build the package}
 
   \item{install}{whether to install the package}
 

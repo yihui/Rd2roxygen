@@ -64,6 +64,7 @@ comment_prefix <- function() {
 ##' @param pkg the root directory of the source package
 ##' @param roxygen.dir the directory for the roxygenized package (by
 ##' default it is the same as \code{pkg})
+##' @param build whether to build the package
 ##' @param install whether to install the package
 ##' @param check whether to check the package
 ##' @param check.opts options to check the package
@@ -83,7 +84,7 @@ comment_prefix <- function() {
 ##' ## or simply
 ##' rab('Rd2roxygen', install = TRUE)
 ##' }
-roxygen_and_build = function(pkg, roxygen.dir = pkg, install = FALSE,
+roxygen_and_build = function(pkg, roxygen.dir = pkg, build = TRUE, install = FALSE,
     check = FALSE, check.opts = "", remove.check = TRUE, reformat = TRUE, ...) {
     roxygenize(pkg, roxygen.dir, ...)
     if (normalizePath(pkg) != normalizePath(roxygen.dir))
@@ -98,9 +99,8 @@ roxygen_and_build = function(pkg, roxygen.dir = pkg, install = FALSE,
             }
         }
     }
-    system(sprintf("R CMD build %s ", roxygen.dir))
-    if (install)
-        system(sprintf("R CMD INSTALL %s ", roxygen.dir))
+    if (build) system(sprintf("R CMD build %s ", roxygen.dir))
+    if (install) system(sprintf("R CMD INSTALL %s ", roxygen.dir))
     if (check) {
         if ((system(sprintf("R CMD check %s %s", roxygen.dir, check.opts)) == 0) &&
             remove.check) unlink(sprintf('%s.Rcheck', roxygen.dir), TRUE)
