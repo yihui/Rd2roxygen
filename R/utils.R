@@ -54,7 +54,7 @@ comment_prefix <- function() {
 }
 
 
-##' Roxygenize a package, clean up and build/check the package.
+##' Roxygenize a package, clean up and build/check the package
 ##'
 ##' After the source package is roxygenized, this function will build
 ##' the package. Optionally it also installs or checks the package,
