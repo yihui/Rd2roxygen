@@ -110,9 +110,7 @@ roxygen_and_build = function(pkg, roxygen.dir = pkg, install = FALSE,
 
 ##' @rdname roxygen_and_build
 ##' @export
-rab = function(...) {
-    roxygen_and_build(...)
-}
+rab = roxygen_and_build
 
 
 ##' Format the code in the usage and examples sections.
