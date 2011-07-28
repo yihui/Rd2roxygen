@@ -79,6 +79,7 @@ parse_file <- function(path) {
 create_roxygen <- function(info, usage = FALSE) {
   c(
     comment_line(info$title),
+    comment_line(),
     comment_line(info$desc),
     comment_line(),
     comment_line(info$details),
