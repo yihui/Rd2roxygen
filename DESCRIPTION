@@ -2,8 +2,8 @@ Package: Rd2roxygen
 Type: Package
 Title: Convert Rd to roxygen documentation and utilities to
     improve documentation
-Version: 0.1-8
-Date: 2011-02-15
+Version: 1.0-0
+Date: 2011-07-28
 Author@R: c(person("Hadley", "Wickham", email =
     "h.wickham@gmail.com", role = "aut"), person("Yihui",
     "Xie", email = "xie@yihui.name", role = c("aut",
@@ -11,7 +11,7 @@ Author@R: c(person("Hadley", "Wickham", email =
 Author: Hadley Wickham and Yihui Xie
 Maintainer: Yihui Xie <xie@yihui.name>
 Depends:
-    roxygen2
+    roxygen2 (>= 2.1)
 Imports:
     formatR
 Description: Functions to convert Rd to roxygen
