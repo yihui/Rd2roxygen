@@ -7,4 +7,10 @@ Convert Rd to roxygen documentation
 		* create_roxygen
 		* parse_and_save
 
+Utilities to run roxygen and enhance documentation
+
+	* roxygen_and_build() (or rab() for short) will run roxygen2
+          and try to reformat the examples code in the documentation
+          using the formatR package
+
 Originally written by Hadley Wickham; improved by Yihui Xie
