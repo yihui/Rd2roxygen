@@ -143,7 +143,8 @@ rab = roxygen_and_build
 ##' be escaped even in the examples code (cf Writing R Extensions),
 ##' and this can make the code syntactically incorrect, e.g. \code{a
 ##' \%in\% b} should be \code{a \\\%in\\\% b} but the latter is not
-##' valid R code.
+##' valid R code. Anyway, this function will try to unescape the
+##' percent symbols before reformating the code, then escape them.
 ##' @examples
 ##' rd.file = system.file('examples', 'reformat_code_demo.Rd', package = 'Rd2roxygen')
 ##' file.copy(rd.file, tempdir())
@@ -171,10 +172,12 @@ reformat_code = function(path, ...) {
         tmp[1] = sub('^\\\\examples\\{', '', tmp[1])
         nn = length(tmp)
         tmp[nn] = sub('\\}$', '', tmp[nn])
+        tmp = gsub('\\%', '%', tmp, fixed = TRUE) # will escape % later
         txt =
             try(tidy.source(text = tmp, output = FALSE, keep.blank.line = TRUE,
                             ...)$text.tidy, silent = TRUE)
         if (!inherits(txt, 'try-error')) {
+            txt = gsub("(^|[^\\])%", "\\1\\\\%", txt)
             txt[1] = paste('\\examples{', txt[1], sep = '')
             nn0 = length(txt)
             txt[nn0] = paste(txt[nn0], '}', sep = '')
@@ -198,11 +201,13 @@ reformat_code = function(path, ...) {
     txt = gsub('^[[:space:]]+', '', txt)
     txt = sub('^\\\\dontrun', 'tag_name_dontrun = function() ', txt)
     txt[txt == ''] = '\n'
+    txt = gsub('\\%', '%', txt, fixed = TRUE)
     txt =
         try(tidy.source(text = txt, output = FALSE, keep.blank.line = TRUE, ...),
             silent = TRUE)
     if (!inherits(txt, 'try-error')) {
         txt = txt$text.tidy
+        txt = gsub("(^|[^\\])%", "\\1\\\\%", txt)
         txt = gsub('tag_name_dontrun = function() {', '\\dontrun{', txt, fixed = TRUE)
         txt = unlist(strsplit(txt, '\n'))
         ## remove the four spaces introduced by disguising \\dontrun as a function

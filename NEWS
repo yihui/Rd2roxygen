@@ -1,3 +1,14 @@
+		  CHANGES IN Rd2roxygen VERSION 1.0-1
+
+MINOR CHANGES
+
+  o the percent symbols in the examples code will be unescaped
+  (i.e. \% becomes %) before the code is reformatted, then escaped
+  again; this can avoid errors when reformatting the code, since \% is
+  an illegal character in R
+
+
+
 		  CHANGES IN Rd2roxygen VERSION 1.0-0
 
 

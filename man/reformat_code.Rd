@@ -39,7 +39,9 @@
   code (cf Writing R Extensions), and this can make the
   code syntactically incorrect, e.g. \code{a \%in\% b}
   should be \code{a \\\%in\\\% b} but the latter is not
-  valid R code.
+  valid R code. Anyway, this function will try to unescape
+  the percent symbols before reformating the code, then
+  escape them.
 }
 \examples{
 rd.file = system.file("examples", "reformat_code_demo.Rd", 
