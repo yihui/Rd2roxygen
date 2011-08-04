@@ -3,7 +3,7 @@ Type: Package
 Title: Convert Rd to roxygen documentation and utilities to
     improve documentation
 Version: 1.0-1
-Date: 2011-07-29
+Date: 2011-08-04
 Author@R: c(person("Hadley", "Wickham", email =
     "h.wickham@gmail.com", role = "aut"), person("Yihui",
     "Xie", email = "xie@yihui.name", role = c("aut",
