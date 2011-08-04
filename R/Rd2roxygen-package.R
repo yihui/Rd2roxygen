@@ -12,7 +12,6 @@
 ##' @name Rd2roxygen-package
 ##' @docType package
 ##' @author Hadley Wickham and Yihui Xie
-##' @importFrom formatR tidy.source
 ##' @examples
 ##' ## see the package vignette: vignette('Rd2roxygen')
 NULL
