@@ -8,6 +8,8 @@ Authors@R: c(person("Hadley", "Wickham", email =
     "h.wickham@gmail.com", role = "aut"), person("Yihui",
     "Xie", email = "xie@yihui.name", role = c("aut",
     "cre")))
+Author: Hadley Wickham and Yihui Xie
+Maintainer: Yihui Xie <xie@yihui.name>
 Depends:
     roxygen2 (>= 2.1),
     formatR
