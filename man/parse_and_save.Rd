@@ -3,7 +3,7 @@
 \title{Parse the input Rd file and save the roxygen documentation into a
 file}
 \usage{
-  parse_and_save(path, file, usage = FALSE)
+parse_and_save(path, file, usage = FALSE)
 }
 \arguments{
   \item{path}{the path of the Rd file}
@@ -25,4 +25,3 @@ file}
   Hadley Wickham; modified by Yihui Xie
   <\url{http://yihui.name}>
 }
-

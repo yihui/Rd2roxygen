@@ -124,6 +124,7 @@ type "mailto:"
 status open
 
 \begin_layout Plain Layout
+
 tidy=TRUE
 \end_layout
 
@@ -133,17 +134,14 @@ tidy=TRUE
 \end_layout
 
 \begin_layout Chunk
-
 <<setup, echo=FALSE>>=
 \end_layout
 
 \begin_layout Chunk
-
 options(keep.blank.line = FALSE)
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -176,29 +174,24 @@ key "roxygen2"
 \end_layout
 
 \begin_layout Chunk
-
 <<roxygen-ex>>=
 \end_layout
 
 \begin_layout Chunk
-
 ## the source code of the function `parse_and_save`
 \end_layout
 
 \begin_layout Chunk
-
 ex.file = system.file('examples','parse_and_save.R',package='Rd2roxygen')
 \end_layout
 
 \begin_layout Chunk
-
 cat(readLines(ex.file), sep='
 \backslash
 n')
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -215,24 +208,20 @@ roxygenize()
 \end_layout
 
 \begin_layout Chunk
-
 <<rd-ex>>=
 \end_layout
 
 \begin_layout Chunk
-
 rd.file = system.file('examples','parse_and_save.Rd',package='Rd2roxygen')
 \end_layout
 
 \begin_layout Chunk
-
 cat(readLines(rd.file), sep='
 \backslash
 n')
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -274,33 +263,27 @@ R
 \end_layout
 
 \begin_layout Chunk
-
 <<Rd2roxygen>>=
 \end_layout
 
 \begin_layout Chunk
-
 library(Rd2roxygen)
 \end_layout
 
 \begin_layout Chunk
-
 args(Rd2roxygen)
 \end_layout
 
 \begin_layout Chunk
-
 ## e.g.
  Rd2roxygen('somewhere/to/source/pkg')
 \end_layout
 
 \begin_layout Chunk
-
 ## there must be 'man' and 'R' directories under this path
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -322,39 +305,32 @@ create_roxygen()
 \end_layout
 
 \begin_layout Chunk
-
 <<parse-file>>=
 \end_layout
 
 \begin_layout Chunk
-
 ## we can specify the roxygen comments prefix (#' by default)
 \end_layout
 
 \begin_layout Chunk
-
 options(roxygen.comment = "##' ")
 \end_layout
 
 \begin_layout Chunk
-
 (info = parse_file(rd.file))
 \end_layout
 
 \begin_layout Chunk
-
 cat(create_roxygen(info), sep='
 \backslash
 n')
 \end_layout
 
 \begin_layout Chunk
-
 ## parse_and_save() combines the above two steps
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -375,17 +351,14 @@ rab()
 \end_layout
 
 \begin_layout Chunk
-
 <<rab>>=
 \end_layout
 
 \begin_layout Chunk
-
 args(rab)
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -402,7 +375,7 @@ reformat
 \begin_inset Quotes erd
 \end_inset
 
- the code in the example sections.
+ the code in the usage and example sections.
  If we specify 
 \family typewriter
 reformat = TRUE
@@ -415,74 +388,60 @@ rab()
 \end_layout
 
 \begin_layout Chunk
-
 <<reformat-ex1,echo=FALSE>>=
 \end_layout
 
 \begin_layout Chunk
-
 oopts=options(prompt=' ',continue=' ')
 \end_layout
 
 \begin_layout Chunk
-
 cat("## original code
 \end_layout
 
 \begin_layout Chunk
-
 rab=function(pkg,roxygen.dir=pkg,build=TRUE,install=FALSE,
 \end_layout
 
 \begin_layout Chunk
-
 check=FALSE,check.opts='',remove.check=TRUE,reformat=TRUE,...){}",'
 \backslash
 n')
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
 \begin_layout Chunk
-
 <<reformat-ex2,tidy=TRUE,eval=FALSE>>=
 \end_layout
 
 \begin_layout Chunk
-
 ## the reformatted code; note the spaces and indent
 \end_layout
 
 \begin_layout Chunk
-
 rab=function(pkg,roxygen.dir=pkg,build=TRUE,install=FALSE,
 \end_layout
 
 \begin_layout Chunk
-
 check=FALSE,check.opts='',remove.check=TRUE,reformat=TRUE,...){}
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
 \begin_layout Chunk
-
 <<restore-opts,echo=FALSE>>=
 \end_layout
 
 \begin_layout Chunk
-
 options(oopts)
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -538,17 +497,14 @@ key "pgfSweave"
 \end_layout
 
 \begin_layout Chunk
-
 <<lyx-doc, eval=FALSE>>=
 \end_layout
 
 \begin_layout Chunk
-
 system.file('doc', 'Rd2roxygen.lyx', package='Rd2roxygen')
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 

@@ -439,7 +439,6 @@ and utilities to enhance R documentation}
 
 
 
-
 The package \textbf{Rd2roxygen} \citep{Rd2roxygen} helps R package
 developers who used to write R documentation in the raw \LaTeX{}-like
 commands but want to switch their documentation to \textbf{roxygen2}
@@ -480,7 +479,6 @@ parse_and_save <- function(path, file, usage = FALSE) {
 
 \end{Schunk}
 
-
 With \textbf{roxygen2} (typically using \emph{roxygenize()}), we can
 create the real Rd file from the above source code like this:
 
@@ -509,7 +507,6 @@ into a file}
 \end{Soutput}
 
 \end{Schunk}
-
 
 The \textbf{Rd2roxygen} package goes exactly in the \emph{opposite}
 way -- it parses the Rd files and turns them back to roxygen comments.
@@ -550,7 +547,6 @@ NULL
 
 \end{Hinput}
 \end{Schunk}
-
 
 
 \section{Parse a single Rd file}
@@ -630,7 +626,6 @@ $params
 \end{Schunk}
 
 
-
 \section{Roxygenize and build a package}
 
 This package also provides a tool \emph{roxygen\_and\_build()} (or
@@ -651,10 +646,9 @@ NULL
 
 \end{Schunk}
 
-
 The main feature of \emph{rab()} is the option to {}``reformat''
-the code in the example sections. If we specify \texttt{reformat =
-TRUE} in \emph{rab()}, the code will be reformated like this:
+the code in the usage and example sections. If we specify \texttt{reformat
+= TRUE} in \emph{rab()}, the code will be reformated like this:
 
 \begin{Schunk}
 \begin{Soutput}
@@ -681,7 +675,6 @@ check=FALSE,check.opts='',remove.check=TRUE,reformat=TRUE,...){}
 \end{Schunk}
 
 
-
 Note this functionality depends on the package \textbf{formatR} \citep{formatR},
 and sometimes it might be not be possible to reformat the code, e.g.
 the \texttt{\textbackslash{}dontrun\{\}} command in Rd can contain
@@ -706,7 +699,6 @@ which can be found here:
 
 \end{Hinput}
 \end{Schunk}
-
 
 Read this blog entry for details and how to reproduce the vignette:
 \url{http://yihui.name/en/?p=602}.

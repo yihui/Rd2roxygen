@@ -2,7 +2,7 @@
 \alias{Rd2roxygen}
 \title{Convert all the Rd files of a package to roxygen documentations}
 \usage{
-  Rd2roxygen(pkg, nomatch, usage = FALSE)
+Rd2roxygen(pkg, nomatch, usage = FALSE)
 }
 \arguments{
   \item{pkg}{the root directory of the package}
@@ -30,11 +30,11 @@
   ")} to ensure the generated roxygen comments begin with
   \code{"##' "}, which is the default setting in Emacs/ESS.
 }
-\examples{\dontrun{
-
+\examples{
+\dontrun{
 Rd2roxygen("path/to/your/source/package")
-}}
+}
+}
 \author{
   Yihui Xie <\url{http://yihui.name}>
 }
-
