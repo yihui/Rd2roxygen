@@ -202,8 +202,6 @@ Rd2roxygen <- function(pkg, nomatch, usage = FALSE) {
 			message("unmatched object '", fname, "' written into ", p)
 		}
 		message('\n')
-		if (.Platform$OS.type == 'windows') {
-			flush.console()
-		}
+                flush.console()
 	}
 }
