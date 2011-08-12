@@ -520,7 +520,7 @@ are considering the transition from Rd to roxygen.
 The function \emph{Rd2roxygen()} can take a path of a source package,
 parse all the Rd files under the \texttt{man} directory, and write
 the roxygen comments right above the source code of the functions
-under the \texttt{R} directory.
+under the \texttt{R} directory. See \texttt{?Rd2roxygen} for an example.
 
 \begin{Schunk}
 \begin{Hinput}\ttfamily\noindent

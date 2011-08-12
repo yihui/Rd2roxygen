@@ -148,9 +148,22 @@ parse_and_save <- function(path, file, usage = FALSE) {
 ##' @export
 ##' @author Yihui Xie <\url{http://yihui.name}>
 ##' @examples
-##' \dontrun{
-##' Rd2roxygen('path/to/your/source/package')
-##' }
+##' ## a demo package
+##' pkg = system.file('examples', 'pkgDemo', package = 'Rd2roxygen')
+##' file.copy(pkg, tempdir(), recursive = TRUE)  # copy to temp dir first
+##' od = setwd(tempdir())
+##'
+##' ## take a look at original R scripts
+##' file.show('pkgDemo/R/foo.R')
+##'
+##' options(roxygen.comment = "##' ")
+##'
+##' ## convert Rd's under man to roxygen comments
+##' Rd2roxygen(file.path(tempdir(), 'pkgDemo'))
+##'
+##' file.show('pkgDemo/R/foo.R')  # what happened to foo.R and bar.R?
+##'
+##' setwd(od)  # restore working directory
 Rd2roxygen <- function(pkg, nomatch, usage = FALSE) {
 	if (!all(c('man', 'R') %in% list.files(pkg)))
 		stop("'pkg' has to be the root directory of a source package")

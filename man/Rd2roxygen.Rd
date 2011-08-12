@@ -31,9 +31,22 @@ Rd2roxygen(pkg, nomatch, usage = FALSE)
   \code{"##' "}, which is the default setting in Emacs/ESS.
 }
 \examples{
-\dontrun{
-Rd2roxygen("path/to/your/source/package")
-}
+## a demo package
+pkg = system.file("examples", "pkgDemo", package = "Rd2roxygen")
+file.copy(pkg, tempdir(), recursive = TRUE)  # copy to temp dir first
+od = setwd(tempdir())
+
+## take a look at original R scripts
+file.show("pkgDemo/R/foo.R")
+
+options(roxygen.comment = "##' ")
+
+## convert Rd's under man to roxygen comments
+Rd2roxygen(file.path(tempdir(), "pkgDemo"))
+
+file.show("pkgDemo/R/foo.R")  # what happened to foo.R and bar.R?
+
+setwd(od)  # restore working directory
 }
 \author{
   Yihui Xie <\url{http://yihui.name}>

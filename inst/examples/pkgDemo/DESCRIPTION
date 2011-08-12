@@ -1,0 +1,14 @@
+Package: pkgDemo
+Type: Package
+Title: Demo of Rd2roxygen
+Version: 0.1-0
+Date: 2011-08-12
+Author: Yihui Xie
+Maintainer: Yihui Xie <xie@yihui.name>
+Description: Let's see if Rd2roxygen can update the R
+    scripts using Rd's in man.
+License: GPL
+URL: https://github.com/yihui/Rd2roxygen
+Collate:
+    'bar.R'
+    'foo.R'

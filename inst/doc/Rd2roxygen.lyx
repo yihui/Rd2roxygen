@@ -260,6 +260,11 @@ man
 R
 \family default
  directory.
+ See 
+\family typewriter
+?Rd2roxygen
+\family default
+ for an example.
 \end_layout
 
 \begin_layout Chunk
