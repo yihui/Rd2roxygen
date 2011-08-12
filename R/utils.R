@@ -94,6 +94,7 @@ roxygen_and_build = function(pkg, roxygen.dir = pkg, build = TRUE, install = FAL
         for (f in rd.list) reformat_code(f)
     }
     if (build) system(sprintf("R CMD build %s ", roxygen.dir)) else return()
+    roxygen.dir = file.path(dirname(roxygen.dir), basename(roxygen.dir))  # remove tail /
     res =
         if (length(ver <- grep('^Version:',
                                readLines(file.path(pkg, 'DESCRIPTION')), value = TRUE)))
