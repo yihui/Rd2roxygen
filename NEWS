@@ -1,3 +1,18 @@
+		  CHANGES IN Rd2roxygen VERSION 1.0-3
+
+NEW FEATURES
+
+  o a complete example of running Rd2roxygen() on a real package was
+  added to ?Rd2roxygen
+
+MINOR CHANGES
+
+  o all these forms of quotes in assignments are allowed in
+  Rd2roxygen(): `foo` <-, 'foo' <-, "foo" <-, and = can be used as the
+  assigning operator as well
+
+
+
 		  CHANGES IN Rd2roxygen VERSION 1.0-2
 
 MAJOR CHANGES
