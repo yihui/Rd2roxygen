@@ -191,7 +191,7 @@ Rd2roxygen <- function(pkg, nomatch, usage = FALSE) {
                                             gsub('\\.', '\\\\.', fname)),
                                     (r.Rd <- readLines(r, warn = FALSE)))
 			message('  ', i, ': ', appendLF = FALSE)
-			message(ifelse(length(idx), paste('row', idx), 'not found'))
+			message(ifelse(length(idx), paste('line', idx), 'not found'))
 			if (length(idx)) break
 		}
 		if (length(idx)) {
