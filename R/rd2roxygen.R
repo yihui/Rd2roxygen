@@ -174,7 +174,7 @@ Rd2roxygen <- function(pkg, nomatch, usage = FALSE) {
 		message("looking for the object '", fname, "' in:")
 		for (i in tryf) {
 			r <- file.path(R.dir, i)
-			idx <- grep(sprintf('^[[:space:]]*(`|)(%s)(`|)[[:space:]]*(<-|=)',
+			idx <- grep(sprintf('^[[:space:]]*(`|"|\'|)(%s)(`|"|\'|)[[:space:]]*(<-|=)',
 				gsub('\\.', '\\\\.', fname)),
 			(r.Rd <- readLines(r, warn = FALSE)))
 			message('  ', i, ': ', appendLF = FALSE)
