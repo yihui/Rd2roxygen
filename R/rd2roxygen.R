@@ -175,8 +175,8 @@ Rd2roxygen <- function(pkg, nomatch, usage = FALSE) {
 		for (i in tryf) {
 			r <- file.path(R.dir, i)
 			idx <- grep(sprintf('^[[:space:]]*(`|"|\'|)(%s)(`|"|\'|)[[:space:]]*(<-|=)',
-				gsub('\\.', '\\\\.', fname)),
-			(r.Rd <- readLines(r, warn = FALSE)))
+                                            gsub('\\.', '\\\\.', fname)),
+                                    (r.Rd <- readLines(r, warn = FALSE)))
 			message('  ', i, ': ', appendLF = FALSE)
 			message(ifelse(length(idx), paste('row', idx), 'not found'))
 			if (length(idx)) break
