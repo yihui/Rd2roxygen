@@ -172,56 +172,56 @@ parse_and_save <- function(path, file, usage = FALSE) {
 ##'
 ##' setwd(od)  # restore working directory
 Rd2roxygen <- function(pkg, nomatch, usage = FALSE) {
-	if (!all(c('man', 'R') %in% list.files(pkg)))
-		stop("'pkg' has to be the root directory of a source package")
-	man.dir <- file.path(pkg, 'man')
-	R.dir <- file.path(pkg, 'R')
-	files <- list.files(man.dir, '\\.[Rr]d$')
-	if (missing(nomatch))
-		nomatch <- paste(basename(pkg), '-package.R', sep = '')
-	unlink(p <- file.path(R.dir, nomatch))
-	for (f in files) {
-		timestamp()
-		parsed <- parse_file(file.path(man.dir, f))
-		Rd <- create_roxygen(parsed, usage = usage)
-		Rd <- Rd[Rd != '\n']
-		message('parsed: ', f)
-		fname <- parsed$name
-		tryf <- paste(fname, c('.R', '.r'), sep = '')
-		tryf <- unique(c(tryf[file.exists(file.path(R.dir, tryf))],
-				list.files(R.dir, '\\.[Rr]$')))
-		idx <- integer(0)
-		message("looking for the object '", fname, "' in:")
-		for (i in tryf) {
-			r <- file.path(R.dir, i)
-			idx <- grep(sprintf('^[[:space:]]*(`|"|\'|)(%s)(`|"|\'|)[[:space:]]*(<-|=)',
-                                            gsub('\\.', '\\\\.', fname)),
-                                    (r.Rd <- readLines(r, warn = FALSE)))
-			message('  ', i, ': ', appendLF = FALSE)
-			message(ifelse(length(idx), paste('line', idx), 'not found'))
-			if (length(idx)) break
-		}
-		if (length(idx)) {
-                    if (idx <= 1) r.Rd <- c(Rd, r.Rd) else {
-                        ## remove existing roxygen comments
-                        j = 0
-                        for(i in (idx - 1):1) {
-                            if (grepl("^[#]+'", r.Rd[i])) j <- j + 1 else break
-                        }
-                        if (j > 0) {
-                            r.Rd <- r.Rd[-(idx - seq_len(j))]
-                            idx <- idx - j
-                        }
-                        r.Rd <- append(r.Rd, c('\n', Rd), idx - 1)
-                        while (r.Rd[1] %in% c('', '\n')) r.Rd = r.Rd[-1]
-                    }
-			cat(r.Rd, file = r, sep = '\n')
-			message(r, ' updated')
-		} else {
-			cat(c('\n', Rd, 'NULL'), '\n\n', file = p, sep = '\n', append = TRUE)
-			message("unmatched object '", fname, "' written into ", p)
-		}
-		message('\n')
-                flush.console()
-	}
+    if (!all(c('man', 'R') %in% list.files(pkg)))
+        stop("'pkg' has to be the root directory of a source package")
+    man.dir <- file.path(pkg, 'man')
+    R.dir <- file.path(pkg, 'R')
+    files <- list.files(man.dir, '\\.[Rr]d$')
+    if (missing(nomatch))
+        nomatch <- paste(basename(pkg), '-package.R', sep = '')
+    unlink(p <- file.path(R.dir, nomatch))
+    for (f in files) {
+        timestamp()
+        parsed <- parse_file(file.path(man.dir, f))
+        Rd <- create_roxygen(parsed, usage = usage)
+        Rd <- Rd[Rd != '\n']
+        message('parsed: ', f)
+        fname <- parsed$name
+        tryf <- paste(fname, c('.R', '.r'), sep = '')
+        tryf <- unique(c(tryf[file.exists(file.path(R.dir, tryf))],
+                         list.files(R.dir, '\\.[Rr]$')))
+        idx <- integer(0)
+        message("looking for the object '", fname, "' in:")
+        for (i in tryf) {
+            r <- file.path(R.dir, i)
+            idx <- grep(sprintf('^[[:space:]]*(`|"|\'|)(%s)(`|"|\'|)[[:space:]]*(<-|=)',
+                                gsub('\\.', '\\\\.', fname)),
+                        (r.Rd <- readLines(r, warn = FALSE)))
+            message('  ', i, ': ', appendLF = FALSE)
+            message(ifelse(length(idx), paste('line', idx), 'not found'))
+            if (length(idx)) break
+        }
+        if (length(idx)) {
+            if (idx <= 1) r.Rd <- c(Rd, r.Rd) else {
+                ## remove existing roxygen comments
+                j = 0
+                for(i in (idx - 1):1) {
+                    if (grepl("^[#]+'", r.Rd[i])) j <- j + 1 else break
+                }
+                if (j > 0) {
+                    r.Rd <- r.Rd[-(idx - seq_len(j))]
+                    idx <- idx - j
+                }
+                r.Rd <- append(r.Rd, c('\n', Rd), idx - 1)
+                while (r.Rd[1] %in% c('', '\n')) r.Rd <- r.Rd[-1]
+            }
+            cat(r.Rd, file = r, sep = '\n')
+            message(r, ' updated')
+        } else {
+            cat(c('\n', Rd, 'NULL'), '\n\n', file = p, sep = '\n', append = TRUE)
+            message("unmatched object '", fname, "' written into ", p)
+        }
+        message('\n')
+        flush.console()
+    }
 }
