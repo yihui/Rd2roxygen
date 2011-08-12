@@ -1,6 +1,6 @@
 \name{Rd2roxygen}
 \alias{Rd2roxygen}
-\title{Convert all the Rd files of a package to roxygen documentations}
+\title{Convert all the Rd files of a package to roxygen comments}
 \usage{
 Rd2roxygen(pkg, nomatch, usage = FALSE)
 }
@@ -29,6 +29,9 @@ Rd2roxygen(pkg, nomatch, usage = FALSE)
   ESS users may use \code{options(roxygen.comment = "##'
   ")} to ensure the generated roxygen comments begin with
   \code{"##' "}, which is the default setting in Emacs/ESS.
+
+  Re-run this function on a package will remove the
+  previous roxygen comments before functions in R scripts.
 }
 \examples{
 ## a demo package
