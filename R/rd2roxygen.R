@@ -195,7 +195,20 @@ Rd2roxygen <- function(pkg, nomatch, usage = FALSE) {
 			if (length(idx)) break
 		}
 		if (length(idx)) {
-			cat(append(r.Rd, c('\n', Rd), idx - 1), file = r, sep = '\n')
+                    if (idx <= 1) r.Rd <- c(Rd, r.Rd) else {
+                        ## remove existing roxygen comments
+                        j = 0
+                        for(i in (idx - 1):1) {
+                            if (grepl("^[#]+'", r.Rd[i])) j <- j + 1 else break
+                        }
+                        if (j > 0) {
+                            r.Rd <- r.Rd[-(idx - seq_len(j))]
+                            idx <- idx - j
+                        }
+                        r.Rd <- append(r.Rd, c('\n', Rd), idx - 1)
+                        while (r.Rd[1] %in% c('', '\n')) r.Rd = r.Rd[-1]
+                    }
+			cat(r.Rd, file = r, sep = '\n')
 			message(r, ' updated')
 		} else {
 			cat(c('\n', Rd, 'NULL'), '\n\n', file = p, sep = '\n', append = TRUE)
