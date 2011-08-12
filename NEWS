@@ -5,6 +5,12 @@ NEW FEATURES
   o a complete example of running Rd2roxygen() on a real package was
   added to ?Rd2roxygen
 
+  o re-run Rd2roxygen() on a package will remove the roxygen comments
+  in R scripts before adding new roxygen comments parsed from Rd
+  files; in old versions of this package, the old roxygen comments
+  were not removed, hence the comments were added incrementally above
+  the function objects, which was certainly not desirable
+
 MINOR CHANGES
 
   o all these forms of quotes in assignments are allowed in
