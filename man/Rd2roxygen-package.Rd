@@ -14,6 +14,24 @@ documentation and building packages}
   utilities which can help developers build packages using
   roxygen more easily (\code{\link{rab}}).
 }
+\note{
+  There is no guarantee to generate perfect roxygen
+  comments that can convert back to the original Rd files.
+  Usually manual manipulations on the roxygen comments are
+  required. For example, currently `@export` is not
+  included in the comments, and `@rdname` is not supported
+  either (users have to move the roxygen comments around
+  and add the appropriate tags by themselves). Patches are
+  welcome through GitHub:
+  \url{https://github.com/yihui/Rd2roxygen/}.
+
+  This package is not thoroughly tested, so it is likely
+  that it fails to convert certain parts of Rd files to
+  roxygen comments. As mentioned before, we have to
+  manually deal with these problems. You are welcome to
+  report other serious issues via
+  \url{https://github.com/yihui/Rd2roxygen/issues}.
+}
 \examples{
 ## see the package vignette: vignette('Rd2roxygen')
 }
