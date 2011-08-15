@@ -205,6 +205,7 @@ Rd2roxygen <- function(pkg, nomatch, usage = FALSE) {
             if (length(idx)) break
         }
         if (length(idx)) {
+            idx <- idx[1]  # only use the first match
             if (idx <= 1) r.Rd <- c(Rd, r.Rd) else {
                 ## remove existing roxygen comments
                 j = 0
