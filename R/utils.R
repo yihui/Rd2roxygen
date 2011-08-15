@@ -44,7 +44,7 @@ comment_line <- function(x, exdent = 0) {
 comment_tag <- function(tag, value) {
   if (is.null(value) || value == "" || length(value) == 0) return()
 
-  comment_line(paste(tag, value), exdent = 2)
+  comment_line(paste(tag, value), exdent = 0)
 }
 
 ## access the comment prefix
