@@ -157,7 +157,7 @@ reformat_code = function(path, ...) {
         ## tags after \examples?
         idx1 = grep(tags, rd)
         if (length(idx1) && any(idx1 > idx0))
-            idx1 = min(idx1[idx1 > idx0]) - 1 else idx1 = length(rd)
+            idx1 = min(idx1[idx1 > idx0]) - 1 else idx1 = tail(grep('\\}$', rd), 1)
         tmp = rd[idx0:idx1]
         tmp[1] = sub('^\\\\examples\\{', '', tmp[1])
         nn = length(tmp)
