@@ -91,6 +91,7 @@ roxygen_and_build = function(pkg, roxygen.dir = pkg, build = TRUE, install = FAL
         unlink(sprintf("%s/.git", roxygen.dir), recursive = TRUE)
     rd.list = list.files(file.path(roxygen.dir, "man"), ".*\\.Rd$", all.files = TRUE, full.names = TRUE)
     if (reformat) {
+        message('Reformatting usage and examples')
         for (f in rd.list) reformat_code(f)
     }
     if (build) system(sprintf("R CMD build %s ", roxygen.dir)) else return()
