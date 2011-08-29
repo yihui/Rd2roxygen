@@ -1,3 +1,13 @@
+		  CHANGES IN Rd2roxygen VERSION 1.0-5
+
+NEW FEATURES
+
+  o usage for S3 methods like \method{generic}{class}(param = value)
+  can be correctly reformatted now; in previous versions rab() will
+  ignore such usage sections
+
+
+
 		  CHANGES IN Rd2roxygen VERSION 1.0-4
 
 NEW FEATURES
