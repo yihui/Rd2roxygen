@@ -171,6 +171,7 @@ reformat_code = function(path, ...) {
         if (!inherits(txt, 'try-error')) {
             txt = gsub("(^|[^\\])%", "\\1\\\\%", txt)
             txt = gsub('tag_name_dontrun = function() {', '\\dontrun{', txt, fixed = TRUE)
+            txt = gsub('tag_name_dontrun <- function() {', '\\dontrun{', txt, fixed = TRUE)
             txt[txt == ''] = '\n'
             txt = unlist(strsplit(txt, '\n'))
             ## remove the four spaces introduced by disguising \\dontrun as a function
