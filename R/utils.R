@@ -164,13 +164,12 @@ reformat_code = function(path, ...) {
         nn = length(tmp)
         tmp[nn] = sub('\\}$', '', tmp[nn])
         txt = gsub('\\%', '%', tmp, fixed = TRUE) # will escape % later
-        txt = sub('^\\\\dontrun', 'tag_name_dontrun = function() ', txt)
+        txt = sub('^\\\\dontrun', 'tag_name_dontrun <- function() ', txt)
         txt =
             try(tidy.source(text = txt, output = FALSE, keep.blank.line = TRUE,
                             ...)$text.tidy, silent = TRUE)
         if (!inherits(txt, 'try-error')) {
             txt = gsub("(^|[^\\])%", "\\1\\\\%", txt)
-            txt = gsub('tag_name_dontrun = function() {', '\\dontrun{', txt, fixed = TRUE)
             txt = gsub('tag_name_dontrun <- function() {', '\\dontrun{', txt, fixed = TRUE)
             txt[txt == ''] = '\n'
             txt = unlist(strsplit(txt, '\n'))
