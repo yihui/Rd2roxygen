@@ -15,6 +15,11 @@
 \description{
   This is the foo function.
 }
+\section{Special Section}{
+  This is a customized \bold{section}.
+  
+  Another paragraph with a URL \url{https://github.com/yihui/Rd2roxygen}.
+}
 \examples{
 foo(1, 2)
 }
