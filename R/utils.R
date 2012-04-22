@@ -13,21 +13,21 @@ reconstruct <- function(rd) {
   if (is.null(rd)) return()
 
   if (is.list(rd)) {
-	if (length(tag(rd)) && tag(rd) %in% c('\\item', '\\tabular', '\\eqn', '\\deqn', '\\link')){
-		if (tag(rd) == '\\link')
-			return(paste('\\link', sprintf('[%s]', attr(rd, 'Rd_option')), '{', rd, '}', sep = ""))
-		if (length(rd) == 2)
-			return(paste(tag(rd), '{', rd[[1]], '}{',
-				paste(sapply(rd[[2]], reconstruct), collapse = ""),
-				'}', sep = "", collapse = "")) else if (length(rd) == 0) return(tag(rd))
-	}
-	special <- tag(rd) == toupper(tag(rd))
-	singles <- tag(rd) %in% c('\\tab', '\\cr')
-	prefix <- ifelse(special, "",
-		paste(tag(rd), ifelse(singles, "", "{"), sep = ""))
-	suffix <- ifelse(special, "", ifelse(singles, "", "}"))
-	paste(prefix, paste(sapply(rd, reconstruct), collapse = ""), suffix,
-		 sep = "")
+    if (length(tag(rd)) && tag(rd) %in% c('\\item', '\\tabular', '\\eqn', '\\deqn', '\\link')) {
+      if (tag(rd) == '\\link')
+        return(paste('\\link', sprintf('[%s]', attr(rd, 'Rd_option')), '{', rd, '}', sep = ""))
+      if (length(rd) == 2)
+        return(paste(tag(rd), '{', rd[[1]], '}{',
+                     paste(sapply(rd[[2]], reconstruct), collapse = ""),
+                     '}', sep = "", collapse = "")) else if (length(rd) == 0) return(tag(rd))
+    }
+    special <- tag(rd) == toupper(tag(rd))
+    singles <- tag(rd) %in% c('\\tab', '\\cr')
+    prefix <- ifelse(special, "",
+                     paste(tag(rd), ifelse(singles, "", "{"), sep = ""))
+    suffix <- ifelse(special, "", ifelse(singles, "", "}"))
+    paste(prefix, paste(sapply(rd, reconstruct), collapse = ""), suffix,
+          sep = "")
   } else {
     rd
   }
@@ -49,8 +49,8 @@ comment_tag <- function(tag, value) {
 
 ## access the comment prefix
 comment_prefix <- function() {
-	if (is.null(getOption("roxygen.comment")))
-				"#' " else getOption("roxygen.comment")
+  if (is.null(getOption("roxygen.comment")))
+    "#' " else getOption("roxygen.comment")
 }
 
 
@@ -85,28 +85,28 @@ comment_prefix <- function() {
 ##' rab('Rd2roxygen', install = TRUE)
 ##' }
 roxygen_and_build = function(pkg, roxygen.dir = pkg, build = TRUE, install = FALSE,
-    check = FALSE, check.opts = "", remove.check = TRUE, reformat = TRUE, ...) {
-    roxygenize(pkg, roxygen.dir, ...)
-    if (normalizePath(pkg) != normalizePath(roxygen.dir))
-        unlink(sprintf("%s/.git", roxygen.dir), recursive = TRUE)
-    rd.list = list.files(file.path(roxygen.dir, "man"), ".*\\.Rd$", all.files = TRUE, full.names = TRUE)
-    if (reformat) {
-        message('Reformatting usage and examples')
-        for (f in rd.list) reformat_code(f)
-    }
-    if (build) system(sprintf("R CMD build %s ", roxygen.dir)) else return()
-    roxygen.dir = file.path(dirname(roxygen.dir), basename(roxygen.dir))  # remove tail /
-    res =
-        if (length(ver <- grep('^Version:',
-                               readLines(file.path(pkg, 'DESCRIPTION')), value = TRUE)))
-            sprintf('%s_%s.tar.gz', basename(roxygen.dir),
-                    gsub('[[:space:]]', '', sub('^Version:', '', ver))) else roxygen.dir
-    if (build && install) system(sprintf("R CMD INSTALL %s ", res))
-    if (build && check) {
-        if ((system(sprintf("R CMD check %s %s", res, check.opts)) == 0) &&
-            remove.check) unlink(sprintf('%s.Rcheck', roxygen.dir), TRUE)
-    }
-    invisible(NULL)
+                             check = FALSE, check.opts = "", remove.check = TRUE, reformat = TRUE, ...) {
+  roxygenize(pkg, roxygen.dir, ...)
+  if (normalizePath(pkg) != normalizePath(roxygen.dir))
+    unlink(sprintf("%s/.git", roxygen.dir), recursive = TRUE)
+  rd.list = list.files(file.path(roxygen.dir, "man"), ".*\\.Rd$", all.files = TRUE, full.names = TRUE)
+  if (reformat) {
+    message('Reformatting usage and examples')
+    for (f in rd.list) reformat_code(f)
+  }
+  if (build) system(sprintf("R CMD build %s ", roxygen.dir)) else return()
+  roxygen.dir = file.path(dirname(roxygen.dir), basename(roxygen.dir))  # remove tail /
+  res =
+    if (length(ver <- grep('^Version:',
+                           readLines(file.path(pkg, 'DESCRIPTION')), value = TRUE)))
+      sprintf('%s_%s.tar.gz', basename(roxygen.dir),
+              gsub('[[:space:]]', '', sub('^Version:', '', ver))) else roxygen.dir
+  if (build && install) system(sprintf("R CMD INSTALL %s ", res))
+  if (build && check) {
+    if ((system(sprintf("R CMD check %s %s", res, check.opts)) == 0) &&
+      remove.check) unlink(sprintf('%s.Rcheck', roxygen.dir), TRUE)
+  }
+  invisible(NULL)
 }
 
 ##' @rdname roxygen_and_build
@@ -146,86 +146,86 @@ rab = roxygen_and_build
 ##' reformat_code(fmt.file)
 ##' file.show(fmt.file)  ## the formatted Rd
 reformat_code = function(path, ...) {
-    rd = readLines(path)
-    tags =
-        sprintf('^\\\\(%s)\\{',
-                paste(c("docType", "name", "alias", "title", "format", "source", "usage",
-                        "arguments", "value", "description", "details", "note", "section",
-                        "examples", "author", "references", "seealso", "concept", "keyword",
-                        "subsection"),
-                      collapse = "|"))
-    if (length(idx0 <- grep('^\\\\examples\\{', rd))) {
-        ## tags after \examples?
-        idx1 = grep(tags, rd)
-        if (length(idx1) && any(idx1 > idx0))
-            idx1 = min(idx1[idx1 > idx0]) - 1 else idx1 = tail(grep('\\}$', rd), 1)
-        tmp = rd[idx0:idx1]
-        tmp[1] = sub('^\\\\examples\\{', '', tmp[1])
-        nn = length(tmp)
-        tmp[nn] = sub('\\}$', '', tmp[nn])
-        txt = gsub('\\%', '%', tmp, fixed = TRUE) # will escape % later
-        txt = sub('^\\\\dontrun', 'tag_name_dontrun <- function() ', txt)
-        txt =
-            try(tidy.source(text = txt, output = FALSE, keep.blank.line = TRUE,
-                            ...)$text.tidy, silent = TRUE)
-        if (!inherits(txt, 'try-error')) {
-            txt = gsub("(^|[^\\])%", "\\1\\\\%", txt)
-            txt = gsub('tag_name_dontrun <- function() {', '\\dontrun{', txt, fixed = TRUE)
-            txt[txt == ''] = '\n'
-            txt = unlist(strsplit(txt, '\n'))
-            ## remove the four spaces introduced by disguising \\dontrun as a function
-            if (length(idx2 <- grep('\\dontrun{', txt, fixed = TRUE))) {
-                for (i in idx2) {
-                    j = i + 1
-                    while (txt[j] != '}') {
-                        txt[j] = sub('^    ', '', txt[j])
-                        j = j + 1
-                    }
-                }
-            }
-            txt = paste(txt, rep(c('\n', ''), c(length(txt) - 1, 1)), sep = '', collapse = '')
-            txt[1] = paste('\\examples{', txt[1], sep = '')
-            nn0 = length(txt)
-            txt[nn0] = paste(txt[nn0], '}', sep = '')
-            rd[idx0] = paste(txt, collapse = '\n')
-            if (idx1 > idx0)
-                rd = rd[-((idx0 + 1):idx1)]
-        } else {
-            message('(!) failed to reformat examples code in ', path)
-            message(paste('   ', tmp, collapse = '\n'))
+  rd = readLines(path)
+  tags =
+    sprintf('^\\\\(%s)\\{',
+            paste(c("docType", "name", "alias", "title", "format", "source", "usage",
+                    "arguments", "value", "description", "details", "note", "section",
+                    "examples", "author", "references", "seealso", "concept", "keyword",
+                    "subsection"),
+                  collapse = "|"))
+  if (length(idx0 <- grep('^\\\\examples\\{', rd))) {
+    ## tags after \examples?
+    idx1 = grep(tags, rd)
+    if (length(idx1) && any(idx1 > idx0))
+      idx1 = min(idx1[idx1 > idx0]) - 1 else idx1 = tail(grep('\\}$', rd), 1)
+    tmp = rd[idx0:idx1]
+    tmp[1] = sub('^\\\\examples\\{', '', tmp[1])
+    nn = length(tmp)
+    tmp[nn] = sub('\\}$', '', tmp[nn])
+    txt = gsub('\\%', '%', tmp, fixed = TRUE) # will escape % later
+    txt = sub('^\\\\+dontrun', 'tag_name_dontrun <- function() ', txt)
+    txt =
+      try(tidy.source(text = txt, output = FALSE, keep.blank.line = TRUE,
+                      ...)$text.tidy, silent = TRUE)
+    if (!inherits(txt, 'try-error')) {
+      txt = gsub("(^|[^\\])%", "\\1\\\\%", txt)
+      txt = gsub('tag_name_dontrun <- function() {', '\\dontrun{', txt, fixed = TRUE)
+      txt[txt == ''] = '\n'
+      txt = unlist(strsplit(txt, '\n'))
+      ## remove the four spaces introduced by disguising \\dontrun as a function
+      if (length(idx2 <- grep('\\dontrun{', txt, fixed = TRUE))) {
+        for (i in idx2) {
+          j = i + 1
+          while (txt[j] != '}') {
+            txt[j] = sub('^    ', '', txt[j])
+            j = j + 1
+          }
         }
+      }
+      txt = paste(txt, rep(c('\n', ''), c(length(txt) - 1, 1)), sep = '', collapse = '')
+      txt[1] = paste('\\examples{', txt[1], sep = '')
+      nn0 = length(txt)
+      txt[nn0] = paste(txt[nn0], '}', sep = '')
+      rd[idx0] = paste(txt, collapse = '\n')
+      if (idx1 > idx0)
+        rd = rd[-((idx0 + 1):idx1)]
+    } else {
+      message('(!) failed to reformat examples code in ', path)
+      message(paste('   ', tmp, collapse = '\n'))
     }
-    if (length(idx0 <- grep('^\\\\usage\\{', rd))) {
-        idx1 = grep(tags, rd)
-        if (length(idx1) && any(idx1 > idx0))
-            idx1 = min(idx1[idx1 > idx0]) - 1 else idx1 = length(rd)
-        tmp = rd[idx0:idx1]
-        tmp[1] = sub('^\\\\usage\\{', '', tmp[1])
-        nn = length(tmp)
-        tmp[nn] = sub('\\}$', '', tmp[nn])
-        txt = gsub('\\%', '%', tmp, fixed = TRUE) # will escape % later
-        txt = gsub('\\\\method\\{([^\\{]+)\\}\\{([^\\{]+)\\}', 'method@\\1@\\2', txt) # S3
-        txt =
-            try(tidy.source(text = txt, output = FALSE, keep.blank.line = TRUE,
-                            ...)$text.tidy, silent = TRUE)
-        if (!inherits(txt, 'try-error')) {
-            txt = gsub('method@([^@]+)@([^\\(]+)', '\\\\method{\\1}{\\2}', txt) # restore S3
-            txt = gsub("(^|[^\\])%", "\\1\\\\%", txt)
-            if (txt[1] == '') txt = txt[-1]
-            if (txt[length(txt)] == '') txt = txt[-length(txt)]
-            txt = sprintf('\\usage{\n%s\n}', paste(txt, collapse = '\n'))
-            rd[idx0] = txt
-            if (idx1 > idx0)
-                rd = rd[-((idx0 + 1):idx1)]
-        } else {
-            message('(!) failed to reformat usage code in ', path)
-            message(paste('   ', tmp, collapse = '\n'))
-        }
+  }
+  if (length(idx0 <- grep('^\\\\usage\\{', rd))) {
+    idx1 = grep(tags, rd)
+    if (length(idx1) && any(idx1 > idx0))
+      idx1 = min(idx1[idx1 > idx0]) - 1 else idx1 = length(rd)
+    tmp = rd[idx0:idx1]
+    tmp[1] = sub('^\\\\usage\\{', '', tmp[1])
+    nn = length(tmp)
+    tmp[nn] = sub('\\}$', '', tmp[nn])
+    txt = gsub('\\%', '%', tmp, fixed = TRUE) # will escape % later
+    txt = gsub('\\\\method\\{([^\\{]+)\\}\\{([^\\{]+)\\}', 'method@\\1@\\2', txt) # S3
+    txt =
+      try(tidy.source(text = txt, output = FALSE, keep.blank.line = TRUE,
+                      ...)$text.tidy, silent = TRUE)
+    if (!inherits(txt, 'try-error')) {
+      txt = gsub('method@([^@]+)@([^\\(]+)', '\\\\method{\\1}{\\2}', txt) # restore S3
+      txt = gsub("(^|[^\\])%", "\\1\\\\%", txt)
+      if (txt[1] == '') txt = txt[-1]
+      if (txt[length(txt)] == '') txt = txt[-length(txt)]
+      txt = sprintf('\\usage{\n%s\n}', paste(txt, collapse = '\n'))
+      rd[idx0] = txt
+      if (idx1 > idx0)
+        rd = rd[-((idx0 + 1):idx1)]
+    } else {
+      message('(!) failed to reformat usage code in ', path)
+      message(paste('   ', tmp, collapse = '\n'))
     }
-    ## remove trailing spaces
-    while (tail(rd, 1) == '') {
-        rd = rd[-length(rd)]
-    }
-    writeLines(rd, path)
-    flush.console()
+  }
+  ## remove trailing spaces
+  while (tail(rd, 1) == '') {
+    rd = rd[-length(rd)]
+  }
+  writeLines(rd, path)
+  flush.console()
 }
