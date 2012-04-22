@@ -29,7 +29,7 @@ reconstruct <- function(rd) {
     paste(prefix, paste(sapply(rd, reconstruct), collapse = ""), suffix,
           sep = "")
   } else {
-    rd
+    if (tag(rd) == 'TEXT') gsub('%', '\\%', rd, fixed = TRUE) else rd
   }
 }
 
