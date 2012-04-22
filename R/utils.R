@@ -16,10 +16,11 @@ reconstruct <- function(rd) {
     if (length(tag(rd)) && tag(rd) %in% c('\\item', '\\tabular', '\\eqn', '\\deqn', '\\link')) {
       if (tag(rd) == '\\link')
         return(paste('\\link', sprintf('[%s]', attr(rd, 'Rd_option')), '{', rd, '}', sep = ""))
-      if (length(rd) == 2)
+      if (length(rd) == 2) {
         return(paste(tag(rd), '{', rd[[1]], '}{',
                      paste(sapply(rd[[2]], reconstruct), collapse = ""),
-                     '}', sep = "", collapse = "")) else if (length(rd) == 0) return(tag(rd))
+                     '}', sep = "", collapse = ""))
+        } else if (length(rd) == 0) return(tag(rd))
     }
     special <- tag(rd) == toupper(tag(rd))
     singles <- tag(rd) %in% c('\\tab', '\\cr')
@@ -49,8 +50,7 @@ comment_tag <- function(tag, value) {
 
 ## access the comment prefix
 comment_prefix <- function() {
-  if (is.null(getOption("roxygen.comment")))
-    "#' " else getOption("roxygen.comment")
+  getOption("roxygen.comment", "#'")
 }
 
 
@@ -85,22 +85,24 @@ comment_prefix <- function() {
 ##' rab('Rd2roxygen', install = TRUE)
 ##' }
 roxygen_and_build = function(pkg, roxygen.dir = pkg, build = TRUE, install = FALSE,
-                             check = FALSE, check.opts = "", remove.check = TRUE, reformat = TRUE, ...) {
+                             check = FALSE, check.opts = "", remove.check = TRUE,
+                             reformat = TRUE, ...) {
   roxygenize(pkg, roxygen.dir, ...)
   if (normalizePath(pkg) != normalizePath(roxygen.dir))
     unlink(sprintf("%s/.git", roxygen.dir), recursive = TRUE)
-  rd.list = list.files(file.path(roxygen.dir, "man"), ".*\\.Rd$", all.files = TRUE, full.names = TRUE)
+  rd.list = list.files(file.path(roxygen.dir, "man"), ".*\\.Rd$", all.files = TRUE,
+                       full.names = TRUE)
   if (reformat) {
     message('Reformatting usage and examples')
     for (f in rd.list) reformat_code(f)
   }
   if (build) system(sprintf("R CMD build %s ", roxygen.dir)) else return()
   roxygen.dir = file.path(dirname(roxygen.dir), basename(roxygen.dir))  # remove tail /
-  res =
-    if (length(ver <- grep('^Version:',
-                           readLines(file.path(pkg, 'DESCRIPTION')), value = TRUE)))
-      sprintf('%s_%s.tar.gz', basename(roxygen.dir),
-              gsub('[[:space:]]', '', sub('^Version:', '', ver))) else roxygen.dir
+  ver = grep('^Version:', readLines(file.path(pkg, 'DESCRIPTION')), value = TRUE)
+  res = if (length(ver)) {
+    sprintf('%s_%s.tar.gz', basename(roxygen.dir),
+            gsub('[[:space:]]', '', sub('^Version:', '', ver)))
+  } else roxygen.dir
   if (build && install) system(sprintf("R CMD INSTALL %s ", res))
   if (build && check) {
     if ((system(sprintf("R CMD check %s %s", res, check.opts)) == 0) &&
