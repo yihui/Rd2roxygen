@@ -21,8 +21,7 @@ create_roxygen(info, usage = FALSE)
   roxygen tags.
 }
 \examples{
-rd.file = system.file("examples", "parse_and_save.Rd", 
-    package = "Rd2roxygen")
+rd.file = system.file("examples", "parse_and_save.Rd", package = "Rd2roxygen")
 options(roxygen.comment = "##' ")
 create_roxygen(parse_file(rd.file))
 }

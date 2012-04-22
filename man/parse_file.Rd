@@ -16,8 +16,7 @@ parse_file(path)
   \pkg{tools} package to parse the Rd file.
 }
 \examples{
-rd.file = system.file("examples", "parse_and_save.Rd", 
-    package = "Rd2roxygen")
+rd.file = system.file("examples", "parse_and_save.Rd", package = "Rd2roxygen")
 parse_file(rd.file)
 }
 \author{

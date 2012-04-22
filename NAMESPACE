@@ -1,7 +1,7 @@
+export(Rd2roxygen)
 export(create_roxygen)
 export(parse_and_save)
 export(parse_file)
 export(rab)
-export(Rd2roxygen)
 export(reformat_code)
 export(roxygen_and_build)

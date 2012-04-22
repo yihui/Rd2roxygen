@@ -32,8 +32,7 @@ reformat_code(path, ...)
   then escape them.
 }
 \examples{
-rd.file = system.file("examples", "reformat_code_demo.Rd", 
-    package = "Rd2roxygen")
+rd.file = system.file("examples", "reformat_code_demo.Rd", package = "Rd2roxygen")
 file.copy(rd.file, tempdir())
 fmt.file = file.path(tempdir(), "reformat_code_demo.Rd")
 
