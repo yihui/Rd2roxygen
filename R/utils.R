@@ -20,7 +20,7 @@ reconstruct <- function(rd) {
         return(paste(tag(rd), '{', rd[[1]], '}{',
                      paste(sapply(rd[[2]], reconstruct), collapse = ""),
                      '}', sep = "", collapse = ""))
-        } else if (length(rd) == 0) return(tag(rd))
+      } else if (length(rd) == 0) return(tag(rd))
     }
     special <- tag(rd) == toupper(tag(rd))
     singles <- tag(rd) %in% c('\\tab', '\\cr')
