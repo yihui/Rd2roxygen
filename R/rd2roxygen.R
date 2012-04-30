@@ -60,13 +60,10 @@ parse_file <- function(path) {
 
   # Pull apart general return value description and return items
   value <- rd$value
-  isItem <- sapply(value, is.list)
-  items <- value[isItem]
-  out$value <- reconstruct(untag(value[!isItem]))
+  is.item <- sapply(value, tag) == "\\item"
+  out$value <- reconstruct(untag(value[!is.item]))
   # Pull apart return items
-  items <- items[sapply(items, tag) != "TEXT"]
-  out$valueItems <- unlist(sapply(items, function(item) {
-    if (!isTRUE(tag(item) == '\\item')) return(NULL)
+  out$valueItems <- unlist(sapply(value[is.item], function(item) {
     paste(if (tag(item[[1]][[1]]) == "\\dots")
         "\\dots" else gsub(' +', '', item[[1]]),
     reconstruct(item[[2]]))
