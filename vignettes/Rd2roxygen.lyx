@@ -463,12 +463,12 @@ status open
 
 \begin_layout Plain Layout
 
-<<reformat-ex1,echo=FALSE>>=
+<<reformat-ex1,eval=FALSE,tidy=FALSE>>=
 \end_layout
 
 \begin_layout Plain Layout
 
-cat("## original code
+## original code
 \end_layout
 
 \begin_layout Plain Layout
@@ -478,9 +478,7 @@ rab=function(pkg,roxygen.dir=pkg,build=TRUE,install=FALSE,
 
 \begin_layout Plain Layout
 
-check=FALSE,check.opts='',remove.check=TRUE,reformat=TRUE,...){}",'
-\backslash
-n')
+check=FALSE,check.opts='',remove.check=TRUE,reformat=TRUE,...){}
 \end_layout
 
 \begin_layout Plain Layout
