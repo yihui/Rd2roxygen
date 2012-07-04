@@ -146,7 +146,7 @@ system.file('doc', 'formatR.lyx', package='formatR')
 @
 
 Instructions on how to use \textbf{knitr} with \LyX{} can be found
-at \url{https://github.com/yihui/lyx}.
+at \url{http://yihui.name/knitr/demo/lyx/}.
 
 <<write-bib, include=FALSE>>=
 # automatically write the bibliography database
