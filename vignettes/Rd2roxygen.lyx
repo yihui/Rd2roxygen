@@ -122,14 +122,12 @@ status open
 
 \begin_layout Plain Layout
 
-% 
-\backslash
-SweaveOpts{comment=,message=FALSE}
+<<setup, echo=FALSE>>=
 \end_layout
 
 \begin_layout Plain Layout
 
-<<setup, echo=FALSE>>=
+opts_chunk$set(comment=NA, message=FALSE)
 \end_layout
 
 \begin_layout Plain Layout
