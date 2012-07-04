@@ -578,7 +578,17 @@ status open
 
 \begin_layout Plain Layout
 
-system.file('doc', 'formatR.lyx', package='formatR')
+system.file('doc', 'Rd2roxygen.lyx', package='Rd2roxygen')
+\end_layout
+
+\begin_layout Plain Layout
+
+# the corresponding Rnw source
+\end_layout
+
+\begin_layout Plain Layout
+
+system.file('doc', 'Rd2roxygen.Rnw', package='Rd2roxygen')
 \end_layout
 
 \begin_layout Plain Layout

@@ -142,7 +142,9 @@ it looks different from other Sweave-based vignettes. The answer is
 can be found here:
 
 <<lyx-doc, eval=FALSE>>=
-system.file('doc', 'formatR.lyx', package='formatR')
+system.file('doc', 'Rd2roxygen.lyx', package='Rd2roxygen')
+# the corresponding Rnw source
+system.file('doc', 'Rd2roxygen.Rnw', package='Rd2roxygen')
 @
 
 Instructions on how to use \textbf{knitr} with \LyX{} can be found
