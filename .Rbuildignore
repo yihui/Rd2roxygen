@@ -1,2 +1,3 @@
 clean-up.R
 ^\.Rproj\.user$
+Rd2roxygen\.Rproj
