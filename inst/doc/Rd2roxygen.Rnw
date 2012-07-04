@@ -42,7 +42,7 @@ and utilities to enhance R documentation}
 
 \maketitle
 <<setup, echo=FALSE>>=
-opts_chunk$set(comment=NA, message=FALSE)
+if (require('knitr')) opts_chunk$set(comment=NA, message=FALSE)
 options(keep.blank.line = FALSE, width=80)
 @
 

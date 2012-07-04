@@ -127,7 +127,7 @@ status open
 
 \begin_layout Plain Layout
 
-opts_chunk$set(comment=NA, message=FALSE)
+if (require('knitr')) opts_chunk$set(comment=NA, message=FALSE)
 \end_layout
 
 \begin_layout Plain Layout
