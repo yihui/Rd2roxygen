@@ -132,7 +132,7 @@ opts_chunk$set(comment=NA, message=FALSE)
 
 \begin_layout Plain Layout
 
-options(keep.blank.line = FALSE, width=90)
+options(keep.blank.line = FALSE, width=80)
 \end_layout
 
 \begin_layout Plain Layout
