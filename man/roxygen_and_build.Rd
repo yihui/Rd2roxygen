@@ -4,9 +4,9 @@
 \title{Roxygenize a package, clean up and build/check the package}
 \usage{
 roxygen_and_build(pkg, roxygen.dir = pkg, build = TRUE, install = FALSE, check = FALSE, 
-    check.opts = "", remove.check = TRUE, reformat = TRUE, ...)
+    check.opts = "--as-cran", remove.check = TRUE, reformat = TRUE, ...)
 
-rab(pkg, roxygen.dir = pkg, build = TRUE, install = FALSE, check = FALSE, check.opts = "", 
+rab(pkg, roxygen.dir = pkg, build = TRUE, install = FALSE, check = FALSE, check.opts = "--as-cran", 
     remove.check = TRUE, reformat = TRUE, ...)
 }
 \arguments{
