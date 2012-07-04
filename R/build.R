@@ -101,15 +101,15 @@ reformat_code = function(path, ...) {
     nn = length(tmp)
     tmp[nn] = sub('\\}$', '', tmp[nn])
     txt = gsub('\\%', '%', tmp, fixed = TRUE) # will escape % later
-    txt = sub('^\\\\+dontrun', 'tag_name_dontrun <- function() ', txt)
+    txt = sub('^\\\\+dont(run|test|show)', 'tag_name_dont\\1 <- function() ', txt)
     txt = try(tidy.source(text = txt, output = FALSE, ...)$text.tidy)
     if (!inherits(txt, 'try-error')) {
       txt = gsub("(^|[^\\])%", "\\1\\\\%", txt)
-      txt = gsub('tag_name_dontrun <- function() {', '\\dontrun{', txt, fixed = TRUE)
+      txt = gsub('tag_name_dont(run|test|show) <- function\\(\\) \\{', '\\\\dont\\1{', txt)
       txt[txt == ''] = '\n'
       txt = unlist(strsplit(txt, '\n'))
       # remove the four spaces introduced by disguising \\dontrun as a function
-      if (length(idx2 <- grep('\\dontrun{', txt, fixed = TRUE))) {
+      if (length(idx2 <- grep('\\\\dont(run|test|show)\\{', txt))) {
         for (i in idx2) {
           j = i + 1
           while (txt[j] != '}') {
