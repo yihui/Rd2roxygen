@@ -98,11 +98,8 @@ roxygen_and_build = function(pkg, roxygen.dir = pkg, build = TRUE, install = FAL
   }
   if (build) system(sprintf("R CMD build %s ", roxygen.dir)) else return()
   roxygen.dir = file.path(dirname(roxygen.dir), basename(roxygen.dir))  # remove tail /
-  ver = grep('^Version:', readLines(file.path(pkg, 'DESCRIPTION')), value = TRUE)
-  res = if (length(ver)) {
-    sprintf('%s_%s.tar.gz', basename(roxygen.dir),
-            gsub('[[:space:]]', '', sub('^Version:', '', ver)))
-  } else roxygen.dir
+  ver = drop(read.dcf(file.path(pkg, 'DESCRIPTION'), fields='Version'))
+  res = sprintf('%s_%s.tar.gz', basename(roxygen.dir), ver)
   if (build && install) system(sprintf("R CMD INSTALL %s ", res))
   if (build && check) {
     if ((system(sprintf("R CMD check %s %s", res, check.opts)) == 0) &&
