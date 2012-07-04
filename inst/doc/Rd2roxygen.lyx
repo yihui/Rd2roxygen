@@ -564,7 +564,18 @@ key "R-knitr"
 \end_inset
 
 .
- The real vignette is in LyX, which can be found here:
+ The real vignette is in LyX, which can be found at 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+https://github.com/yihui/Rd2roxygen/tree/master/inst/doc
+\end_layout
+
+\end_inset
+
+, and the corresponding Rnw source is here:
 \end_layout
 
 \begin_layout Standard
@@ -574,16 +585,6 @@ status open
 \begin_layout Plain Layout
 
 <<lyx-doc, eval=FALSE>>=
-\end_layout
-
-\begin_layout Plain Layout
-
-system.file('doc', 'Rd2roxygen.lyx', package='Rd2roxygen')
-\end_layout
-
-\begin_layout Plain Layout
-
-# the corresponding Rnw source
 \end_layout
 
 \begin_layout Plain Layout
