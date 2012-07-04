@@ -85,7 +85,7 @@ comment_prefix <- function() {
 ##' rab('Rd2roxygen', install = TRUE)
 ##' }
 roxygen_and_build = function(pkg, roxygen.dir = pkg, build = TRUE, install = FALSE,
-                             check = FALSE, check.opts = "", remove.check = TRUE,
+                             check = FALSE, check.opts = "--as-cran", remove.check = TRUE,
                              reformat = TRUE, ...) {
   roxygenize(pkg, roxygen.dir, ...)
   if (normalizePath(pkg) != normalizePath(roxygen.dir))
