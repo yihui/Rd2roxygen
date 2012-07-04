@@ -10,7 +10,7 @@ Authors@R: c(person("Hadley", "Wickham", email =
     "cre")))
 Author: Hadley Wickham and Yihui Xie
 Maintainer: Yihui Xie <xie@yihui.name>
-Depends:
+Imports:
     roxygen2 (>= 2.1),
     formatR
 Description: Functions to convert Rd to roxygen
