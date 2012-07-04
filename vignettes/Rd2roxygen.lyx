@@ -611,6 +611,36 @@ https://github.com/yihui/lyx
 \end_layout
 
 \begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<write-bib, include=FALSE>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+# automatically write the bibliography database
+\end_layout
+
+\begin_layout Plain Layout
+
+if (require('knitr')) write_bib(c('Rd2roxygen', 'roxygen2', 'formatR', 'knitr'),
+ file = 'Rd2roxygen.bib')
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 \begin_inset CommandInset bibtex
 LatexCommand bibtex
 bibfiles "Rd2roxygen"
