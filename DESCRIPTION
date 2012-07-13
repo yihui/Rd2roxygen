@@ -4,9 +4,9 @@ Title: Convert Rd to roxygen documentation and utilities to improve
     documentation
 Version: 1.1
 Date: 2011-11-21
-Authors@R: c(person("Hadley", "Wickham", email =
-    "h.wickham@gmail.com", role = "aut"), person("Yihui",
-    "Xie", email = "xie@yihui.name", role = c("aut", "cre")))
+Authors@R: c(person("Hadley", "Wickham", email = "h.wickham@gmail.com", role =
+    "aut"), person("Yihui", "Xie", email = "xie@yihui.name", role = c("aut",
+    "cre")))
 Author: Hadley Wickham and Yihui Xie
 Maintainer: Yihui Xie <xie@yihui.name>
 Imports:
