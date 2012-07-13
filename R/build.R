@@ -29,8 +29,6 @@ roxygen_and_build = function(pkg, roxygen.dir = pkg, build = TRUE, install = FAL
                              check = FALSE, check.opts = "--as-cran", remove.check = TRUE,
                              reformat = TRUE, ...) {
   roxygenize(pkg, roxygen.dir, ...)
-  if (normalizePath(pkg) != normalizePath(roxygen.dir))
-    unlink(sprintf("%s/.git", roxygen.dir), recursive = TRUE)
   rd.list = list.files(file.path(roxygen.dir, "man"), ".*\\.Rd$", all.files = TRUE,
                        full.names = TRUE)
   if (reformat) {
