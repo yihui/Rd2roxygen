@@ -38,8 +38,8 @@ roxygen_and_build = function(pkg, roxygen.dir = pkg, build = TRUE, install = FAL
   if (build) system(sprintf("R CMD build %s ", roxygen.dir)) else return()
   pv = read.dcf(file.path(pkg, 'DESCRIPTION'), fields=c('Package', 'Version'))
   res = sprintf('%s_%s.tar.gz', pv[1, 1], pv[1, 2])
-  if (build && install) system(sprintf("R CMD INSTALL %s ", res))
-  if (build && check) {
+  if (install) system(sprintf("R CMD INSTALL %s ", res))
+  if (check) {
     if ((system(sprintf("R CMD check %s %s", res, check.opts)) == 0) &&
       remove.check) unlink(sprintf('%s.Rcheck', roxygen.dir), TRUE)
   }
