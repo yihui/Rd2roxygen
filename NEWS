@@ -2,6 +2,10 @@
 
 NEW FEATURES
 
+  o \item{} in the \value{} section will be formatted as the
+  @returnItem tag, which is a new tag in roxygen2 (> 2.2.2) (#8)
+  (thanks, Andreas Alfons)
+
   o R code in \dontrun{}, \dontshow{} and \donttest{} can be
   reformatted by formatR now
 
