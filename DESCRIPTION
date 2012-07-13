@@ -22,7 +22,7 @@ Description: Functions to convert Rd to roxygen documentation. It can parse an
     to reformat the R code in the examples sections so that the code will be
     more readable.
 License: GPL
-URL: https://github.com/yihui/Rd2roxygen
+URL: http://yihui.name/Rd2roxygen
 BugReports: https://github.com/yihui/Rd2roxygen/issues
 Collate:
     'Rd2roxygen-package.R'
