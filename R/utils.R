@@ -50,5 +50,5 @@ comment_tag <- function(tag, value) {
 
 ## access the comment prefix
 comment_prefix <- function() {
-  getOption("roxygen.comment", "#'")
+  getOption("roxygen.comment", "#' ")
 }
