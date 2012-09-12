@@ -2,7 +2,7 @@ Package: Rd2roxygen
 Type: Package
 Title: Convert Rd to roxygen documentation and utilities to improve
     documentation
-Version: 1.1.2
+Version: 1.1.3
 Date: 2012-07-12
 Authors@R: c(person("Hadley", "Wickham", email = "h.wickham@gmail.com", role =
     "aut"), person("Yihui", "Xie", email = "xie@yihui.name", role = c("aut",
