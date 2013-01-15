@@ -117,7 +117,9 @@ create_roxygen <- function(info, usage = FALSE) {
               gsub("\n", paste("\n", comment_prefix(), sep = ""),
                    info$examples),
               sep = ""))
-    }, "\n")
+    },
+    if (!is.null(info$docType) && (info$docType %in% c('package', 'data')))
+      "NULL", "\n")
 }
 
 #' Parse the input Rd file and save the roxygen documentation into a file
@@ -222,7 +224,8 @@ Rd2roxygen <- function(pkg, nomatch, usage = FALSE) {
       cat(r.Rd, file = r, sep = '\n')
       message(r, ' updated')
     } else {
-      cat(c('\n', Rd, 'NULL'), '\n\n', file = p, sep = '\n', append = TRUE)
+      if (tail(Rd, 1) != 'NULL') Rd <- c(Rd, 'NULL')
+      cat(c('\n', Rd), '\n\n', file = p, sep = '\n', append = TRUE)
       message("unmatched object '", fname, "' written into ", p)
     }
     message('\n')
