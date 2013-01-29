@@ -231,4 +231,26 @@ Rd2roxygen <- function(pkg, nomatch, usage = FALSE) {
     message('\n')
     flush.console()
   }
+  
+  ## post-parsing: add @export tags to all functions exported from NAMESPACE
+  NAMESPACE <- readLines("NAMESPACE")
+  
+  exported_fns <- grep( "^export\\(", NAMESPACE, value=TRUE )
+  exported_fn_names <- gsub( "export\\((.*)\\)", "\\1", exported_fns )
+  fn_match_re <- paste("^", exported_fn_names, " ?<- ?", sep="")
+  
+  R_files <- grep( "\\.[rR]$", list.files("./R", full.names=TRUE), value=TRUE )
+  
+  for( file in R_files ) {
+    doc <- readLines( file )
+    for( i in seq_along(doc) ) {
+      if( any( sapply( fn_match_re, function(x) {
+        length( grep( x, doc[i] ) ) > 0
+      } ) ) ) {
+        doc[i] <- paste( comment_tag("@export"), doc[i], sep="\n" )
+      }
+    }
+    writeLines( doc, file )
+  }
+  
 }
