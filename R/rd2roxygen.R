@@ -144,6 +144,9 @@ parse_and_save <- function(path, file, usage = FALSE) {
 #' the man directory and update the corresponding R source code by inserting
 #' roxygen documentation in to the R scripts.
 #' @param pkg the root directory of the package
+#' @param export one of "none", "all", or "namespace"; if "none", the \code{export} 
+#' tag is not added to any functions; if "all", adds \code{export} to all documented functions;
+#' if "namespace", adds \code{export} to functions explicitly exported in the existing NAMESPACE
 #' @param nomatch the file name (base name only) to use when an object in the Rd
 #'   file is not found in any R source files (typically this happens to the data
 #'   documentation); if not specified, the default will be `pkg'-package.R
@@ -174,7 +177,7 @@ parse_and_save <- function(path, file, usage = FALSE) {
 #' file.show('pkgDemo/R/foo.R')  # what happened to foo.R and bar.R?
 #'
 #' setwd(od)  # restore working directory
-Rd2roxygen <- function(pkg, nomatch, usage = FALSE) {
+Rd2roxygen <- function(pkg, nomatch, export = "none", usage = FALSE) {
   if (!all(c('man', 'R') %in% list.files(pkg)))
     stop("'pkg' has to be the root directory of a source package")
   man.dir <- file.path(pkg, 'man')
@@ -228,6 +231,46 @@ Rd2roxygen <- function(pkg, nomatch, usage = FALSE) {
       cat(c('\n', Rd), '\n\n', file = p, sep = '\n', append = TRUE)
       message("unmatched object '", fname, "' written into ", p)
     }
+    ### exporting functions
+    ### https://github.com/yihui/Rd2roxygen/issues/10
+    if(!export %in% c("none", "any", "namespace")){
+      message("export setting", export, "not implemented")
+    }
+    if(export == "none"){
+      message("no functions will be exported; need to manually add @export to exported functions")
+      if(export == "all"){
+        ### export all functions by default; https://gist.github.com/4666066
+        for( file in list.files(file.path(pkg, "./R"), full.names = TRUE)) {
+          doc <- scan( what=character(), sep="\n", file, blank.lines.skip = FALSE)
+          returns <- which(!grepl("returnItem", doc) & grepl("@return", doc))
+          if(length(returns) > 0){
+            doc[returns] <- gsub("##' @return", paste("##' @export\n##' @return"), doc[returns])
+            doc <- paste(doc, collapse="\n")
+            cat(doc, file = file)
+          }
+        }
+        if (export == "namespace"){
+          ## from github user cdrv and http://stackoverflow.com/a/14587886/513006
+          NAMESPACE <- readLines("NAMESPACE")
+          exported_fns <- grep( "^export\\(", NAMESPACE, value=TRUE )
+          exported_fn_names <- gsub( "export\\((.*)\\)", "\\1", exported_fns )
+          fn_match_re <- paste("^", exported_fn_names, " ?<- ?", sep="")
+          
+          for( file in list.files("./R", full.names=TRUE) ) {
+            doc <- readLines( file )
+            for( i in seq_along(doc) ) {
+              if( any( sapply( fn_match_re, function(x) {
+                length( grep( x, doc[i] ) ) > 0
+              } ) ) ) {
+                doc[i] <- paste( "##' @export", doc[i], sep="\n" )
+              }
+            }
+            writeLines( doc, file )
+          }
+        }
+      }
+      
+    }  
     message('\n')
     flush.console()
   }
