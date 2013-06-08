@@ -5,6 +5,7 @@
 \textclass article
 \begin_preamble
 %\VignetteIndexEntry{Rd2roxygen: Convert Rd to roxygen documentation and utilities to enhance R documentation}
+% \VignetteEngine{knitr}
 \end_preamble
 \use_default_options false
 \begin_modules
@@ -127,7 +128,12 @@ status open
 
 \begin_layout Plain Layout
 
-if (require('knitr')) opts_chunk$set(comment=NA, message=FALSE)
+library('knitr')
+\end_layout
+
+\begin_layout Plain Layout
+
+opts_chunk$set(comment=NA, message=FALSE)
 \end_layout
 
 \begin_layout Plain Layout
@@ -637,8 +643,8 @@ status open
 
 \begin_layout Plain Layout
 
-if (require('knitr')) write_bib(c('Rd2roxygen', 'roxygen2', 'formatR', 'knitr'),
- file = 'Rd2roxygen.bib')
+write_bib(c('Rd2roxygen', 'roxygen2', 'formatR', 'knitr'), file = 'Rd2roxygen.bib
+')
 \end_layout
 
 \begin_layout Plain Layout

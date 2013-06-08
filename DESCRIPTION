@@ -24,6 +24,7 @@ Description: Functions to convert Rd to roxygen documentation. It can parse an
 License: GPL
 URL: http://yihui.name/Rd2roxygen
 BugReports: https://github.com/yihui/Rd2roxygen/issues
+VignetteBuilder: knitr
 Collate:
     'Rd2roxygen-package.R'
     'rd2roxygen.R'

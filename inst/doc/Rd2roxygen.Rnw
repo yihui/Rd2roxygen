@@ -26,6 +26,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
 %\VignetteIndexEntry{Rd2roxygen: Convert Rd to roxygen documentation and utilities to enhance R documentation}
+% \VignetteEngine{knitr}
 
 \makeatother
 
@@ -42,7 +43,8 @@ and utilities to enhance R documentation}
 
 \maketitle
 <<setup, echo=FALSE>>=
-if (require('knitr')) opts_chunk$set(comment=NA, message=FALSE)
+library('knitr')
+opts_chunk$set(comment=NA, message=FALSE)
 options(keep.blank.line = FALSE, width=80)
 @
 
@@ -151,7 +153,7 @@ at \url{http://yihui.name/knitr/demo/lyx/}.
 
 <<write-bib, include=FALSE>>=
 # automatically write the bibliography database
-if (require('knitr')) write_bib(c('Rd2roxygen', 'roxygen2', 'formatR', 'knitr'), file = 'Rd2roxygen.bib')
+write_bib(c('Rd2roxygen', 'roxygen2', 'formatR', 'knitr'), file = 'Rd2roxygen.bib')
 @
 
 \bibliographystyle{jss}
