@@ -88,7 +88,7 @@ parse_file <- function(path) {
 #' options(roxygen.comment = "##' ")
 #' create_roxygen(parse_file(rd.file))
 create_roxygen <- function(info, usage = FALSE) {
-  c(comment_line(info$title),
+  res <- c(comment_line(info$title),
     comment_line(),
     comment_line(info$desc),
     comment_line(),
@@ -120,6 +120,8 @@ create_roxygen <- function(info, usage = FALSE) {
     },
     if (!is.null(info$docType) && (info$docType %in% c('package', 'data')))
       "NULL", "\n")
+  # remove empty lines
+  res[grep("^\\s*$", res, invert = TRUE)]
 }
 
 #' Parse the input Rd file and save the roxygen documentation into a file
