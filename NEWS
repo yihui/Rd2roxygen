@@ -4,6 +4,10 @@ MINOR CHANGES
 
   o added NULL to create_roxygen() when docType is data or package (#9)
 
+  o Rd2roxygen() tries to add the @export tags according to the
+  exported names in the NAMESPACE (#10, #11 and #12)
+
+
 		  CHANGES IN Rd2roxygen VERSION 1.1
 
 NEW FEATURES

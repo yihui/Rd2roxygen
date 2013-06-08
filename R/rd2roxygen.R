@@ -139,6 +139,20 @@ parse_and_save <- function(path, file, usage = FALSE) {
     cat(paste(output, collapse = "\n"), file = file)
 }
 
+# a simple-minded function to extract exported names in NAMESPACE; it only
+# considers export(*), and other objects like S3method(), import() and
+# useDynlib() are all ignored
+exported_names <- function(pkg) {
+  if (require(basename(pkg), character.only = TRUE))
+    return(ls(paste('package', basename(pkg), sep = ':'), all.names = TRUE))
+  if (!file.exists(f <- file.path(pkg, 'NAMESPACE'))) {
+    warning('the package ', pkg, ' does not have a NAMESPACE')
+    return()
+  }
+  NAMESPACE <- readLines(f)
+  exported <- grep('^\\s*export\\(.+\\)\\s*$', NAMESPACE, value = TRUE)
+  gsub('^\\s*export\\((.+)\\)\\s*$', '\\1', exported)
+}
 
 #' Convert all the Rd files of a package to roxygen comments
 #'
@@ -185,6 +199,7 @@ Rd2roxygen <- function(pkg, nomatch, usage = FALSE) {
   if (missing(nomatch))
     nomatch <- paste(basename(pkg), '-package.R', sep = '')
   unlink(p <- file.path(R.dir, nomatch))
+  namespace <- exported_names(pkg)
   for (f in files) {
     timestamp()
     parsed <- parse_file(file.path(man.dir, f))
@@ -206,7 +221,11 @@ Rd2roxygen <- function(pkg, nomatch, usage = FALSE) {
                   (r.Rd <- readLines(r, warn = FALSE)))
       message('  ', i, ': ', appendLF = FALSE)
       message(ifelse(length(idx), paste('line', idx), 'not found'))
-      if (length(idx)) break
+      if (length(idx)) {
+        # add @export to roxygen comments
+        if (fname %in% namespace) Rd <- c(Rd, comment_tag('@export', fname))
+        break
+      }
     }
     if (length(idx)) {
       idx <- idx[1]  # only use the first match
