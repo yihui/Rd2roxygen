@@ -13,7 +13,7 @@
 #' @author Hadley Wickham and Yihui Xie
 #' @note There is no guarantee to generate perfect roxygen comments that can
 #'   convert back to the original Rd files. Usually manual manipulations on the
-#'   roxygen comments are required. For example, currently `@@export` is not
+#'   roxygen comments are required. For example, currently `@@S3method` is not
 #'   included in the comments, and `@@rdname` is not supported either (users
 #'   have to move the roxygen comments around and add the appropriate tags by
 #'   themselves). Patches are welcome through GitHub:
