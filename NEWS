@@ -1,11 +1,15 @@
 		  CHANGES IN Rd2roxygen VERSION 1.2
 
-MINOR CHANGES
+NEW FEATURES
 
   o added NULL to create_roxygen() when docType is data or package (#9)
 
   o Rd2roxygen() tries to add the @export tags according to the
   exported names in the NAMESPACE (#10, #11 and #12)
+
+
+
+MINOR CHANGES
 
   o the package vignette is built with knitr alone now (under R 3.0.x)
 
