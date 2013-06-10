@@ -7,7 +7,8 @@ NEW FEATURES
   o Rd2roxygen() tries to add the @export tags according to the
   exported names in the NAMESPACE (#10, #11 and #12)
 
-
+  o when reformatting usage and example sections, rab() tries to
+  make code width smaller than 90, as required by R CMD check
 
 MINOR CHANGES
 

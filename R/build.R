@@ -99,7 +99,7 @@ reformat_code = function(path, ...) {
     tmp[nn] = sub('\\}$', '', tmp[nn])
     txt = gsub('\\%', '%', tmp, fixed = TRUE) # will escape % later
     txt = sub('^\\\\+dont(run|test|show)', 'tag_name_dont\\1 <- function() ', txt)
-    txt = try(tidy.source(text = txt, output = FALSE, ...)$text.tidy)
+    txt = tidy.code(txt, ...)
     if (!inherits(txt, 'try-error')) {
       txt = gsub("(^|[^\\])%", "\\1\\\\%", txt)
       txt = gsub('tag_name_dont(run|test|show) <- function\\(\\) \\{', '\\\\dont\\1{', txt)
@@ -136,7 +136,7 @@ reformat_code = function(path, ...) {
     tmp[nn] = sub('\\}$', '', tmp[nn])
     txt = gsub('\\%', '%', tmp, fixed = TRUE) # will escape % later
     txt = gsub('\\\\method\\{([^\\{]+)\\}\\{([^\\{]+)\\}', '`method@\\1@\\2`', txt) # S3
-    txt = try(tidy.source(text = txt, output = FALSE, ...)$text.tidy)
+    txt = tidy.code(txt, ...)
     if (!inherits(txt, 'try-error')) {
       txt = gsub('`method@([^@]+)@([^`]+)`', '\\\\method{\\1}{\\2}', txt) # restore S3
       txt = gsub("(^|[^\\])%", "\\1\\\\%", txt)
@@ -154,4 +154,19 @@ reformat_code = function(path, ...) {
   while (tail(rd, 1) == '') rd = rd[-length(rd)]
   writeLines(rd, path)
   flush.console()
+}
+
+tidy.code = function(code, ...) {
+  res = try(tidy.source(text = code, output = FALSE, width.cutoff = 80, ...)$text.tidy)
+  if (inherits(res, 'try-error')) return(res)
+  i = 1
+  # R CMD check requires code width to be less than 90
+  while (any(nchar(unlist(strsplit(res, '\n'))) >= 90) && i <= 30) {
+    res = tidy.source(text = code, output = FALSE, width.cutoff = 80 - i, ...)$text.tidy
+    i = i + 1
+  }
+  if (i > 30) {
+    warning('unable to make code width smaller than 90')
+    code
+  } else res
 }
