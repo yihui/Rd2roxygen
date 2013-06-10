@@ -6,8 +6,8 @@
 roxygen_and_build(pkg, roxygen.dir = pkg, build = TRUE, install = FALSE, check = FALSE, 
     check.opts = "--as-cran", remove.check = TRUE, reformat = TRUE, ...)
 
-rab(pkg, roxygen.dir = pkg, build = TRUE, install = FALSE, check = FALSE, check.opts = "--as-cran", 
-    remove.check = TRUE, reformat = TRUE, ...)
+rab(pkg, roxygen.dir = pkg, build = TRUE, install = FALSE, check = FALSE, 
+    check.opts = "--as-cran", remove.check = TRUE, reformat = TRUE, ...)
 }
 \arguments{
   \item{pkg}{the root directory of the source package}
