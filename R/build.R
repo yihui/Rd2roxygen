@@ -166,7 +166,8 @@ tidy.code = function(code, ...) {
     i = i + 1
   }
   if (i > 30) {
-    warning('unable to make code width smaller than 90')
+    warning('unable to make code width smaller than 90', immediate. = TRUE)
+    cat(code, sep = '\n')
     code
   } else res
 }
