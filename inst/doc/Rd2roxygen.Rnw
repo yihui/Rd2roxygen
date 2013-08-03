@@ -26,7 +26,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
 %\VignetteIndexEntry{Rd2roxygen: Convert Rd to roxygen documentation and utilities to enhance R documentation}
-% \VignetteEngine{knitr}
+% \VignetteEngine{knitr::knitr}
 
 \makeatother
 
