@@ -161,11 +161,11 @@ tidy.code = function(code, ...) {
   if (inherits(res, 'try-error')) return(res)
   i = 1
   # R CMD check requires code width to be less than 90
-  while (any(nchar(unlist(strsplit(res, '\n'))) >= 90) && i <= 30) {
+  while (any(nchar(unlist(strsplit(res, '\n'))) >= 90) && i <= 40) {
     res = tidy.source(text = code, output = FALSE, width.cutoff = 90 - i, ...)$text.tidy
     i = i + 1
   }
-  if (i > 30) {
+  if (i > 40) {
     warning('unable to make code width smaller than 90', immediate. = TRUE)
     cat(code, sep = '\n')
     code
