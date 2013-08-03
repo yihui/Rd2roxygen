@@ -11,7 +11,7 @@ Author: Hadley Wickham and Yihui Xie
 Maintainer: Yihui Xie <xie@yihui.name>
 Imports:
     roxygen2 (>= 2.1),
-    formatR
+    formatR (> 0.8)
 Suggests:
     knitr
 Description: Functions to convert Rd to roxygen documentation. It can parse an
