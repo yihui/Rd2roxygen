@@ -141,7 +141,7 @@ on screen.
 You might be curious about how this vignette was generated, because
 it looks different from other Sweave-based vignettes. The answer is
 \textbf{knitr} \citep{R-knitr}. The real vignette is in \LyX{}, which
-can be found at \url{https://github.com/yihui/Rd2roxygen/tree/master/inst/doc},
+can be found at \url{https://github.com/yihui/Rd2roxygen/tree/master/vignettes},
 and the corresponding Rnw source is here:
 
 <<lyx-doc, eval=FALSE>>=
