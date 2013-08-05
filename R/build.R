@@ -99,7 +99,7 @@ reformat_code = function(path, ...) {
     tmp[nn] = sub('\\}$', '', tmp[nn])
     txt = gsub('\\%', '%', tmp, fixed = TRUE) # will escape % later
     txt = sub('^\\\\+dont(run|test|show)', 'tag_name_dont\\1 <- function() ', txt)
-    txt = tidy.code(txt, ..., add.blank = TRUE)
+    txt = tidy.code(txt, ...)
     if (!inherits(txt, 'try-error')) {
       txt = gsub("(^|[^\\])%", "\\1\\\\%", txt)
       txt = gsub('tag_name_dont(run|test|show) <- function\\(\\) \\{', '\\\\dont\\1{', txt)
@@ -156,7 +156,7 @@ reformat_code = function(path, ...) {
   flush.console()
 }
 
-tidy.code = function(code, ..., add.blank = FALSE) {
+tidy.code = function(code, ...) {
   res = try(tidy.source(text = code, output = FALSE, width.cutoff = 80, ...)$text.tidy)
   if (inherits(res, 'try-error')) return(res)
   i = 1
@@ -169,5 +169,5 @@ tidy.code = function(code, ..., add.blank = FALSE) {
     warning('unable to make code width smaller than 90', immediate. = TRUE)
     cat(code, sep = '\n')
     code
-  } else if (add.blank) c('', res, '') else res
+  } else res
 }
