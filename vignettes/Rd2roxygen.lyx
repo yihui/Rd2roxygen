@@ -4,7 +4,7 @@
 \begin_header
 \textclass article
 \begin_preamble
-%\VignetteIndexEntry{Rd2roxygen: Convert Rd to roxygen documentation and utilities to enhance R documentation}
+% \VignetteIndexEntry{Rd2roxygen: Convert Rd to roxygen documentation and utilities to enhance R documentation}
 % \VignetteEngine{knitr::knitr}
 \end_preamble
 \use_default_options false
