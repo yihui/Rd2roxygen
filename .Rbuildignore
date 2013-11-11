@@ -1,5 +1,4 @@
 ^\.Rproj\.user$
 Rd2roxygen\.Rproj
 ^.*\.Rproj$
-readme.md
 ^\.travis\.yml$
