@@ -25,9 +25,10 @@
 #' ## or simply
 #' rab('Rd2roxygen', install = TRUE)
 #' }
-roxygen_and_build = function(pkg, roxygen.dir = pkg, build = TRUE, install = FALSE,
-                             check = FALSE, check.opts = "--as-cran", remove.check = TRUE,
-                             reformat = TRUE, ...) {
+roxygen_and_build = function(
+  pkg, roxygen.dir = pkg, build = TRUE, install = FALSE, check = FALSE,
+  check.opts = "--as-cran --no-manual", remove.check = TRUE, reformat = TRUE, ...
+) {
   roxygenize(pkg, roxygen.dir, ...)
   rd.list = list.files(file.path(roxygen.dir, "man"), ".*\\.Rd$", all.files = TRUE,
                        full.names = TRUE)
