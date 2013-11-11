@@ -17,7 +17,7 @@ install:
 # run tests
 script:
   - cd ..; rm -f *.tar.gz; R CMD build $R_MY_PKG --no-build-vignettes
-  - R CMD check $R_MY_PKG*.tar.gz --no-manual
+  - R CMD check $R_MY_PKG*.tar.gz --no-manual --no-vignettes
 
 after_failure:
   - for i in `ls $R_MY_PKG.Rcheck/00*`; do cat $i; done
