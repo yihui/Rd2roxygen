@@ -14,11 +14,10 @@ create_roxygen(info, usage = FALSE)
   generate the usage section automatically)}
 }
 \value{
-  a character vector
+a character vector
 }
 \description{
-  The parsed information is converted to a vector of
-  roxygen tags.
+The parsed information is converted to a vector of roxygen tags.
 }
 \examples{
 rd.file = system.file("examples", "parse_and_save.Rd", package = "Rd2roxygen")
@@ -26,6 +25,5 @@ options(roxygen.comment = "##' ")
 create_roxygen(parse_file(rd.file))
 }
 \author{
-  Hadley Wickham; modified by Yihui Xie
-  <\url{http://yihui.name}>
+Hadley Wickham; modified by Yihui Xie <\url{http://yihui.name}>
 }

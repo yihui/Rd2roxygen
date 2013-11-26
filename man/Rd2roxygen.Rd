@@ -16,22 +16,20 @@ Rd2roxygen(pkg, nomatch, usage = FALSE)
   section in the output}
 }
 \value{
-  NULL (but the process of conversion will be printed on
-  screen)
+NULL (but the process of conversion will be printed on screen)
 }
 \description{
-  This function takes a package root directory, parses all
-  its Rd files under the man directory and update the
-  corresponding R source code by inserting roxygen
-  documentation in to the R scripts.
+This function takes a package root directory, parses all its Rd files under
+the man directory and update the corresponding R source code by inserting
+roxygen documentation in to the R scripts.
 }
 \note{
-  ESS users may use \code{options(roxygen.comment = "##'
-  ")} to ensure the generated roxygen comments begin with
-  \code{"##' "}, which is the default setting in Emacs/ESS.
+ESS users may use \code{options(roxygen.comment = "##' ")} to ensure
+  the generated roxygen comments begin with \code{"##' "}, which is the
+  default setting in Emacs/ESS.
 
-  Re-run this function on a package will remove the
-  previous roxygen comments before functions in R scripts.
+  Re-run this function on a package will remove the previous roxygen comments
+  before functions in R scripts.
 }
 \examples{
 ## a demo package
@@ -52,5 +50,5 @@ file.show("pkgDemo/R/foo.R")  # what happened to foo.R and bar.R?
 setwd(od)  # restore working directory
 }
 \author{
-  Yihui Xie <\url{http://yihui.name}>
+Yihui Xie <\url{http://yihui.name}>
 }

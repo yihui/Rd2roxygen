@@ -13,14 +13,12 @@ parse_and_save(path, file, usage = FALSE)
   section in the output}
 }
 \value{
-  a character vector if \code{file} is not specified, or
-  write the vector into a file
+a character vector if \code{file} is not specified, or write the
+  vector into a file
 }
 \description{
-  Parse the input Rd file and save the roxygen
-  documentation into a file
+Parse the input Rd file and save the roxygen documentation into a file
 }
 \author{
-  Hadley Wickham; modified by Yihui Xie
-  <\url{http://yihui.name}>
+Hadley Wickham; modified by Yihui Xie <\url{http://yihui.name}>
 }

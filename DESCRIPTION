@@ -23,8 +23,4 @@ License: GPL
 URL: http://yihui.name/Rd2roxygen
 BugReports: https://github.com/yihui/Rd2roxygen/issues
 VignetteBuilder: knitr
-Collate:
-    'Rd2roxygen-package.R'
-    'rd2roxygen.R'
-    'utils.R'
-    'build.R'
+Roxygen: list(wrap = FALSE)
