@@ -35,8 +35,15 @@ roxygen_and_build = function(
     message('Reformatting usage and examples')
     for (f in rd.list) reformat_code(f)
   }
-  if (build) system(sprintf("R CMD build %s ", roxygen.dir)) else return()
-  pv = read.dcf(file.path(pkg, 'DESCRIPTION'), fields=c('Package', 'Version'))
+  if (!build) return()
+  desc = file.path(pkg, 'DESCRIPTION')
+  x = readLines(desc, warn = FALSE)
+  if (length(i <- grep('^Roxygen: ', x))) {
+    writeLines(x[-i], desc)  # exclude the Roxygen field; R CMD check will warn
+    on.exit(writeLines(x, desc))
+  }
+  system(sprintf("R CMD build %s ", pkg))
+  pv = read.dcf(desc, fields=c('Package', 'Version'))
   res = sprintf('%s_%s.tar.gz', pv[1, 1], pv[1, 2])
   if (install) system(sprintf("R CMD INSTALL %s ", res))
   if (check) {
