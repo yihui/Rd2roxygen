@@ -23,7 +23,6 @@
 #'   convert certain parts of Rd files to roxygen comments. As mentioned before,
 #'   we have to manually deal with these problems. You are welcome to report
 #'   other serious issues via \url{https://github.com/yihui/Rd2roxygen/issues}.
-#' @importFrom roxygen2 roxygenize collate_roclet namespace_roclet rd_roclet
 #' @importFrom formatR tidy.source
 #' @examples
 #' ## see the package vignette: vignette('Rd2roxygen')
