@@ -5,8 +5,6 @@
 #' code in the usage and examples sections. Note \code{\link{rab}} is an alias
 #' of \code{\link{roxygen_and_build}}.
 #' @param pkg the root directory of the source package
-#' @param roxygen.dir the directory for the roxygenized package (by default it
-#'   is the same as \code{pkg})
 #' @param build whether to build the package
 #' @param install whether to install the package
 #' @param check whether to check the package
@@ -27,11 +25,11 @@
 #' rab('Rd2roxygen', install = TRUE)
 #' }
 roxygen_and_build = function(
-  pkg, roxygen.dir = pkg, build = TRUE, install = FALSE, check = FALSE,
+  pkg, build = TRUE, install = FALSE, check = FALSE,
   check.opts = "--as-cran --no-manual", remove.check = TRUE, reformat = TRUE, ...
 ) {
-  roxygenize(pkg, roxygen.dir, ...)
-  rd.list = list.files(file.path(roxygen.dir, "man"), ".*\\.Rd$", all.files = TRUE,
+  roxygenize(pkg, ...)
+  rd.list = list.files(file.path(pkg, "man"), ".*\\.Rd$", all.files = TRUE,
                        full.names = TRUE)
   if (reformat) {
     message('Reformatting usage and examples')
