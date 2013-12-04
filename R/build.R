@@ -27,10 +27,10 @@
 #' }
 roxygen_and_build = function(
   pkg, build = TRUE, build.opts = '--no-manual', install = FALSE, check = FALSE,
-  check.opts = "--as-cran --no-manual", remove.check = TRUE, reformat = TRUE, ...
+  check.opts = '--as-cran --no-manual', remove.check = TRUE, reformat = TRUE, ...
 ) {
   roxygenize(pkg, ...)
-  rd.list = list.files(file.path(pkg, "man"), ".*\\.Rd$", all.files = TRUE,
+  rd.list = list.files(file.path(pkg, 'man'), '.*\\.Rd$', all.files = TRUE,
                        full.names = TRUE)
   if (reformat) {
     message('Reformatting usage and examples')
@@ -43,12 +43,12 @@ roxygen_and_build = function(
     writeLines(x[-i], desc)  # exclude the Roxygen field; R CMD check will warn
     on.exit(writeLines(x, desc))
   }
-  system(sprintf("R CMD build %s %s", build.opts, pkg))
+  system(sprintf('R CMD build %s %s', build.opts, pkg))
   pv = read.dcf(desc, fields=c('Package', 'Version'))
   res = sprintf('%s_%s.tar.gz', pv[1, 1], pv[1, 2])
-  if (install) system(sprintf("R CMD INSTALL %s ", res))
+  if (install) system(sprintf('R CMD INSTALL %s ', res))
   if (check) {
-    if ((system(sprintf("R CMD check %s %s", res, check.opts)) == 0) &&
+    if ((system(sprintf('R CMD check %s %s', res, check.opts)) == 0) &&
       remove.check) unlink(sprintf('%s.Rcheck', pv[1, 1]), TRUE)
   }
   invisible(NULL)
@@ -109,7 +109,7 @@ reformat_code = function(path, ...) {
     txt = sub('^\\\\+dont(run|test|show)', 'tag_name_dont\\1 <- function() ', txt)
     txt = tidy.code(txt, ...)
     if (!inherits(txt, 'try-error')) {
-      txt = gsub("(^|[^\\])%", "\\1\\\\%", txt)
+      txt = gsub('(^|[^\\])%', '\\1\\\\%', txt)
       txt = gsub('tag_name_dont(run|test|show) <- function\\(\\) \\{', '\\\\dont\\1{', txt)
       txt[txt == ''] = '\n'
       txt = unlist(strsplit(txt, '\n'))
@@ -147,7 +147,7 @@ reformat_code = function(path, ...) {
     txt = tidy.code(txt, ...)
     if (!inherits(txt, 'try-error')) {
       txt = gsub('`method@([^@]+)@([^`]+)`', '\\\\method{\\1}{\\2}', txt) # restore S3
-      txt = gsub("(^|[^\\])%", "\\1\\\\%", txt)
+      txt = gsub('(^|[^\\])%', '\\1\\\\%', txt)
       if (txt[1] == '') txt = txt[-1]
       if (txt[length(txt)] == '') txt = txt[-length(txt)]
       txt = sprintf('\\usage{\n%s\n}', paste(txt, collapse = '\n'))
