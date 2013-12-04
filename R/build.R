@@ -89,13 +89,7 @@ rab = roxygen_and_build
 #' file.show(fmt.file)  ## the formatted Rd
 reformat_code = function(path, ...) {
   rd = readLines(path)
-  tags = sprintf(
-    '^\\\\(%s)\\{',
-    paste(c("docType", "name", "alias", "title", "format", "source", "usage",
-            "arguments", "value", "description", "details", "note", "section",
-            "examples", "author", "references", "seealso", "concept", "keyword",
-            "subsection"), collapse = "|")
-  )
+  tags = tags_possible
   if (length(idx0 <- grep('^\\\\examples\\{', rd))) {
     # tags after \examples?
     idx1 = grep(tags, rd)
@@ -163,6 +157,13 @@ reformat_code = function(path, ...) {
   writeLines(rd, path)
   flush.console()
 }
+
+# possible tags after \example{} or \usage{}
+tags_possible = sprintf('^\\\\(%s)\\{', paste(c(
+  'docType', 'name', 'alias', 'title', 'format', 'source', 'usage', 'arguments',
+  'value', 'description', 'details', 'note', 'section', 'examples', 'author',
+  'references', 'seealso', 'concept', 'keyword', 'subsection'
+), collapse = '|'))
 
 tidy.code = function(code, ...) {
   res = try(tidy.source(text = code, output = FALSE, width.cutoff = 80, ...)$text.tidy)
