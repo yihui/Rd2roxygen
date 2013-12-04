@@ -6,6 +6,7 @@
 #' of \code{\link{roxygen_and_build}}.
 #' @param pkg the root directory of the source package
 #' @param build whether to build the package
+#' @param build.opts options to be passed to \command{R CMD build}
 #' @param install whether to install the package
 #' @param check whether to check the package
 #' @param check.opts options to check the package (e.g. \code{"--no-examples"})
@@ -25,7 +26,7 @@
 #' rab('Rd2roxygen', install = TRUE)
 #' }
 roxygen_and_build = function(
-  pkg, build = TRUE, install = FALSE, check = FALSE,
+  pkg, build = TRUE, build.opts = '--no-manual', install = FALSE, check = FALSE,
   check.opts = "--as-cran --no-manual", remove.check = TRUE, reformat = TRUE, ...
 ) {
   roxygenize(pkg, ...)
@@ -42,7 +43,7 @@ roxygen_and_build = function(
     writeLines(x[-i], desc)  # exclude the Roxygen field; R CMD check will warn
     on.exit(writeLines(x, desc))
   }
-  system(sprintf("R CMD build %s ", pkg))
+  system(sprintf("R CMD build %s %s", build.opts, pkg))
   pv = read.dcf(desc, fields=c('Package', 'Version'))
   res = sprintf('%s_%s.tar.gz', pv[1, 1], pv[1, 2])
   if (install) system(sprintf("R CMD INSTALL %s ", res))

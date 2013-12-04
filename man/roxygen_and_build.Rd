@@ -3,18 +3,21 @@
 \alias{roxygen_and_build}
 \title{Roxygenize a package, clean up and build/check the package}
 \usage{
-roxygen_and_build(pkg, build = TRUE, install = FALSE, check = FALSE, 
-    check.opts = "--as-cran --no-manual", remove.check = TRUE, 
+roxygen_and_build(pkg, build = TRUE, build.opts = "--no-manual", install = FALSE, 
+    check = FALSE, check.opts = "--as-cran --no-manual", remove.check = TRUE, 
     reformat = TRUE, ...)
 
-rab(pkg, build = TRUE, install = FALSE, check = FALSE, 
-    check.opts = "--as-cran --no-manual", remove.check = TRUE, 
-    reformat = TRUE, ...)
+rab(pkg, build = TRUE, build.opts = "--no-manual", install = FALSE, check = FALSE, 
+    check.opts = "--as-cran --no-manual", remove.check = TRUE, reformat = TRUE, 
+    ...)
 }
 \arguments{
   \item{pkg}{the root directory of the source package}
 
   \item{build}{whether to build the package}
+
+  \item{build.opts}{options to be passed to \command{R CMD
+  build}}
 
   \item{install}{whether to install the package}
 

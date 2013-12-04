@@ -1,3 +1,9 @@
+		  CHANGES IN Rd2roxygen VERSION 1.4
+
+NEW FEATURES
+
+  o added a new argument 'build.opts' to rab() to pass options to R CMD build
+
 		  CHANGES IN Rd2roxygen VERSION 1.3
 
 MAJOR CHANGES
