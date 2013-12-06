@@ -4,6 +4,11 @@ NEW FEATURES
 
   o added a new argument 'build.opts' to rab() to pass options to R CMD build
 
+MAJOR CHANGES
+
+  o the new feature @returnItem introduced in Rd2roxygen 1.1 was temporarily
+  removed, since it is not supported in roxygen2 (3.0.0) yet
+
 		  CHANGES IN Rd2roxygen VERSION 1.3
 
 MAJOR CHANGES

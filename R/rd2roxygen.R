@@ -30,6 +30,7 @@ parse_file <- function(path) {
   out$section <- paste(reconstruct(untag(rd$section[1])),
                        reconstruct(untag(rd$section[-1])), sep = ': ')
   out$format <- reconstruct(untag(rd$format))
+  out$value <- reconstruct(untag(rd$value))
   out$note <- reconstruct(untag(rd$note))
   out$author <- gsub('@', '@@', reconstruct(untag(rd$author)))
   out$seealso <- reconstruct(untag(rd$seealso))
@@ -55,17 +56,6 @@ parse_file <- function(path) {
     paste(if (tag(argument[[1]][[1]]) == "\\dots")
       "\\dots" else gsub(' +', '', argument[[1]]),
           reconstruct(argument[[2]]))
-  }))
-
-  # Pull apart general return value description and return items
-  value <- rd$value
-  is.item <- sapply(value, tag) == "\\item"
-  out$value <- reconstruct(untag(value[!is.item]))
-  # Pull apart return items
-  out$valueItems <- unlist(sapply(value[is.item], function(item) {
-    paste(if (tag(item[[1]][[1]]) == "\\dots")
-      "\\dots" else gsub(' +', '', item[[1]]),
-          reconstruct(item[[2]]))
   }))
 
   out
@@ -103,7 +93,6 @@ create_roxygen <- function(info, usage = FALSE) {
     comment_tag("@param", info$params),
     comment_tag("@format", info$format),
     comment_tag("@return", info$value),
-    comment_tag("@returnItem", info$valueItem),
     comment_tag("@note", info$note),
     comment_tag("@section", info$section),
     comment_tag("@author", info$author),
