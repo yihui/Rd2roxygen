@@ -479,7 +479,7 @@ status open
 
 \begin_layout Plain Layout
 
-rab=function(pkg,roxygen.dir=pkg,build=TRUE,install=FALSE,
+rab=function(pkg,build=TRUE,install=FALSE,
 \end_layout
 
 \begin_layout Plain Layout
@@ -504,7 +504,7 @@ check=FALSE,check.opts='',remove.check=TRUE,reformat=TRUE,...){}
 
 \begin_layout Plain Layout
 
-rab=function(pkg,roxygen.dir=pkg,build=TRUE,install=FALSE,
+rab=function(pkg,build=TRUE,install=FALSE,
 \end_layout
 
 \begin_layout Plain Layout
