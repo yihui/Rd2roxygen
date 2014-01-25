@@ -52,3 +52,5 @@ comment_tag <- function(tag, value) {
 comment_prefix <- function() {
   getOption("roxygen.comment", "#' ")
 }
+
+Rbin = function() shQuote(file.path(R.home('bin'), 'R'))

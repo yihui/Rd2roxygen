@@ -43,12 +43,12 @@ roxygen_and_build = function(
     writeLines(x[-i], desc)  # exclude the Roxygen field; R CMD check will warn
     on.exit(writeLines(x, desc))
   }
-  system(sprintf('R CMD build %s %s', build.opts, pkg))
+  system(sprintf('%s CMD build %s %s', Rbin(), build.opts, pkg))
   pv = read.dcf(desc, fields=c('Package', 'Version'))
   res = sprintf('%s_%s.tar.gz', pv[1, 1], pv[1, 2])
-  if (install) system(sprintf('R CMD INSTALL %s ', res))
+  if (install) system(sprintf('%s CMD INSTALL %s ', Rbin(), res))
   if (check) {
-    if ((system(sprintf('R CMD check %s %s', res, check.opts)) == 0) &&
+    if ((system(sprintf('%s CMD check %s %s', Rbin(), res, check.opts)) == 0) &&
       remove.check) unlink(sprintf('%s.Rcheck', pv[1, 1]), TRUE)
   }
   invisible(NULL)
