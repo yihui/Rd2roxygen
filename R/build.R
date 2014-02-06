@@ -51,7 +51,6 @@ roxygen_and_build = function(
     if ((system(sprintf('%s CMD check %s %s', Rbin(), res, check.opts)) == 0) &&
       remove.check) unlink(sprintf('%s.Rcheck', pv[1, 1]), TRUE)
   }
-  invisible(NULL)
 }
 
 #' @rdname roxygen_and_build
