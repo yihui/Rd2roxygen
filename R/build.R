@@ -38,11 +38,6 @@ roxygen_and_build = function(
   }
   if (!build) return()
   desc = file.path(pkg, 'DESCRIPTION')
-  x = readLines(desc, warn = FALSE)
-  if (length(i <- grep('^Roxygen: ', x))) {
-    writeLines(x[-i], desc)  # exclude the Roxygen field; R CMD check will warn
-    on.exit(writeLines(x, desc))
-  }
   system(sprintf('%s CMD build %s %s', Rbin(), build.opts, pkg))
   pv = read.dcf(desc, fields=c('Package', 'Version'))
   res = sprintf('%s_%s.tar.gz', pv[1, 1], pv[1, 2])
