@@ -5,15 +5,13 @@
 Rd2roxygen(pkg, nomatch, usage = FALSE)
 }
 \arguments{
-  \item{pkg}{the root directory of the package}
+\item{pkg}{the root directory of the package}
 
-  \item{nomatch}{the file name (base name only) to use when
-  an object in the Rd file is not found in any R source
-  files (typically this happens to the data documentation);
-  if not specified, the default will be `pkg'-package.R}
+\item{nomatch}{the file name (base name only) to use when an object in the Rd
+file is not found in any R source files (typically this happens to the data
+documentation); if not specified, the default will be `pkg'-package.R}
 
-  \item{usage}{logical: whether to include the usage
-  section in the output}
+\item{usage}{logical: whether to include the usage section in the output}
 }
 \value{
 NULL (but the process of conversion will be printed on screen)

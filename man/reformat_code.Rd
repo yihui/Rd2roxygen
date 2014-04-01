@@ -5,9 +5,9 @@
 reformat_code(path, ...)
 }
 \arguments{
-  \item{path}{the path of the Rd file}
+\item{path}{the path of the Rd file}
 
-  \item{...}{other arguments passed to \code{tidy.source}}
+\item{...}{other arguments passed to \code{tidy.source}}
 }
 \value{
 \code{NULL}; as a side effect, the original Rd file will be updated

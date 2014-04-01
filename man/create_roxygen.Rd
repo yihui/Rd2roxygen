@@ -5,13 +5,12 @@
 create_roxygen(info, usage = FALSE)
 }
 \arguments{
-  \item{info}{the named list of the parsed documentation}
+\item{info}{the named list of the parsed documentation}
 
-  \item{usage}{logical: whether to include the usage
-  section in the output (this can be useful when there are
-  multiple functions in a single usage section, but
-  generally it is not necessary because roxygen can
-  generate the usage section automatically)}
+\item{usage}{logical: whether to include the usage section in the output
+(this can be useful when there are multiple functions in a single usage
+section, but generally it is not necessary because roxygen can generate the
+usage section automatically)}
 }
 \value{
 a character vector

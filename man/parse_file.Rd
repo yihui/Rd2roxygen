@@ -5,7 +5,7 @@
 parse_file(path)
 }
 \arguments{
-  \item{path}{the path of the Rd file}
+\item{path}{the path of the Rd file}
 }
 \value{
 a named list containing the documentation sections as strings

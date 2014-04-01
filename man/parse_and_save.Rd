@@ -5,12 +5,11 @@
 parse_and_save(path, file, usage = FALSE)
 }
 \arguments{
-  \item{path}{the path of the Rd file}
+\item{path}{the path of the Rd file}
 
-  \item{file}{the path to save the roxygen documentation}
+\item{file}{the path to save the roxygen documentation}
 
-  \item{usage}{logical: whether to include the usage
-  section in the output}
+\item{usage}{logical: whether to include the usage section in the output}
 }
 \value{
 a character vector if \code{file} is not specified, or write the
