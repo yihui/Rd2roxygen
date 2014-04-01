@@ -16,7 +16,7 @@ install:
 
 # run tests
 script:
-  - cd ..; rm -f *.tar.gz; R CMD build $R_MY_PKG --no-build-vignettes
+  - cd ..; rm -f *.tar.gz; R CMD build $R_MY_PKG
   - R CMD check $R_MY_PKG*.tar.gz --no-manual
 
 after_failure:

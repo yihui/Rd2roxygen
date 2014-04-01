@@ -1,0 +1,125 @@
+---
+title: 'Rd2roxygen: Convert Rd to roxygen documentation and utilities to enhance R
+  documentation'
+author: "Yihui Xie^[RStudio, Inc. Email: xie@yihui.name]"
+date: '`r Sys.Date()`'
+output:
+  html_document:
+    css: Rd2roxygen.css
+bibliography: Rd2roxygen.bib
+---
+
+<!--
+%\VignetteEngine{knitr::rmarkdown}
+%\VignetteIndexEntry{Rd2roxygen: Convert Rd to roxygen documentation and utilities to enhance R documentation}
+-->
+
+```{r setup, echo=FALSE}
+library('knitr')
+opts_chunk$set(comment=NA, message=FALSE)
+options(keep.blank.line = FALSE, width=80)
+```
+
+The package **Rd2roxygen** [@R-Rd2roxygen] helps R package developers who
+used to write R documentation in the raw LaTeX-like commands but now want to
+switch their documentation to **roxygen2** [@R-roxygen2], which is a
+convenient tool for developers, since we can write documentation as inline
+comments, e.g.
+
+```{r roxygen-ex}
+## the source code of the function `parse_and_save`
+ex.file = system.file('examples','parse_and_save.R',package='Rd2roxygen')
+cat(readLines(ex.file), sep='\n')
+```
+
+With **roxygen2** (typically using `roxygenize()`), we can create the real
+Rd file from the above source code like this:
+
+```{r rd-ex}
+rd.file = system.file('examples','parse_and_save.Rd',package='Rd2roxygen')
+cat(readLines(rd.file), sep='\n')
+```
+
+The **Rd2roxygen** package goes exactly in the _opposite_ way -- it parses
+the Rd files and turns them back to roxygen comments. We can either do this
+job on single Rd files, or just convert the whole package. The latter might
+be more useful for developers who are considering the transition from Rd to
+roxygen.
+
+# Convert a whole package
+
+The function `Rd2roxygen()` can take a path of a source package, parse all
+the Rd files under the `man` directory, and write the roxygen comments right
+above the source code of the functions under the `R` directory. See
+`?Rd2roxygen` for an example.
+
+```{r Rd2roxygen}
+library(Rd2roxygen)
+formatR::usage(Rd2roxygen)
+## e.g. Rd2roxygen('somewhere/to/source/pkg')
+## there must be 'man' and 'R' directories under this path
+```
+
+# Parse a single Rd file
+
+We can parse a single Rd file and create the roxygen comments as well with
+`parse_file()` and `create_roxygen()`, e.g.
+
+```{r parse-file}
+## we can specify the roxygen comments prefix (#' by default)
+options(roxygen.comment = "##' ")
+str(info <- parse_file(rd.file))
+cat(create_roxygen(info), sep='\n') # parse_and_save() combines these two steps
+```
+
+# Roxygenize and build a package
+
+This package also provides a tool `roxygen_and_build()` (or in short `rab()`)
+to help us build the package.
+
+```{r rab,echo=FALSE}
+formatR::usage(rab)
+```
+
+The main feature of `rab()` is the option to "reformat" the code in the
+usage and example sections. If we specify `reformat = TRUE` in `rab()`, the
+code will be reformated like this:
+
+```{r reformat-ex1, eval=FALSE, tidy=FALSE}
+## original code
+rab=function(pkg,build=TRUE,install=FALSE,
+check=FALSE,check.opts='',remove.check=TRUE,reformat=TRUE,...){}
+```
+```{r reformat-ex2, eval=FALSE, tidy=TRUE}
+## the reformatted code; note the spaces and indent
+rab=function(pkg,build=TRUE,install=FALSE,
+check=FALSE,check.opts='',remove.check=TRUE,reformat=TRUE,...){}
+```
+
+Note this functionality depends on the package **formatR** [@R-formatR], and
+sometimes it might not be possible to reformat the code, e.g. the
+`\dontrun{}` command in Rd can contain arbitrary texts, which means there
+could be illegal R expressions and **formatR** will be unable to format the
+code. In this case, the original code will not be reformatted and a message
+will be printed on screen.
+
+# About this vignette
+
+This vignette was built using the vignette engine `knitr::rmarkdown`^[Note
+it is not a function, despite of the `::` operator; see
+[R-exts](http://cran.rstudio.com/doc/manuals/r-release/R-exts.html#Non_002dSweave-vignettes)
+for more info.] in the **knitr** package [@R-knitr]. You can find the source
+in the [Rd2roxygen
+repository](https://github.com/yihui/Rd2roxygen/tree/master/vignettes) on
+Github, or
+
+```{r lyx-doc, eval=FALSE}
+system.file('doc', 'Rd2roxygen.Rmd', package='Rd2roxygen')
+```
+
+```{r write-bib, include=FALSE}
+# automatically write the bibliography database
+write_bib(c('Rd2roxygen', 'roxygen2', 'formatR', 'knitr'), file = 'Rd2roxygen.bib')
+```
+
+# References
