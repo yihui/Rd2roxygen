@@ -39,7 +39,7 @@ roxygen_and_build = function(
   suppressMessages(roxygenize(pkg, ...))
   if (reformat) {
     message('Reformatting usage and examples')
-    for (f in rd.list) reformat_code(f)
+    for (f in rd.list[-1]) reformat_code(f)
   }
   if (!build) return()
   desc = file.path(pkg, 'DESCRIPTION')
