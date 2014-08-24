@@ -17,7 +17,7 @@ bibliography: Rd2roxygen.bib
 ```{r setup, echo=FALSE}
 library('knitr')
 opts_chunk$set(comment=NA, message=FALSE)
-options(keep.blank.line = FALSE, width=80)
+options(formatR.blank=FALSE, width=80)
 ```
 
 The package **Rd2roxygen** [@R-Rd2roxygen] helps R package developers who
