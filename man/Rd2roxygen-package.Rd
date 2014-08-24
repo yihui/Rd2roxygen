@@ -12,17 +12,17 @@ documentation (\code{\link{create_roxygen}}) and update the original R script
 help developers build packages using roxygen more easily (\code{\link{rab}}).
 }
 \note{
-There is no guarantee to generate perfect roxygen comments that can
-  convert back to the original Rd files. Usually manual manipulations on the
-  roxygen comments are required. For example, currently `@S3method` is not
-  included in the comments, and `@rdname` is not supported either (users
+There is no guarantee to generate perfect roxygen comments that can be
+  converted back to the original Rd files. Usually manual manipulations on
+  the roxygen comments are required. For example, currently `@S3method` is
+  not included in the comments, and `@rdname` is not supported either (users
   have to move the roxygen comments around and add the appropriate tags by
-  themselves). Patches are welcome through GitHub:
+  themselves). Patches (as pull requests) are welcome through GitHub:
   \url{https://github.com/yihui/Rd2roxygen/}.
 
   This package is not thoroughly tested, so it is likely that it fails to
   convert certain parts of Rd files to roxygen comments. As mentioned before,
-  we have to manually deal with these problems. You are welcome to report
+  you have to manually deal with these problems. You are welcome to report
   other serious issues via \url{https://github.com/yihui/Rd2roxygen/issues}.
 }
 \examples{
