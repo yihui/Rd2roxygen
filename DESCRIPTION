@@ -9,7 +9,7 @@ Authors@R: c(person("Hadley", "Wickham", role = "aut"),
 Maintainer: Yihui Xie <xie@yihui.name>
 Imports:
     roxygen2 (>= 3.1.0),
-    formatR (>= 0.10)
+    formatR (>= 1.0)
 Suggests:
     knitr (> 1.5)
 Description: Functions to convert Rd to roxygen documentation. It can parse an
