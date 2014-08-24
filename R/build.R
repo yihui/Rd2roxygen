@@ -103,7 +103,7 @@ reformat_code = function(path, ...) {
     tmp[nn] = sub('\\}$', '', tmp[nn])
     txt = gsub('\\%', '%', tmp, fixed = TRUE) # will escape % later
     txt = sub('^\\\\+dont(run|test|show)', 'tag_name_dont\\1 <- function() ', txt)
-    txt = tidy.code(txt, ...)
+    txt = tidy_code(txt, ...)
     if (!inherits(txt, 'try-error')) {
       txt = gsub('(^|[^\\])%', '\\1\\\\%', txt)
       txt = gsub('tag_name_dont(run|test|show) <- function\\(\\) \\{', '\\\\dont\\1{', txt)
@@ -140,7 +140,7 @@ reformat_code = function(path, ...) {
     tmp[nn] = sub('\\}$', '', tmp[nn])
     txt = gsub('\\%', '%', tmp, fixed = TRUE) # will escape % later
     txt = gsub('\\\\method\\{([^\\{]+)\\}\\{([^\\{]+)\\}', '`method@\\1@\\2`', txt) # S3
-    txt = tidy.code(txt, ...)
+    txt = tidy_code(txt, ...)
     if (!inherits(txt, 'try-error')) {
       txt = gsub('`method@([^@]+)@([^`]+)`', '\\\\method{\\1}{\\2}', txt) # restore S3
       txt = gsub('(^|[^\\])%', '\\1\\\\%', txt)
@@ -168,7 +168,7 @@ tags_possible = sprintf('^\\\\(%s)\\{', paste(c(
   'references', 'seealso', 'concept', 'keyword', 'subsection'
 ), collapse = '|'))
 
-tidy.code = function(code, ...) {
+tidy_code = function(code, ...) {
   res = try(tidy_source(text = code, output = FALSE, width.cutoff = 80, ...)$text.tidy)
   if (inherits(res, 'try-error')) return(res)
   i = 1
