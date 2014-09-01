@@ -4,15 +4,13 @@ title: 'Rd2roxygen: Convert Rd to roxygen documentation and utilities to enhance
 author: "Yihui Xie^[RStudio, Inc. Email: xie@yihui.name]"
 date: '`r Sys.Date()`'
 output:
-  html_document:
-    css: Rd2roxygen.css
+  knitr:::html_vignette:
+    toc: yes
 bibliography: Rd2roxygen.bib
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{Rd2roxygen: Convert Rd to roxygen documentation and utilities to enhance R documentation}
 ---
-
-<!--
-%\VignetteEngine{knitr::rmarkdown}
-%\VignetteIndexEntry{Rd2roxygen: Convert Rd to roxygen documentation and utilities to enhance R documentation}
--->
 
 ```{r setup, echo=FALSE}
 library('knitr')
