@@ -75,8 +75,7 @@ cat(create_roxygen(info), sep='\n') # parse_and_save() combines these two steps
 This package also provides a tool `roxygen_and_build()` (or in short `rab()`)
 to help us build the package.
 
-```{r rab,echo=FALSE}
-formatR::usage(rab)
+```{r rab, eval=FALSE, code=formatR::usage(rab)}
 ```
 
 The main feature of `rab()` is the option to "reformat" the code in the
