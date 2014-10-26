@@ -8,10 +8,10 @@ Authors@R: c(person("Hadley", "Wickham", role = "aut"),
     person("Yihui", "Xie", email = "xie@yihui.name", role = c("aut", "cre")))
 Maintainer: Yihui Xie <xie@yihui.name>
 Imports:
-    roxygen2 (>= 3.1.0),
+    roxygen2 (>= 4.0.0),
     formatR (>= 1.0)
 Suggests:
-    knitr (> 1.5),
+    knitr (>= 1.7),
     rmarkdown
 Description: Functions to convert Rd to roxygen documentation. It can parse an
     Rd file to a list, create the roxygen documentation and update the original
