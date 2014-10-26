@@ -22,7 +22,7 @@ after_success:
   - R CMD INSTALL $R_PKG*.tar.gz
   - rm -rf gh-pages && git clone -b gh-pages https://${GH_TOKEN}@github.com/yihui/Rd2roxygen.git gh-pages
   - cd gh-pages && cp ~/R/Rd2roxygen/doc/Rd2roxygen.html index.html
-  - git add index.html && git commit -m"update homepage $TRAVIS_BUILD_NUMBER" && git push origin gh-pages
+  - git add index.html && git commit -m"update homepage $TRAVIS_BUILD_NUMBER" && git push origin gh-pages || true
   - cd ../$R_PKG
   - "(wget -q -O - http://yihui.name/xran/r-xran | bash)"
 
