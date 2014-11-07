@@ -9,49 +9,49 @@
 #' @examples
 #' rd.file = system.file('examples', 'parse_and_save.Rd', package='Rd2roxygen')
 #' parse_file(rd.file)
-parse_file <- function(path) {
-  rd <- tools::parse_Rd(path)
+parse_file = function(path) {
+  rd = tools::parse_Rd(path)
 
-  tags <- sapply(rd, tag)
-  tags <- gsub("\\\\", "", tags)
-  names(rd) <- tags
+  tags = sapply(rd, tag)
+  tags = gsub("\\\\", "", tags)
+  names(rd) = tags
 
   # Remove top-level text strings - just line breaks between sections
-  rd <- rd[tags != "TEXT"]
+  rd = rd[tags != "TEXT"]
 
-  out <- list()
+  out = list()
   # Title, description, value and examples, need to be stitched into a
   # single string.
-  out$title <- reconstruct(untag(rd$title))
-  out$docType <- reconstruct(untag(rd$docType))
-  out$usage <- reconstruct(untag(rd$usage))
-  out$desc <- gsub("$\n+|\n+^", "", reconstruct(untag(rd$description)))
-  out$details <- reconstruct(untag(rd$details))
-  out$section <- paste(reconstruct(untag(rd$section[1])),
+  out$title = reconstruct(untag(rd$title))
+  out$docType = reconstruct(untag(rd$docType))
+  out$usage = reconstruct(untag(rd$usage))
+  out$desc = gsub("$\n+|\n+^", "", reconstruct(untag(rd$description)))
+  out$details = reconstruct(untag(rd$details))
+  out$section = paste(reconstruct(untag(rd$section[1])),
                        reconstruct(untag(rd$section[-1])), sep = ': ')
-  out$format <- reconstruct(untag(rd$format))
-  out$value <- reconstruct(untag(rd$value))
-  out$note <- reconstruct(untag(rd$note))
-  out$author <- gsub('@', '@@', reconstruct(untag(rd$author)))
-  out$seealso <- reconstruct(untag(rd$seealso))
-  out$references <- reconstruct(untag(rd$references))
-  out$source <- reconstruct(untag(rd$source))
+  out$format = reconstruct(untag(rd$format))
+  out$value = reconstruct(untag(rd$value))
+  out$note = reconstruct(untag(rd$note))
+  out$author = gsub('@', '@@', reconstruct(untag(rd$author)))
+  out$seealso = reconstruct(untag(rd$seealso))
+  out$references = reconstruct(untag(rd$references))
+  out$source = reconstruct(untag(rd$source))
 
-  out$examples <- reconstruct(untag(rd$examples))
+  out$examples = reconstruct(untag(rd$examples))
 
   # Join together aliases and keywords
-  out$name <- reconstruct(untag(rd$name))
-  out$aliases <- unname(sapply(rd[names(rd) == "alias"], "[[", 1))
+  out$name = reconstruct(untag(rd$name))
+  out$aliases = unname(sapply(rd[names(rd) == "alias"], "[[", 1))
   # If the only alias is the name, then skip it
   if (identical(out$aliases, out$name)) {
-    out$aliases <- NULL
+    out$aliases = NULL
   }
-  out$keywords <- unname(sapply(rd[names(rd) == "keyword"], "[[", 1))
+  out$keywords = unname(sapply(rd[names(rd) == "keyword"], "[[", 1))
 
   # Pull apart arguments
-  arguments <- rd$arguments
-  arguments <- arguments[sapply(arguments, tag) != "TEXT"]
-  out$params <- unlist(sapply(arguments, function(argument) {
+  arguments = rd$arguments
+  arguments = arguments[sapply(arguments, tag) != "TEXT"]
+  out$params = unlist(sapply(arguments, function(argument) {
     if (tag(argument) != '\\item') return(NULL)
     paste(if (tag(argument[[1]][[1]]) == "\\dots")
       "\\dots" else gsub(' +', '', argument[[1]]),
@@ -77,8 +77,8 @@ parse_file <- function(path) {
 #' rd.file = system.file('examples','parse_and_save.Rd',package='Rd2roxygen')
 #' options(roxygen.comment = "##' ")
 #' create_roxygen(parse_file(rd.file))
-create_roxygen <- function(info, usage = FALSE) {
-  res <- c(comment_line(info$title),
+create_roxygen = function(info, usage = FALSE) {
+  res = c(comment_line(info$title),
     comment_line(),
     comment_line(info$desc),
     comment_line(),
@@ -121,9 +121,9 @@ create_roxygen <- function(info, usage = FALSE) {
 #'   vector into a file
 #' @export
 #' @author Hadley Wickham; modified by Yihui Xie <\url{http://yihui.name}>
-parse_and_save <- function(path, file, usage = FALSE) {
-  parsed <- parse_file(path)
-  output <- create_roxygen(parsed, usage = usage)
+parse_and_save = function(path, file, usage = FALSE) {
+  parsed = parse_file(path)
+  output = create_roxygen(parsed, usage = usage)
   if (missing(file)) output else
     cat(paste(output, collapse = "\n"), file = file)
 }
@@ -131,15 +131,15 @@ parse_and_save <- function(path, file, usage = FALSE) {
 # a simple-minded function to extract exported names in NAMESPACE; it only
 # considers export(*), and other objects like S3method(), import() and
 # useDynlib() are all ignored
-exported_names <- function(pkg) {
+exported_names = function(pkg) {
   if (require(basename(pkg), character.only = TRUE))
     return(ls(paste('package', basename(pkg), sep = ':'), all.names = TRUE))
   if (!file.exists(f <- file.path(pkg, 'NAMESPACE'))) {
     warning('the package ', pkg, ' does not have a NAMESPACE')
     return()
   }
-  NAMESPACE <- readLines(f)
-  exported <- grep('^\\s*export\\(.+\\)\\s*$', NAMESPACE, value = TRUE)
+  NAMESPACE = readLines(f)
+  exported = grep('^\\s*export\\(.+\\)\\s*$', NAMESPACE, value = TRUE)
   gsub('^\\s*export\\((.+)\\)\\s*$', '\\1', exported)
 }
 
@@ -179,62 +179,62 @@ exported_names <- function(pkg) {
 #' file.show('pkgDemo/R/foo.R')  # what happened to foo.R and bar.R?
 #'
 #' setwd(od)  # restore working directory
-Rd2roxygen <- function(pkg, nomatch, usage = FALSE) {
+Rd2roxygen = function(pkg, nomatch, usage = FALSE) {
   if (!all(c('man', 'R') %in% list.files(pkg)))
     stop("'pkg' has to be the root directory of a source package")
-  man.dir <- file.path(pkg, 'man')
-  R.dir <- file.path(pkg, 'R')
-  files <- list.files(man.dir, '\\.[Rr]d$')
+  man.dir = file.path(pkg, 'man')
+  R.dir = file.path(pkg, 'R')
+  files = list.files(man.dir, '\\.[Rr]d$')
   if (missing(nomatch))
-    nomatch <- paste(basename(pkg), '-package.R', sep = '')
+    nomatch = paste(basename(pkg), '-package.R', sep = '')
   unlink(p <- file.path(R.dir, nomatch))
-  namespace <- exported_names(pkg)
+  namespace = exported_names(pkg)
   for (f in files) {
     timestamp()
-    parsed <- parse_file(file.path(man.dir, f))
-    Rd <- create_roxygen(parsed, usage = usage)
-    Rd <- Rd[Rd != '\n']
+    parsed = parse_file(file.path(man.dir, f))
+    Rd = create_roxygen(parsed, usage = usage)
+    Rd = Rd[Rd != '\n']
     message('parsed: ', f)
-    fname <- parsed$name
-    tryf <- paste(fname, c('.R', '.r'), sep = '')
-    tryf <- unique(c(tryf[file.exists(file.path(R.dir, tryf))],
+    fname = parsed$name
+    tryf = paste(fname, c('.R', '.r'), sep = '')
+    tryf = unique(c(tryf[file.exists(file.path(R.dir, tryf))],
                      list.files(R.dir, '\\.[Rr]$')))
-    idx <- integer(0)
+    idx = integer(0)
     ## should not search data/package names in R scripts
     if (isTRUE(parsed$docType %in% c('data', 'package')))
-      tryf <- NULL else message("looking for the object '", fname, "' in:")
+      tryf = NULL else message("looking for the object '", fname, "' in:")
     for (i in tryf) {
-      r <- file.path(R.dir, i)
-      idx <- grep(sprintf('^[[:space:]]*(`|"|\'|)(%s)(\\1)[[:space:]]*(<-|=)',
+      r = file.path(R.dir, i)
+      idx = grep(sprintf('^[[:space:]]*(`|"|\'|)(%s)(\\1)[[:space:]]*(<-|=)',
                           gsub('\\.', '\\\\.', fname)),
-                  (r.Rd <- readLines(r, warn = FALSE)))
+                  (r.Rd = readLines(r, warn = FALSE)))
       message('  ', i, ': ', appendLF = FALSE)
       message(ifelse(length(idx), paste('line', idx), 'not found'))
       if (length(idx)) {
         # add @export to roxygen comments
-        if (fname %in% namespace) Rd <- c(Rd, comment_tag('@export', fname))
+        if (fname %in% namespace) Rd = c(Rd, comment_tag('@export', fname))
         break
       }
     }
     if (length(idx)) {
-      idx <- idx[1]  # only use the first match
-      if (idx <= 1) r.Rd <- c(Rd, r.Rd) else {
+      idx = idx[1]  # only use the first match
+      if (idx <= 1) r.Rd = c(Rd, r.Rd) else {
         ## remove existing roxygen comments
-        j <- 0
+        j = 0
         for(i in (idx - 1):1) {
-          if (grepl("^[#]+'", r.Rd[i])) j <- j + 1 else break
+          if (grepl("^[#]+'", r.Rd[i])) j = j + 1 else break
         }
         if (j > 0) {
-          r.Rd <- r.Rd[-(idx - seq_len(j))]
-          idx <- idx - j
+          r.Rd = r.Rd[-(idx - seq_len(j))]
+          idx = idx - j
         }
-        r.Rd <- append(r.Rd, c('\n', Rd), idx - 1)
-        while (r.Rd[1] %in% c('', '\n')) r.Rd <- r.Rd[-1]
+        r.Rd = append(r.Rd, c('\n', Rd), idx - 1)
+        while (r.Rd[1] %in% c('', '\n')) r.Rd = r.Rd[-1]
       }
       cat(r.Rd, file = r, sep = '\n')
       message(r, ' updated')
     } else {
-      if (tail(Rd, 1) != 'NULL') Rd <- c(Rd, 'NULL')
+      if (tail(Rd, 1) != 'NULL') Rd = c(Rd, 'NULL')
       cat(c('\n', Rd), '\n\n', file = p, sep = '\n', append = TRUE)
       message("unmatched object '", fname, "' written into ", p)
     }
