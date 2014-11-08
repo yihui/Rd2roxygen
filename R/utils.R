@@ -55,7 +55,7 @@ comment_prefix = function() {
 
 Rbin = function() shQuote(file.path(R.home('bin'), 'R'))
 
-tidy_examples = function(rd, idx0, idx1, ...) {
+tidy_examples = function(rd, idx0, idx1, ..., path) {
   tmp = rd[idx0:idx1]
   if (length(tmp) > 1 && tmp[2] == '# !formatR') {
     rd = rd[-(idx0 + 1)]  # remove this token

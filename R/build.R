@@ -94,7 +94,7 @@ reformat_code = function(path, ...) {
     idx1 = grep(tags, rd)
     if (length(idx1) && any(idx1 > idx0))
       idx1 = min(idx1[idx1 > idx0]) - 1 else idx1 = tail(grep('\\}$', rd), 1)
-    rd = tidy_examples(rd, idx0, idx1, ...)
+    rd = tidy_examples(rd, idx0, idx1, ..., path)
   }
   if (length(idx0 <- grep('^\\\\usage\\{', rd))) {
     idx1 = grep(tags, rd)
