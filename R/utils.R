@@ -57,6 +57,10 @@ Rbin = function() shQuote(file.path(R.home('bin'), 'R'))
 
 tidy_examples = function(rd, idx0, idx1, ...) {
   tmp = rd[idx0:idx1]
+  if (length(tmp) > 1 && tmp[2] == '# !formatR') {
+    rd = rd[-(idx0 + 1)]  # remove this token
+    return(rd)
+  }
   tmp[1] = sub('^\\\\examples\\{', '', tmp[1])
   nn = length(tmp)
   tmp[nn] = sub('\\}$', '', tmp[nn])
