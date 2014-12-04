@@ -43,7 +43,11 @@ roxygen_and_build = function(
   system(sprintf('%s CMD build %s %s', Rbin(), build.opts, pkg))
   pv = read.dcf(desc, fields = c('Package', 'Version'))
   res = sprintf('%s_%s.tar.gz', pv[1, 1], pv[1, 2])
-  if (install) system(sprintf('%s CMD INSTALL %s ', Rbin(), res))
+  if (install) {
+    system(sprintf('%s CMD INSTALL %s ', Rbin(), res))
+    # generate Rd for objects imported and exported from other packages
+    importRd(pkg, pv[1, 1])
+  }
   if (check) {
     if ((system(sprintf('%s CMD check %s %s', Rbin(), res, check.opts)) == 0) &&
       remove.check) unlink(sprintf('%s.Rcheck', pv[1, 1]), TRUE)
@@ -148,4 +152,65 @@ tidy_code = function(code, ...) {
     cat(code, sep = '\n')
     code
   } else res
+}
+
+#' Generate R doc for functions imported from other packages and re-exported
+#'
+#' This function searches for exported functions in a package that are not
+#' really created in this package, and generate documentation for them so that R
+#' CMD check will not complain about the missing documentation for exported
+#' functions.
+#' @param path the path to the source package
+#' @param package the package name
+#' @noRd
+importRd = function(path, package) {
+  escape = getFromNamespace('escape.character', 'roxygen2')
+  import = getNamespaceImports(package); import$base = NULL
+  pkgs = .packages(TRUE)
+  link = lapply(getNamespaceExports(package), function(name) {
+    fun = getExportedValue(package, name)
+    pkg = if (is.function(fun)) {
+      packageName(environment(fun))
+    } else {
+      which_package(name, import)
+    }
+    if (is.null(pkg) || pkg == package || !(pkg %in% pkgs)) return()
+    name = as.character(escape(name))
+    c(
+      package = pkg, name = name,
+      link = sprintf('\\code{\\link[%s:%s]{%s}}', pkg, name, name)
+    )
+  })
+  link = do.call(rbind, link)
+  if (NROW(link) == 0) return()
+  link = link[order(link[, 'package'], link[, 'name']), , drop = FALSE]
+  alias = sprintf('\\alias{%s}', link[, 'name'])
+  link = sapply(split(link[, 'link'], link[, 'package']), paste, collapse = ', ')
+  doc = c(
+    sprintf('\\name{%s-imports}', package),
+    alias,
+    '\\docType{import}',
+    '\\title{Objects imported from other packages}',
+    '\\description{',
+    'These objects are imported from other packages. Follow the links to their documentation.',
+    '\\describe{',
+    sprintf('  \\item{%s}{%s}', names(link), link),
+    '}}'
+  )
+  Rd = file.path(path, 'man', sprintf('%s-imports.Rd', package))
+  if (file.exists(Rd) && !any(readLines(Rd) == '\\docType{import}')) {
+    warning(
+      'The Rd file ', Rd, ' already exists. It seems I should not overwrite it. ',
+      'You may want to manually save the Rd below:', immediate. = TRUE
+    )
+    cat(doc, sep = '\n')
+    return()
+  }
+  writeLines(doc, Rd)
+}
+
+which_package = function(name, exports) {
+  for (i in names(exports)) {
+    if (name %in% exports[[i]]) return(i)
+  }
 }

@@ -2,6 +2,10 @@
 
 NEW FEATURES
 
+  o `rab(install = TRUE)` can automatically generate an Rd file for objects that
+  are imported from other packages and later re-exported in the current package;
+  this is done through the internal function `importRd()`
+
   o if the Examples section starts with a special token `# !formatR`, the
   example code will not be reformatted
 
