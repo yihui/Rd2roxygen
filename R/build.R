@@ -41,7 +41,7 @@ roxygen_and_build = function(
   if (!build) return()
   desc = file.path(pkg, 'DESCRIPTION')
   system(sprintf('%s CMD build %s %s', Rbin(), build.opts, pkg))
-  pv = read.dcf(desc, fields=c('Package', 'Version'))
+  pv = read.dcf(desc, fields = c('Package', 'Version'))
   res = sprintf('%s_%s.tar.gz', pv[1, 1], pv[1, 2])
   if (install) system(sprintf('%s CMD INSTALL %s ', Rbin(), res))
   if (check) {
