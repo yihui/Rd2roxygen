@@ -175,6 +175,8 @@ importRd = function(path, package) {
       which_package(name, import)
     }
     if (is.null(pkg) || pkg == package || !(pkg %in% pkgs)) return()
+    # if name is not exported there, you have to document it by yourself
+    if (!(name %in% getNamespaceExports(pkg))) return()
     name = as.character(escape(name))
     c(
       package = pkg, name = name,
