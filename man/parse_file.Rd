@@ -1,3 +1,4 @@
+% Please edit documentation in R/rd2roxygen.R
 \name{parse_file}
 \alias{parse_file}
 \title{Parse the input Rd file to a list}

@@ -1,3 +1,4 @@
+% Please edit documentation in R/rd2roxygen.R
 \name{parse_and_save}
 \alias{parse_and_save}
 \title{Parse the input Rd file and save the roxygen documentation into a file}

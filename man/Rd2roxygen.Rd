@@ -1,3 +1,4 @@
+% Please edit documentation in R/rd2roxygen.R
 \name{Rd2roxygen}
 \alias{Rd2roxygen}
 \title{Convert all the Rd files of a package to roxygen comments}

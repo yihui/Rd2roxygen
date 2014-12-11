@@ -1,3 +1,4 @@
+% Please edit documentation in R/build.R
 \name{reformat_code}
 \alias{reformat_code}
 \title{Format the code in the usage and examples sections}

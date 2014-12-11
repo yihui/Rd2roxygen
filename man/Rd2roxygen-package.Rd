@@ -1,3 +1,4 @@
+% Please edit documentation in R/Rd2roxygen-package.R
 \docType{package}
 \name{Rd2roxygen-package}
 \alias{Rd2roxygen-package}
