@@ -124,6 +124,15 @@ reformat_code = function(path, ...) {
       message(paste('   ', tmp, collapse = '\n'))
     }
   }
+  # add a space after the comma, i.e. turn \item{x, y}{} to \item{x, y, z}{}
+  if (length(idx <- grep('^\\\\item\\{[^}]+,[^}]+\\}\\{.+', rd))) {
+    txt = rd[idx]
+    r = '^(\\\\item\\{[^}]+\\})(\\{.+)$'
+    t1 = gsub(r, '\\1', txt)
+    t2 = gsub(r, '\\2', txt)
+    t1 = gsub(',', ', ', t1)
+    rd[idx] = paste(t1, t2, sep = '')
+  }
   writeLines(strip_white(rd), path)
   flush.console()
 }

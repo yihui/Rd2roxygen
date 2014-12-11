@@ -9,6 +9,9 @@ NEW FEATURES
   o if the Examples section starts with a special token `# !formatR`, the
   example code will not be reformatted
 
+  o spaces will be added after commas in \item{}, e.g. \item{x,y,z}{} will be
+  converted to \item{x, y, z}{}
+
 		  CHANGES IN Rd2roxygen VERSION 1.5
 
 MINOR CHANGES
