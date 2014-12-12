@@ -5,12 +5,12 @@
 \title{Roxygenize a package, clean up and build/check the package}
 \usage{
 roxygen_and_build(pkg, build = TRUE, build.opts = "--no-manual", install = FALSE, 
-    check = FALSE, check.opts = "--as-cran --no-manual", remove.check = TRUE, 
-    reformat = TRUE, ...)
+    install.opts = "--keep.source", check = FALSE, check.opts = "--as-cran --no-manual", 
+    remove.check = TRUE, reformat = TRUE, ...)
 
-rab(pkg, build = TRUE, build.opts = "--no-manual", install = FALSE, check = FALSE, 
-    check.opts = "--as-cran --no-manual", remove.check = TRUE, reformat = TRUE, 
-    ...)
+rab(pkg, build = TRUE, build.opts = "--no-manual", install = FALSE, 
+    install.opts = "--keep.source", check = FALSE, check.opts = "--as-cran --no-manual", 
+    remove.check = TRUE, reformat = TRUE, ...)
 }
 \arguments{
 \item{pkg}{the root directory of the source package}
@@ -20,6 +20,8 @@ rab(pkg, build = TRUE, build.opts = "--no-manual", install = FALSE, check = FALS
 \item{build.opts}{options to be passed to \command{R CMD build}}
 
 \item{install}{whether to install the package}
+
+\item{install.opts}{options to be passed to \command{R CMD INSTALL}}
 
 \item{check}{whether to check the package}
 
