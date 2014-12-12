@@ -6,6 +6,9 @@ NEW FEATURES
   are imported from other packages and later re-exported in the current package;
   this is done through the internal function `importRd()`
 
+  o added an argument `install.opts` to `rab()` to specify options for `R CMD
+  INSTALL` (default: `--keep-source`)
+
   o if the Examples section starts with a special token `# !formatR`, the
   example code will not be reformatted
 
