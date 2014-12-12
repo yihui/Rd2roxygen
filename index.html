@@ -10,7 +10,7 @@
 
 <meta name="author" content="Yihui Xie" />
 
-<meta name="date" content="2014-12-11" />
+<meta name="date" content="2014-12-12" />
 
 <title>Rd2roxygen: Convert Rd to roxygen documentation and utilities to enhance R documentation</title>
 
@@ -54,7 +54,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <div id="header">
 <h1 class="title">Rd2roxygen: Convert Rd to roxygen documentation and utilities to enhance R documentation</h1>
 <h4 class="author"><em>Yihui Xie<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></em></h4>
-<h4 class="date"><em>2014-12-11</em></h4>
+<h4 class="date"><em>2014-12-12</em></h4>
 </div>
 
 <div id="TOC">
@@ -141,8 +141,9 @@ formatR::<span class="kw">usage</span>(Rd2roxygen)</code></pre>
 <div id="roxygenize-and-build-a-package" class="section level1">
 <h1>Roxygenize and build a package</h1>
 <p>This package also provides a tool <code>roxygen_and_build()</code> (or in short <code>rab()</code>) to help us build the package.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rab</span>(pkg, <span class="dt">build =</span> <span class="ot">TRUE</span>, <span class="dt">build.opts =</span> <span class="st">&quot;--no-manual&quot;</span>, <span class="dt">install =</span> <span class="ot">FALSE</span>, <span class="dt">check =</span> <span class="ot">FALSE</span>, 
-    <span class="dt">check.opts =</span> <span class="st">&quot;--as-cran --no-manual&quot;</span>, <span class="dt">remove.check =</span> <span class="ot">TRUE</span>, <span class="dt">reformat =</span> <span class="ot">TRUE</span>, ...)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rab</span>(pkg, <span class="dt">build =</span> <span class="ot">TRUE</span>, <span class="dt">build.opts =</span> <span class="st">&quot;--no-manual&quot;</span>, <span class="dt">install =</span> <span class="ot">FALSE</span>, <span class="dt">install.opts =</span> <span class="st">&quot;--keep.source&quot;</span>, 
+    <span class="dt">check =</span> <span class="ot">FALSE</span>, <span class="dt">check.opts =</span> <span class="st">&quot;--as-cran --no-manual&quot;</span>, <span class="dt">remove.check =</span> <span class="ot">TRUE</span>, <span class="dt">reformat =</span> <span class="ot">TRUE</span>, 
+    ...)</code></pre>
 <p>The main feature of <code>rab()</code> is the option to “reformat” the code in the usage and example sections. If we specify <code>reformat = TRUE</code> in <code>rab()</code>, the code will be reformated like this:</p>
 <pre class="sourceCode r"><code class="sourceCode r">## original code
 rab=function(pkg,<span class="dt">build=</span><span class="ot">TRUE</span>,<span class="dt">install=</span><span class="ot">FALSE</span>,
