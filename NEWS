@@ -6,8 +6,11 @@ NEW FEATURES
   are imported from other packages and later re-exported in the current package;
   this is done through the internal function `importRd()`
 
+  o when `build = FALSE` and `install = TRUE` in `rab()`, the package directory
+  instead of the built tar ball is installed
+
   o added an argument `install.opts` to `rab()` to specify options for `R CMD
-  INSTALL` (default: `--keep-source`)
+  INSTALL` (default: `--with-keep.source` if `build = FALSE`, otherwise empty)
 
   o if the Examples section starts with a special token `# !formatR`, the
   example code will not be reformatted
