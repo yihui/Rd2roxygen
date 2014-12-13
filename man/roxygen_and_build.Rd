@@ -5,12 +5,14 @@
 \title{Roxygenize a package, clean up and build/check the package}
 \usage{
 roxygen_and_build(pkg, build = TRUE, build.opts = "--no-manual", install = FALSE, 
-    install.opts = "--keep.source", check = FALSE, check.opts = "--as-cran --no-manual", 
-    remove.check = TRUE, reformat = TRUE, ...)
+    install.opts = if (build) "" else "--with-keep.source", check = FALSE, 
+    check.opts = "--as-cran --no-manual", remove.check = TRUE, reformat = TRUE, 
+    ...)
 
 rab(pkg, build = TRUE, build.opts = "--no-manual", install = FALSE, 
-    install.opts = "--keep.source", check = FALSE, check.opts = "--as-cran --no-manual", 
-    remove.check = TRUE, reformat = TRUE, ...)
+    install.opts = if (build) "" else "--with-keep.source", check = FALSE, 
+    check.opts = "--as-cran --no-manual", remove.check = TRUE, reformat = TRUE, 
+    ...)
 }
 \arguments{
 \item{pkg}{the root directory of the source package}
