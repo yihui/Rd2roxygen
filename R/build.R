@@ -28,7 +28,7 @@
 #' }
 roxygen_and_build = function(
   pkg, build = TRUE, build.opts = '--no-manual',
-  install = FALSE, install.opts = '--keep.source',
+  install = FALSE, install.opts = if (build) '' else '--with-keep.source',
   check = FALSE, check.opts = '--as-cran --no-manual', remove.check = TRUE,
   reformat = TRUE, ...
 ) {
