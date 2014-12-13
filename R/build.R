@@ -41,18 +41,18 @@ roxygen_and_build = function(
     message('Reformatting usage and examples')
     for (f in rd.list) reformat_code(f)
   }
-  if (!build) return()
   desc = file.path(pkg, 'DESCRIPTION')
-  system(sprintf('%s CMD build %s %s', Rbin(), build.opts, pkg))
+  if (build) system(sprintf('%s CMD build %s %s', Rbin(), build.opts, pkg))
   pv = read.dcf(desc, fields = c('Package', 'Version'))
   res = sprintf('%s_%s.tar.gz', pv[1, 1], pv[1, 2])
   if (install) {
-    system(sprintf('%s CMD INSTALL %s ', Rbin(), res))
+    if (!build) res = pkg
     system(sprintf('%s CMD INSTALL %s %s ', Rbin(), install.opts, res))
     # generate Rd for objects imported and exported from other packages
     importRd(pkg, pv[1, 1])
   }
   if (check) {
+    if (!build) stop('You must build the source package before running R CMD check')
     if ((system(sprintf('%s CMD check %s %s', Rbin(), res, check.opts)) == 0) &&
       remove.check) unlink(sprintf('%s.Rcheck', pv[1, 1]), TRUE)
   }
