@@ -48,6 +48,7 @@ roxygen_and_build = function(
   res = sprintf('%s_%s.tar.gz', pv[1, 1], pv[1, 2])
   if (install) {
     system(sprintf('%s CMD INSTALL %s ', Rbin(), res))
+    system(sprintf('%s CMD INSTALL %s %s ', Rbin(), install.opts, res))
     # generate Rd for objects imported and exported from other packages
     importRd(pkg, pv[1, 1])
   }
