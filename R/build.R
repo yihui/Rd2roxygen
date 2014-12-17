@@ -155,16 +155,12 @@ tidy_code = function(code, ...) {
   res = try(tidy_source(text = code, output = FALSE, width.cutoff = 80, ...)$text.tidy)
   if (inherits(res, 'try-error')) return(res)
   i = 1
-  # R CMD check requires code width to be less than 90
+  # R CMD check used to require code width to be less than 90
   while (any(nchar(unlist(strsplit(res, '\n'))) >= 90) && i <= 40) {
     res = tidy_source(text = code, output = FALSE, width.cutoff = 90 - i, ...)$text.tidy
-    i = i + 1
+    i = i + 2
   }
-  if (i > 40) {
-    warning('unable to make code width smaller than 90', immediate. = TRUE)
-    cat(code, sep = '\n')
-    code
-  } else res
+  if (i > 40) code else res
 }
 
 #' Generate R doc for functions imported from other packages and re-exported
