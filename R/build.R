@@ -158,7 +158,7 @@ tidy_code = function(code, ...) {
   # R CMD check used to require code width to be less than 90
   while (any(nchar(unlist(strsplit(res, '\n'))) >= 90) && i <= 40) {
     res = tidy_source(text = code, output = FALSE, width.cutoff = 90 - i, ...)$text.tidy
-    i = i + 2
+    i = i + 1
   }
   if (i > 40) code else res
 }
