@@ -33,6 +33,8 @@ roxygen_and_build = function(
   reformat = TRUE, ...
 ) {
   do.call(library, list('methods'))
+  if (missing(pkg)) pkg = head(commandArgs(TRUE), 1)
+  if (length(pkg) != 1) stop('The package directory must be one character string')
   roxygenize(pkg, ...)
   rd.list = list.files(file.path(pkg, 'man'), '.*\\.Rd$', all.files = TRUE,
                        full.names = TRUE)
