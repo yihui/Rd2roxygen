@@ -10,7 +10,7 @@
 
 <meta name="author" content="Yihui Xie" />
 
-<meta name="date" content="2014-12-18" />
+<meta name="date" content="2014-12-29" />
 
 <title>Rd2roxygen: Convert Rd to roxygen documentation and utilities to enhance R documentation</title>
 
@@ -54,7 +54,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <div id="header">
 <h1 class="title">Rd2roxygen: Convert Rd to roxygen documentation and utilities to enhance R documentation</h1>
 <h4 class="author"><em>Yihui Xie<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></em></h4>
-<h4 class="date"><em>2014-12-18</em></h4>
+<h4 class="date"><em>2014-12-29</em></h4>
 </div>
 
 <div id="TOC">
@@ -143,7 +143,7 @@ formatR::<span class="kw">usage</span>(Rd2roxygen)</code></pre>
 <p>This package also provides a tool <code>roxygen_and_build()</code> (or in short <code>rab()</code>) to help us build the package.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rab</span>(pkg, <span class="dt">build =</span> <span class="ot">TRUE</span>, <span class="dt">build.opts =</span> <span class="st">&quot;--no-manual&quot;</span>, <span class="dt">install =</span> <span class="ot">FALSE</span>, <span class="dt">install.opts =</span> if (build) <span class="st">&quot;&quot;</span> else <span class="st">&quot;--with-keep.source&quot;</span>, 
     <span class="dt">check =</span> <span class="ot">FALSE</span>, <span class="dt">check.opts =</span> <span class="st">&quot;--as-cran --no-manual&quot;</span>, <span class="dt">remove.check =</span> <span class="ot">TRUE</span>, <span class="dt">reformat =</span> <span class="ot">TRUE</span>, 
-    ...)</code></pre>
+    <span class="dt">before =</span> <span class="ot">NULL</span>, ...)</code></pre>
 <p>The main feature of <code>rab()</code> is the option to “reformat” the code in the usage and example sections. If we specify <code>reformat = TRUE</code> in <code>rab()</code>, the code will be reformated like this:</p>
 <pre class="sourceCode r"><code class="sourceCode r">## original code
 rab=function(pkg,<span class="dt">build=</span><span class="ot">TRUE</span>,<span class="dt">install=</span><span class="ot">FALSE</span>,
@@ -163,7 +163,7 @@ rab =<span class="st"> </span>function(pkg, <span class="dt">build =</span> <spa
 <p>Wickham, Hadley, and Yihui Xie. 2014. <em>Rd2roxygen: Convert Rd to Roxygen Documentation and Utilities to Improve Documentation</em>. <a href="http://yihui.name/Rd2roxygen">http://yihui.name/Rd2roxygen</a>.</p>
 <p>Wickham, Hadley, Peter Danenberg, and Manuel Eugster. 2014. <em>roxygen2: In-Source Documentation for R</em>. <a href="http://CRAN.R-project.org/package=roxygen2">http://CRAN.R-project.org/package=roxygen2</a>.</p>
 <p>Xie, Yihui. 2014a. <em>formatR: Format R Code Automatically</em>. <a href="http://yihui.name/formatR">http://yihui.name/formatR</a>.</p>
-<p>———. 2014b. <em>knitr: A General-Purpose Package for Dynamic Report Generation in R</em>. <a href="http://CRAN.R-project.org/package=knitr">http://CRAN.R-project.org/package=knitr</a>.</p>
+<p>———. 2014b. <em>knitr: A General-Purpose Package for Dynamic Report Generation in R</em>. <a href="http://yihui.name/knitr/">http://yihui.name/knitr/</a>.</p>
 </div>
 </div>
 <div class="footnotes">
