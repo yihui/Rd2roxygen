@@ -12,6 +12,9 @@ NEW FEATURES
   o added an argument `install.opts` to `rab()` to specify options for `R CMD
   INSTALL` (default: `--with-keep.source` if `build = FALSE`, otherwise empty)
 
+  o added an argument `before` to `rab()` so we can evaluate an R expression
+  before the package is roxygenized and built
+
   o if the Examples section starts with a special token `# !formatR`, the
   example code will not be reformatted
 

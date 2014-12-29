@@ -15,6 +15,8 @@
 #'   CMD check}
 #' @param reformat whether to reformat the usage and examples code; see
 #'   \code{\link{reformat_code}}
+#' @param before an R expression to be evaluated under the package root
+#'   directory before the package is roxygenized and built
 #' @param ... other arguments passed to \code{\link[roxygen2]{roxygenize}}
 #' @return \code{NULL}
 #' @author Yihui Xie <\url{http://yihui.name}>
@@ -30,11 +32,12 @@ roxygen_and_build = function(
   pkg, build = TRUE, build.opts = '--no-manual',
   install = FALSE, install.opts = if (build) '' else '--with-keep.source',
   check = FALSE, check.opts = '--as-cran --no-manual', remove.check = TRUE,
-  reformat = TRUE, ...
+  reformat = TRUE, before = NULL, ...
 ) {
   do.call(library, list('methods'))
   if (missing(pkg)) pkg = head(commandArgs(TRUE), 1)
   if (length(pkg) != 1) stop('The package directory must be one character string')
+  in_dir(pkg, before)
   roxygenize(pkg, ...)
   rd.list = list.files(file.path(pkg, 'man'), '.*\\.Rd$', all.files = TRUE,
                        full.names = TRUE)

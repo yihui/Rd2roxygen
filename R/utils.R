@@ -94,3 +94,8 @@ tidy_examples = function(rd, idx0, idx1, ..., path) {
   }
   rd
 }
+
+in_dir = function(dir, expr) {
+  owd = setwd(dir); on.exit(setwd(owd))
+  expr
+}
