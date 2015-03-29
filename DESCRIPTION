@@ -12,7 +12,7 @@ Imports:
     roxygen2 (>= 4.0.0),
     formatR (>= 1.0)
 Suggests:
-    knitr (>= 1.7),
+    knitr (>= 1.9),
     rmarkdown
 Description: Functions to convert Rd to roxygen documentation. It can parse an
     Rd file to a list, create the roxygen documentation and update the original
