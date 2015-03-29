@@ -3,10 +3,10 @@ Type: Package
 Title: Convert Rd to Roxygen Documentation
 Version: 1.5.9
 Date: 2014-08-25
-Authors@R: as.person(c(
-    "Hadley Wickham [aut]",
-    "Yihui Xie <xie@yihui.name> [aut, cre]"
-    ))
+Authors@R: c(
+    person("Hadley", "Wickham", role = "aut"),
+    person("Yihui", "Xie", email = "xie@yihui.name", role = c("aut", "cre"))
+    )
 Maintainer: Yihui Xie <xie@yihui.name>
 Imports:
     roxygen2 (>= 4.0.0),
