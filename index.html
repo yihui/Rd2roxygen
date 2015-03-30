@@ -10,7 +10,7 @@
 
 <meta name="author" content="Yihui Xie" />
 
-<meta name="date" content="2014-12-29" />
+<meta name="date" content="2015-03-30" />
 
 <title>Rd2roxygen: Convert Rd to roxygen documentation and utilities to enhance R documentation</title>
 
@@ -54,7 +54,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <div id="header">
 <h1 class="title">Rd2roxygen: Convert Rd to roxygen documentation and utilities to enhance R documentation</h1>
 <h4 class="author"><em>Yihui Xie<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></em></h4>
-<h4 class="date"><em>2014-12-29</em></h4>
+<h4 class="date"><em>2015-03-30</em></h4>
 </div>
 
 <div id="TOC">
@@ -66,7 +66,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </ul>
 </div>
 
-<p>The package <strong>Rd2roxygen</strong> <span class="citation">(Wickham and Xie 2014)</span> helps R package developers who used to write R documentation in the raw LaTeX-like commands but now want to switch their documentation to <strong>roxygen2</strong> <span class="citation">(Wickham, Danenberg, and Eugster 2014)</span>, which is a convenient tool for developers, since we can write documentation as inline comments, e.g.</p>
+<p>The package <strong>Rd2roxygen</strong> <span class="citation">(Wickham and Xie 2015)</span> helps R package developers who used to write R documentation in the raw LaTeX-like commands but now want to switch their documentation to <strong>roxygen2</strong> <span class="citation">(Wickham, Danenberg, and Eugster 2014)</span>, which is a convenient tool for developers, since we can write documentation as inline comments, e.g.</p>
 <pre class="sourceCode r"><code class="sourceCode r">## the source code of the function `parse_and_save`
 ex.file =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;examples&quot;</span>, <span class="st">&quot;parse_and_save.R&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;Rd2roxygen&quot;</span>)
 <span class="kw">cat</span>(<span class="kw">readLines</span>(ex.file), <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</code></pre>
@@ -152,18 +152,18 @@ rab=function(pkg,<span class="dt">build=</span><span class="ot">TRUE</span>,<spa
 rab =<span class="st"> </span>function(pkg, <span class="dt">build =</span> <span class="ot">TRUE</span>, <span class="dt">install =</span> <span class="ot">FALSE</span>, <span class="dt">check =</span> <span class="ot">FALSE</span>, <span class="dt">check.opts =</span> <span class="st">&quot;&quot;</span>, 
     <span class="dt">remove.check =</span> <span class="ot">TRUE</span>, <span class="dt">reformat =</span> <span class="ot">TRUE</span>, ...) {
 }</code></pre>
-<p>Note this functionality depends on the package <strong>formatR</strong> <span class="citation">(Xie 2014a)</span>, and sometimes it might not be possible to reformat the code, e.g. the <code>\dontrun{}</code> command in Rd can contain arbitrary texts, which means there could be illegal R expressions and <strong>formatR</strong> will be unable to format the code. In this case, the original code will not be reformatted and a message will be printed on screen.</p>
+<p>Note this functionality depends on the package <strong>formatR</strong> <span class="citation">(Xie 2015a)</span>, and sometimes it might not be possible to reformat the code, e.g. the <code>\dontrun{}</code> command in Rd can contain arbitrary texts, which means there could be illegal R expressions and <strong>formatR</strong> will be unable to format the code. In this case, the original code will not be reformatted and a message will be printed on screen.</p>
 </div>
 <div id="about-this-vignette" class="section level1">
 <h1>About this vignette</h1>
-<p>This vignette was built using the vignette engine <code>knitr::rmarkdown</code><a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a> in the <strong>knitr</strong> package <span class="citation">(Xie 2014b)</span>. You can find the source in the <a href="https://github.com/yihui/Rd2roxygen/tree/master/vignettes">Rd2roxygen repository</a> on Github, or</p>
+<p>This vignette was built using the vignette engine <code>knitr::rmarkdown</code><a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a> in the <strong>knitr</strong> package <span class="citation">(Xie 2015b)</span>. You can find the source in the <a href="https://github.com/yihui/Rd2roxygen/tree/master/vignettes">Rd2roxygen repository</a> on Github, or</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.file</span>(<span class="st">&quot;doc&quot;</span>, <span class="st">&quot;Rd2roxygen.Rmd&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;Rd2roxygen&quot;</span>)</code></pre>
 <div class="references">
 <h1>References</h1>
-<p>Wickham, Hadley, and Yihui Xie. 2014. <em>Rd2roxygen: Convert Rd to Roxygen Documentation and Utilities to Improve Documentation</em>. <a href="http://yihui.name/Rd2roxygen">http://yihui.name/Rd2roxygen</a>.</p>
+<p>Wickham, Hadley, and Yihui Xie. 2015. <em>Rd2roxygen: Convert Rd to Roxygen Documentation</em>. <a href="http://yihui.name/Rd2roxygen">http://yihui.name/Rd2roxygen</a>.</p>
 <p>Wickham, Hadley, Peter Danenberg, and Manuel Eugster. 2014. <em>roxygen2: In-Source Documentation for R</em>. <a href="http://CRAN.R-project.org/package=roxygen2">http://CRAN.R-project.org/package=roxygen2</a>.</p>
-<p>Xie, Yihui. 2014a. <em>formatR: Format R Code Automatically</em>. <a href="http://yihui.name/formatR">http://yihui.name/formatR</a>.</p>
-<p>———. 2014b. <em>knitr: A General-Purpose Package for Dynamic Report Generation in R</em>. <a href="http://yihui.name/knitr/">http://yihui.name/knitr/</a>.</p>
+<p>Xie, Yihui. 2015a. <em>formatR: Format R Code Automatically</em>. <a href="http://yihui.name/formatR">http://yihui.name/formatR</a>.</p>
+<p>———. 2015b. <em>knitr: A General-Purpose Package for Dynamic Report Generation in R</em>. <a href="http://yihui.name/knitr/">http://yihui.name/knitr/</a>.</p>
 </div>
 </div>
 <div class="footnotes">
