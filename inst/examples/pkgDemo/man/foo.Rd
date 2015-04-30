@@ -17,8 +17,14 @@
 }
 \section{Special Section}{
   This is a customized \bold{section}.
-  
+
   Another paragraph with a URL \url{https://github.com/yihui/Rd2roxygen}.
+}
+\concept{
+  concept 1
+}
+\concept{
+  concept 2
 }
 \examples{
 foo(1, 2)
