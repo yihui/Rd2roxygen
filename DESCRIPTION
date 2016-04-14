@@ -2,7 +2,7 @@ Package: Rd2roxygen
 Type: Package
 Title: Convert Rd to Roxygen Documentation
 Version: 1.6.1
-Date: 2015-03-29
+Date: 2016-04-14
 Authors@R: c(
     person("Hadley", "Wickham", role = "aut"),
     person("Yihui", "Xie", email = "xie@yihui.name", role = c("aut", "cre"))
@@ -25,4 +25,4 @@ License: GPL
 URL: http://yihui.name/Rd2roxygen
 BugReports: https://github.com/yihui/Rd2roxygen/issues
 VignetteBuilder: knitr
-RoxygenNote: 5.0.0
+RoxygenNote: 5.0.1
