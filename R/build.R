@@ -22,6 +22,7 @@
 #' @author Yihui Xie <\url{http://yihui.name}>
 #' @rdname roxygen_and_build
 #' @importFrom roxygen2 roxygenize
+#' @import utils
 #' @export
 #' @examples \dontrun{
 #' roxygen_and_build("Rd2roxygen", install = TRUE)
