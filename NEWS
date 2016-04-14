@@ -1,3 +1,10 @@
+		  CHANGES IN Rd2roxygen VERSION 1.6.1
+
+MAJOR CHANGES
+
+  o existing tarballs of the source package will be deleted before building the
+  new tarball with `rab()`
+
 		  CHANGES IN Rd2roxygen VERSION 1.6
 
 NEW FEATURES
