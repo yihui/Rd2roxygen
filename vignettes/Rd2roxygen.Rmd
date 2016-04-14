@@ -102,10 +102,8 @@ will be printed on screen.
 
 # About this vignette
 
-This vignette was built using the vignette engine `knitr::rmarkdown`^[Note
-it is not a function, despite of the `::` operator; see
-[R-exts](http://cran.rstudio.com/doc/manuals/r-release/R-exts.html#Non_002dSweave-vignettes)
-for more info.] in the **knitr** package [@R-knitr]. You can find the source
+This vignette was built using the vignette engine `knitr::rmarkdown`
+in the **knitr** package [@R-knitr]. You can find the source
 in the [Rd2roxygen
 repository](https://github.com/yihui/Rd2roxygen/tree/master/vignettes) on
 Github, or
