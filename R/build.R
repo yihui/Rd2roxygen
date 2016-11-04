@@ -49,9 +49,9 @@ roxygen_and_build = function(
   }
   desc = file.path(pkg, 'DESCRIPTION')
   pv = read.dcf(desc, fields = c('Package', 'Version'))
+  # delete existing tarballs
+  unlink(sprintf('%s_*.tar.gz', pv[1, 1]))
   if (build) {
-    # delete existing tarballs
-    unlink(sprintf('%s_*.tar.gz', pv[1, 1]))
     system(sprintf('%s CMD build %s %s', Rbin(), build.opts, pkg))
   }
   res = sprintf('%s_%s.tar.gz', pv[1, 1], pv[1, 2])
