@@ -1,41 +1,42 @@
 ---
-title: 'Rd2roxygen: Convert Rd to roxygen documentation and utilities to enhance R
-  documentation'
-author: "Yihui Xie^[RStudio, Inc. Email: xie@yihui.name]"
+title: Rd2roxygen
+subtitle: Convert Rd to roxygen documentation
+author: "Yihui Xie"
 date: '`r Sys.Date()`'
+slug: Rd2roxygen
+show_toc: true
+githubEditURL: https://github.com/yihui/Rd2roxygen/edit/master/vignettes/Rd2roxygen.Rmd
 output:
   knitr:::html_vignette:
     toc: yes
-bibliography: Rd2roxygen.bib
 vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteIndexEntry{Rd2roxygen: Convert Rd to roxygen documentation and utilities to enhance R documentation}
 ---
 
 ```{r setup, echo=FALSE}
-library('knitr')
-opts_chunk$set(comment=NA, message=FALSE)
-options(formatR.blank=FALSE, width=80)
+knitr::opts_chunk$set(comment = NA, message = FALSE)
+options(formatR.blank = FALSE, width = 60)
 ```
 
-The package **Rd2roxygen** [@R-Rd2roxygen] helps R package developers who
+The package [**Rd2roxygen**](https://github.com/yihui/Rd2roxygen) helps R package developers who
 used to write R documentation in the raw LaTeX-like commands but now want to
-switch their documentation to **roxygen2** [@R-roxygen2], which is a
+switch their documentation to [**roxygen2**](https://cran.rstudio.org/package=roxygen2), which is a
 convenient tool for developers, since we can write documentation as inline
 comments, e.g.
 
 ```{r roxygen-ex}
 ## the source code of the function `parse_and_save`
-ex.file = system.file('examples','parse_and_save.R',package='Rd2roxygen')
-cat(readLines(ex.file), sep='\n')
+ex.file = system.file('examples', 'parse_and_save.R', package = 'Rd2roxygen')
+cat(readLines(ex.file), sep = '\n')
 ```
 
 With **roxygen2** (typically using `roxygenize()`), we can create the real
 Rd file from the above source code like this:
 
 ```{r rd-ex}
-rd.file = system.file('examples','parse_and_save.Rd',package='Rd2roxygen')
-cat(readLines(rd.file), sep='\n')
+rd.file = system.file('examples', 'parse_and_save.Rd', package = 'Rd2roxygen')
+cat(readLines(rd.file), sep = '\n')
 ```
 
 The **Rd2roxygen** package goes exactly in the _opposite_ way -- it parses
@@ -67,7 +68,8 @@ We can parse a single Rd file and create the roxygen comments as well with
 ## we can specify the roxygen comments prefix (#' by default)
 options(roxygen.comment = "##' ")
 str(info <- parse_file(rd.file))
-cat(create_roxygen(info), sep='\n') # parse_and_save() combines these two steps
+# parse_and_save() combines these two steps
+cat(create_roxygen(info), sep = '\n')
 ```
 
 # Roxygenize and build a package
@@ -93,7 +95,7 @@ rab=function(pkg,build=TRUE,install=FALSE,
 check=FALSE,check.opts='',remove.check=TRUE,reformat=TRUE,...){}
 ```
 
-Note this functionality depends on the package **formatR** [@R-formatR], and
+Note this functionality depends on the package [**formatR**](https://yihui.name/formatR), and
 sometimes it might not be possible to reformat the code, e.g. the
 `\dontrun{}` command in Rd can contain arbitrary texts, which means there
 could be illegal R expressions and **formatR** will be unable to format the
@@ -103,7 +105,7 @@ will be printed on screen.
 # About this vignette
 
 This vignette was built using the vignette engine `knitr::rmarkdown`
-in the **knitr** package [@R-knitr]. You can find the source
+in the [**knitr**](https://yihui.name/knitr) package. You can find the source
 in the [Rd2roxygen
 repository](https://github.com/yihui/Rd2roxygen/tree/master/vignettes) on
 Github, or
@@ -111,10 +113,3 @@ Github, or
 ```{r lyx-doc, eval=FALSE}
 system.file('doc', 'Rd2roxygen.Rmd', package='Rd2roxygen')
 ```
-
-```{r write-bib, include=FALSE}
-# automatically write the bibliography database
-write_bib(c('Rd2roxygen', 'roxygen2', 'formatR', 'knitr'), file = 'Rd2roxygen.bib')
-```
-
-# References
