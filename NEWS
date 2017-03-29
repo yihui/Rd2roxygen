@@ -1,3 +1,9 @@
+		  CHANGES IN Rd2roxygen VERSION 1.6.2
+
+MAJOR CHANGES
+
+  o the roxygen2 comments in Rd and NAMESPACE are no longer removed
+
 		  CHANGES IN Rd2roxygen VERSION 1.6.1
 
 MAJOR CHANGES
