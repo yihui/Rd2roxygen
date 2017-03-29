@@ -40,11 +40,11 @@ roxygen_and_build = function(
   if (length(pkg) != 1) stop('The package directory must be one character string')
   in_dir(pkg, before)
   roxygenize(pkg, ...)
-  rd.list = list.files(file.path(pkg, 'man'), '.*\\.Rd$', all.files = TRUE,
-                       full.names = TRUE)
-  rd.list = c(file.path(pkg, 'NAMESPACE'), rd.list)
   if (reformat) {
     message('Reformatting usage and examples')
+    rd.list = list.files(
+      file.path(pkg, 'man'), '.*\\.Rd$', all.files = TRUE, full.names = TRUE
+    )
     for (f in rd.list) reformat_code(f)
   }
   desc = file.path(pkg, 'DESCRIPTION')
@@ -103,8 +103,6 @@ rab = roxygen_and_build
 #' file.show(fmt.file)  ## the formatted Rd
 reformat_code = function(path, ...) {
   rd = readLines(path)
-  if (!grepl('\\.Rd$', path))
-    return(writeLines(strip_white(rd), path))  # NAMESPACE
   tags = tags_possible
   if (length(idx0 <- grep('^\\\\examples\\{', rd))) {
     # tags after \examples?
