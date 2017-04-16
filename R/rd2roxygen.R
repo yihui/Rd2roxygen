@@ -36,7 +36,11 @@ parse_file = function(path) {
   out$seealso = reconstruct(untag(rd$seealso))
   out$references = reconstruct(untag(rd$references))
   out$source = reconstruct(untag(rd$source))
-
+  out$concepts <- unname(do.call(c, lapply(rd[names(rd) == "concept"], function(x) {
+    concept <- reconstruct(untag(x))
+    concept <- strsplit(concept, "\n")[[1]]
+    concept[concept != ""]
+  })))
   out$examples = reconstruct(untag(rd$examples))
 
   # Join together aliases and keywords
@@ -98,6 +102,9 @@ create_roxygen = function(info, usage = FALSE) {
     comment_tag("@author", info$author),
     comment_tag("@seealso", info$seealso),
     comment_tag("@references", info$references),
+    if(!is.null(info$concepts)) {
+      unname(sapply(info$concepts, function(x) comment_tag("@concept", x)))
+    },
     comment_tag("@source", info$source),
     comment_tag("@keywords", paste(info$keywords, collapse = " ")),
     if (!is.null(info$examples)) {
