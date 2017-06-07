@@ -47,17 +47,17 @@ roxygen.
 
 # Convert a whole package
 
-The function `Rd2roxygen()` can take a path of a source package, parse all
+The function `Rd2roxygen::Rd2roxygen()` can take a path of a source package, parse all
 the Rd files under the `man` directory, and write the roxygen comments right
 above the source code of the functions under the `R` directory. See
 `?Rd2roxygen` for an example.
 
-```{r Rd2roxygen}
-library(Rd2roxygen)
-formatR::usage(Rd2roxygen)
-## e.g. Rd2roxygen('somewhere/to/source/pkg')
+```{r Rd2roxygen, eval=FALSE}
+Rd2roxygen::Rd2roxygen('path/to/source/pkg')
 ## there must be 'man' and 'R' directories under this path
 ```
+
+Note the path to the package should not be `.`. You are recommended to call this function in the directory that contains the source package.
 
 # Parse a single Rd file
 
@@ -65,6 +65,7 @@ We can parse a single Rd file and create the roxygen comments as well with
 `parse_file()` and `create_roxygen()`, e.g.
 
 ```{r parse-file}
+library(Rd2roxygen)
 ## we can specify the roxygen comments prefix (#' by default)
 options(roxygen.comment = "##' ")
 str(info <- parse_file(rd.file))
