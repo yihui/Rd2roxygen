@@ -21,7 +21,6 @@
 #' @return \code{NULL}
 #' @author Yihui Xie <\url{http://yihui.name}>
 #' @rdname roxygen_and_build
-#' @importFrom roxygen2 roxygenize
 #' @import utils
 #' @export
 #' @examples \dontrun{
@@ -39,7 +38,7 @@ roxygen_and_build = function(
   if (missing(pkg)) pkg = head(commandArgs(TRUE), 1)
   if (length(pkg) != 1) stop('The package directory must be one character string')
   in_dir(pkg, before)
-  roxygenize(pkg, ...)
+  roxygen2::roxygenize(pkg, ...)
   if (reformat) {
     message('Reformatting usage and examples')
     rd.list = list.files(
