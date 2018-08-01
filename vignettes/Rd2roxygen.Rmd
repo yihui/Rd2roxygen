@@ -21,7 +21,7 @@ options(formatR.blank = FALSE, width = 60)
 
 The package [**Rd2roxygen**](https://github.com/yihui/Rd2roxygen) helps R package developers who
 used to write R documentation in the raw LaTeX-like commands but now want to
-switch their documentation to [**roxygen2**](https://cran.rstudio.org/package=roxygen2), which is a
+switch their documentation to [**roxygen2**](https://cran.r-project.org/package=roxygen2), which is a
 convenient tool for developers, since we can write documentation as inline
 comments, e.g.
 
