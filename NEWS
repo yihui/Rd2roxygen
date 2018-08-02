@@ -1,3 +1,9 @@
+		  CHANGES IN Rd2roxygen VERSION 1.7
+
+BUG FIXES
+
+  o importRd() fails due to a change in roxygen2 (https://github.com/klutometis/roxygen/issues/568).
+
 		  CHANGES IN Rd2roxygen VERSION 1.6.2
 
 MAJOR CHANGES
