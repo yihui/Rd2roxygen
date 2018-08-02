@@ -2,7 +2,6 @@ Package: Rd2roxygen
 Type: Package
 Title: Convert Rd to 'Roxygen' Documentation
 Version: 1.6.3
-Date: 2017-03-30
 Authors@R: c(
     person("Hadley", "Wickham", role = "aut"),
     person("Yihui", "Xie", email = "xie@yihui.name", role = c("aut", "cre"))
@@ -22,7 +21,7 @@ Description: Functions to convert Rd to 'roxygen' documentation. It can parse an
     to reformat the R code in the examples sections so that the code will be
     more readable.
 License: GPL
-URL: http://yihui.name/Rd2roxygen
+URL: https://github.com/yihui/Rd2roxygen
 BugReports: https://github.com/yihui/Rd2roxygen/issues
 VignetteBuilder: knitr
 RoxygenNote: 6.1.0
