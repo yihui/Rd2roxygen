@@ -43,7 +43,7 @@ comment_line = function(x, exdent = 0) {
 
 ## add comments
 comment_tag = function(tag, value) {
-  if (is.null(value) || value == "" || length(value) == 0) return()
+  if (length(value) == 0 || value == "") return()
 
   comment_line(paste(tag, value), exdent = 0)
 }
