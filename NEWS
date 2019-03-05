@@ -1,3 +1,9 @@
+		  CHANGES IN Rd2roxygen VERSION 1.8
+
+MINOR CHANGES
+
+  o No longer imports formatR in NAMESPACE (using formatR::tidy_source() now).
+
 		  CHANGES IN Rd2roxygen VERSION 1.7
 
 BUG FIXES

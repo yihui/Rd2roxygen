@@ -154,12 +154,15 @@ tags_possible = sprintf('^\\\\(%s)\\{', paste(c(
 ), collapse = '|'))
 
 tidy_code = function(code, ...) {
-  res = try(tidy_source(text = code, output = FALSE, width.cutoff = 80, ...)$text.tidy)
+  tidy = function(w) {
+    formatR::tidy_source(text = code, output = FALSE, width.cutoff = w, ...)$text.tidy
+  }
+  res = try(tidy(80))
   if (inherits(res, 'try-error')) return(res)
   i = 1
   # R CMD check used to require code width to be less than 90
   while (any(nchar(unlist(strsplit(res, '\n'))) >= 90) && i <= 40) {
-    res = tidy_source(text = code, output = FALSE, width.cutoff = 90 - i, ...)$text.tidy
+    res = tidy(90 - i)
     i = i + 1
   }
   if (i > 40) code else res
