@@ -29,6 +29,7 @@ parse_file = function(path) {
   out$details = reconstruct(untag(rd$details))
   out$section = paste(reconstruct(untag(rd$section[1])),
                        reconstruct(untag(rd$section[-1])), sep = ': ')
+  if (length(out$section) == 0) out$section = NULL
   out$format = reconstruct(untag(rd$format))
   out$value = reconstruct(untag(rd$value))
   out$note = reconstruct(untag(rd$note))
