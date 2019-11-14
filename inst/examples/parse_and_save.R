@@ -6,7 +6,7 @@
 #' @return a character vector if \code{file} is not specified, or write the
 #'   vector into a file
 #' @export
-#' @author Hadley Wickham; modified by Yihui Xie <\url{http://yihui.name}>
+#' @author Hadley Wickham; modified by Yihui Xie <\url{http://yihui.org}>
 parse_and_save <- function(path, file, usage = FALSE) {
   parsed <- parse_file(path)
   output <- create_roxygen(parsed, usage = usage)

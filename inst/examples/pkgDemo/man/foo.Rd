@@ -24,6 +24,6 @@
 foo(1, 2)
 }
 \author{
-  Yihui Xie <\url{http://yihui.name}>
+  Yihui Xie <\url{http://yihui.org}>
 }
 

@@ -5,16 +5,33 @@
 \alias{rab}
 \title{Roxygenize a package, clean up and build/check the package}
 \usage{
-roxygen_and_build(pkg, build = TRUE, build.opts = "--no-manual",
-  install = FALSE, install.opts = if (build) "" else
-  "--with-keep.source", check = FALSE,
-  check.opts = "--as-cran --no-manual", remove.check = TRUE,
-  reformat = TRUE, before = NULL, ...)
-
-rab(pkg, build = TRUE, build.opts = "--no-manual", install = FALSE,
+roxygen_and_build(
+  pkg,
+  build = TRUE,
+  build.opts = "--no-manual",
+  install = FALSE,
   install.opts = if (build) "" else "--with-keep.source",
-  check = FALSE, check.opts = "--as-cran --no-manual",
-  remove.check = TRUE, reformat = TRUE, before = NULL, ...)
+  check = FALSE,
+  check.opts = "--as-cran --no-manual",
+  remove.check = TRUE,
+  reformat = TRUE,
+  before = NULL,
+  ...
+)
+
+rab(
+  pkg,
+  build = TRUE,
+  build.opts = "--no-manual",
+  install = FALSE,
+  install.opts = if (build) "" else "--with-keep.source",
+  check = FALSE,
+  check.opts = "--as-cran --no-manual",
+  remove.check = TRUE,
+  reformat = TRUE,
+  before = NULL,
+  ...
+)
 }
 \arguments{
 \item{pkg}{the root directory of the source package}
@@ -59,5 +76,5 @@ rab("Rd2roxygen", install = TRUE)
 }
 }
 \author{
-Yihui Xie <\url{http://yihui.name}>
+Yihui Xie <\url{http://yihui.org}>
 }

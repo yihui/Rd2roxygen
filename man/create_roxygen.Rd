@@ -26,5 +26,5 @@ options(roxygen.comment = "##' ")
 create_roxygen(parse_file(rd.file))
 }
 \author{
-Hadley Wickham; modified by Yihui Xie <\url{http://yihui.name}>
+Hadley Wickham; modified by Yihui Xie <\url{http://yihui.org}>
 }
