@@ -9,6 +9,7 @@ Authors@R: c(
     )
 Imports:
     roxygen2 (>= 4.0.0),
+    xfun (>= 0.13),
     formatR (>= 1.0)
 Suggests:
     knitr (>= 1.9),
@@ -24,5 +25,5 @@ License: GPL
 URL: https://github.com/yihui/Rd2roxygen
 BugReports: https://github.com/yihui/Rd2roxygen/issues
 VignetteBuilder: knitr
-RoxygenNote: 7.0.0
+RoxygenNote: 7.1.0
 Encoding: UTF-8

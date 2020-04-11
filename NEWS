@@ -1,5 +1,8 @@
 		  CHANGES IN Rd2roxygen VERSION 1.10
 
+MINOR CHANGES
+
+  o `roxygen_and_build()` now calls `roxygen2::roxygenize()` in a new R session.
 
 		  CHANGES IN Rd2roxygen VERSION 1.9
 

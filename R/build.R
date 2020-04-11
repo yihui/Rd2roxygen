@@ -38,14 +38,9 @@ roxygen_and_build = function(
   if (missing(pkg)) pkg = head(commandArgs(TRUE), 1)
   if (length(pkg) != 1) stop('The package directory must be one character string')
   in_dir(pkg, before)
-  roxygen2::roxygenize(pkg, ...)
+  xfun::Rscript_call('roxygen2::roxygenize', list(pkg, ...))
   desc = file.path(pkg, 'DESCRIPTION')
   pv = read.dcf(desc, fields = c('Package', 'Version'))
-  # undo roxygen2's hack https://github.com/klutometis/roxygen/issues/568
-  # because it affects importRd()
-  for (name in intersect(c('devtools_shims', paste0('package:', pv[1, 1])), search())) {
-    detach(name, unload = TRUE, character.only = TRUE)
-  }
   if (reformat) {
     message('Reformatting examples')
     rd.list = list.files(
