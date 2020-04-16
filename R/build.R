@@ -34,7 +34,6 @@ roxygen_and_build = function(
   check = FALSE, check.opts = '--as-cran --no-manual', remove.check = TRUE,
   reformat = TRUE, before = NULL, ...
 ) {
-  do.call(library, list('methods'))
   if (missing(pkg)) pkg = head(commandArgs(TRUE), 1)
   if (length(pkg) != 1) stop('The package directory must be one character string')
   in_dir(pkg, before)
