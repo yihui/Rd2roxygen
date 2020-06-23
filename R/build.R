@@ -36,7 +36,7 @@ roxygen_and_build = function(
 ) {
   if (missing(pkg)) pkg = head(commandArgs(TRUE), 1)
   if (length(pkg) != 1) stop('The package directory must be one character string')
-  in_dir(pkg, before)
+  xfun::in_dir(pkg, before)
   xfun::Rscript_call('roxygen2::roxygenize', list(pkg, ...))
   desc = file.path(pkg, 'DESCRIPTION')
   pv = read.dcf(desc, fields = c('Package', 'Version'))
