@@ -1,5 +1,8 @@
 		  CHANGES IN Rd2roxygen VERSION 1.11
 
+MAJOR CHANGES
+
+  o when writing out the Rd file to document re-exported objects, the links are changed from \link[pkg:name]{name} to \link[pkg:topic]{name}, due to the recent requirement of CRAN that links should point to the topic instead of name
 
 		  CHANGES IN Rd2roxygen VERSION 1.10
 
