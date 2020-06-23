@@ -95,3 +95,7 @@ tidy_examples = function(rd, idx0, idx1, ..., path) {
   }
   rd
 }
+
+# this function is not used; the only purpose is to avoide the NOTE on CRAN:
+# Namespace in Imports field not imported from: 'roxygen2'
+.junk = function(...) roxygen2::roxygenize(...)
