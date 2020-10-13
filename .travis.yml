@@ -5,9 +5,6 @@ env:
   global:
     - R_PKG="$(basename $TRAVIS_REPO_SLUG)"
 
-repos:
-  XRAN: https://xran.yihui.org
-
 jobs:
   include:
     - r: oldrel
