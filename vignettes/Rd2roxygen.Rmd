@@ -3,7 +3,7 @@ title: Rd2roxygen
 subtitle: Convert Rd to roxygen documentation
 author: "Yihui Xie"
 date: '`r Sys.Date()`'
-slug: Rd2roxygen
+slug: rd2roxygen
 show_toc: true
 githubEditURL: https://github.com/yihui/Rd2roxygen/edit/master/vignettes/Rd2roxygen.Rmd
 output:
@@ -96,7 +96,7 @@ rab=function(pkg,build=TRUE,install=FALSE,
 check=FALSE,check.opts='',remove.check=TRUE,reformat=TRUE,...){}
 ```
 
-Note this functionality depends on the package [**formatR**](https://yihui.org/formatR), and
+Note this functionality depends on the package [**formatR**](https://yihui.org/formatR/), and
 sometimes it might not be possible to reformat the code, e.g. the
 `\dontrun{}` command in Rd can contain arbitrary texts, which means there
 could be illegal R expressions and **formatR** will be unable to format the
@@ -106,7 +106,7 @@ will be printed on screen.
 # About this vignette
 
 This vignette was built using the vignette engine `knitr::rmarkdown`
-in the [**knitr**](https://yihui.org/knitr) package. You can find the source
+in the [**knitr**](https://yihui.org/knitr/) package. You can find the source
 in the [Rd2roxygen
 repository](https://github.com/yihui/Rd2roxygen/tree/master/vignettes) on
 Github, or
