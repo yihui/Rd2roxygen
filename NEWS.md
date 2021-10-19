@@ -1,0 +1,186 @@
+# CHANGES IN Rd2roxygen VERSION 1.12
+
+# CHANGES IN Rd2roxygen VERSION 1.11
+
+## MAJOR CHANGES
+
+- when writing out the Rd file to document re-exported objects, the links are changed from \link[pkg:name]{name} to \link[pkg:topic]{name}, due to the recent requirement of CRAN that links should point to the topic instead of name
+
+# CHANGES IN Rd2roxygen VERSION 1.10
+
+## MINOR CHANGES
+
+- `roxygen_and_build()` now calls `roxygen2::roxygenize()` in a new R session.
+
+# CHANGES IN Rd2roxygen VERSION 1.9
+
+## MINOR CHANGES
+
+- `rab()` no longer reformats code in the usage sections of Rd files.
+
+# CHANGES IN Rd2roxygen VERSION 1.8
+
+## MINOR CHANGES
+
+- No longer imports formatR in NAMESPACE (using formatR::tidy_source() now).
+
+# CHANGES IN Rd2roxygen VERSION 1.7
+
+## BUG FIXES
+
+- importRd() fails due to a change in roxygen2 (https://github.com/klutometis/roxygen/issues/568).
+
+# CHANGES IN Rd2roxygen VERSION 1.6.2
+
+## MAJOR CHANGES
+
+- the roxygen2 comments in Rd and NAMESPACE are no longer removed
+
+# CHANGES IN Rd2roxygen VERSION 1.6.1
+
+## MAJOR CHANGES
+
+- existing tarballs of the source package will be deleted before building the new tarball with `rab()`
+
+# CHANGES IN Rd2roxygen VERSION 1.6
+
+## NEW FEATURES
+
+- `rab(install = TRUE)` can automatically generate an Rd file for objects that are imported from other packages and later re-exported in the current package; this is done through the internal function `importRd()`
+
+- when `build = FALSE` and `install = TRUE` in `rab()`, the package directory instead of the built tar ball is installed
+
+- added an argument `install.opts` to `rab()` to specify options for `R CMD INSTALL` (default: `--with-keep.source` if `build = FALSE`, otherwise empty)
+
+- added an argument `before` to `rab()` so we can evaluate an R expression before the package is roxygenized and built
+
+- if the Examples section starts with a special token `# !formatR`, the example code will not be reformatted
+
+- spaces will be added after commas in \item{}, e.g. \item{x,y,z}{} will be converted to \item{x, y, z}{}
+
+# CHANGES IN Rd2roxygen VERSION 1.5
+
+## MINOR CHANGES
+
+- make sure the correct R executable is used (i.e. always use file.path(R.home('bin'), 'R'))
+
+# CHANGES IN Rd2roxygen VERSION 1.4
+
+## NEW FEATURES
+
+- added a new argument 'build.opts' to rab() to pass options to R CMD build
+
+## MAJOR CHANGES
+
+- the new feature @returnItem introduced in Rd2roxygen 1.1 was temporarily removed, since it is not supported in roxygen2 (3.0.0) yet
+
+# CHANGES IN Rd2roxygen VERSION 1.3
+
+## MAJOR CHANGES
+
+- Rd2roxygen depends on formatR v0.9 for better handling of example and usage code
+
+# CHANGES IN Rd2roxygen VERSION 1.2
+
+## NEW FEATURES
+
+- added NULL to create_roxygen() when docType is data or package (#9)
+
+- Rd2roxygen() tries to add the @export tags according to the exported names in the NAMESPACE (#10, #11 and #12)
+
+- when reformatting usage and example sections, rab() tries to make code width smaller than 90, as required by R CMD check
+
+## MINOR CHANGES
+
+- the package vignette is built with knitr alone now (under R 3.0.x)
+
+# CHANGES IN Rd2roxygen VERSION 1.1
+
+## NEW FEATURES
+
+- \item{} in the \value{} section will be formatted as the @returnItem tag, which is a new tag in roxygen2 (> 2.2.2) (#8) (thanks, Andreas Alfons)
+
+- R code in \dontrun{}, \dontshow{} and \donttest{} can be reformatted by formatR now
+
+## MINOR CHANGES
+
+- the vignette is built with knitr via the Makefile; in previous versions, it was a fake Rnw document (essentially a weaved tex file)
+
+- dependency on roxygen2 and formatR was changed to Imports
+
+- default value for 'check.opts' in rab() is '--as-cran' now
+
+# CHANGES IN Rd2roxygen VERSION 1.0-7
+
+## NEW FEATURES
+
+- @section is supported now: \section{title}{content} will be converted to ##' @section title: content (thanks, Brian G. Peterson)
+
+## MINOR CHANGES
+
+- the package vignette now compiles with knitr instead of Sweave
+
+# CHANGES IN Rd2roxygen VERSION 1.0-6
+
+## BUG FIXES
+
+- \dontrun{} can be correctly reformatted now; there was a bug in the previous version when options(replace.assign = TRUE)
+
+# CHANGES IN Rd2roxygen VERSION 1.0-5
+
+## NEW FEATURES
+
+- usage for S3 methods like \method{generic}{class}(param = value) can be correctly reformatted now; in previous versions rab() will ignore such usage sections
+
+# CHANGES IN Rd2roxygen VERSION 1.0-4
+
+## NEW FEATURES
+
+- Rd files that have \docType{data} or \docType{package} (for datasets and package documentation) are written into xxx-package.R directly; these names are not looked up in R scripts under the R directory of the source package
+
+- Rd comments (following %) will be ignored when generating roxygen comments for arguments
+
+# CHANGES IN Rd2roxygen VERSION 1.0-3
+
+## NEW FEATURES
+
+- a complete example of running Rd2roxygen() on a real package was added to ?Rd2roxygen
+
+- re-run Rd2roxygen() on a package will remove the roxygen comments in R scripts before adding new roxygen comments parsed from Rd files; in old versions of this package, the old roxygen comments were not removed, hence the comments were added incrementally above the function objects, which was certainly not desirable
+
+## MINOR CHANGES
+
+- all these forms of quotes in assignments are allowed in Rd2roxygen(): `foo` <-, 'foo' <-, "foo" <-, and = can be used as the assigning operator as well
+
+# CHANGES IN Rd2roxygen VERSION 1.0-2
+
+## MAJOR CHANGES
+
+- the usage sections in Rd files will be reformatted by default again when calling rab() (this feature was formerly removed in version 1.0-0)
+
+## MINOR CHANGES
+
+- rab(..., install = TRUE) will install the *.tar.gz file rather than the package directory; similarly, rab(..., check = TRUE) checks the tar ball as well
+
+# CHANGES IN Rd2roxygen VERSION 1.0-1
+
+## MINOR CHANGES
+
+- the percent symbols in the examples code will be unescaped (i.e. \% becomes %) before the code is reformatted, then escaped again; this can avoid errors when reformatting the code, since \% is an illegal character in R
+
+# CHANGES IN Rd2roxygen VERSION 1.0-0
+
+## NEW FEATURES
+
+- Rd2roxygen uses the brand-new roxygen2 rather than the old roxygen package which is no longer maintained; users are recommended to read the NEWS file of roxygen2 carefully. Some major changes include: the description is in the second *paragraph* rather than the second *line* now (i.e. there is an empty line between the title and description); @format and @source are supported, and a series of new tags are introduced in roxygen2 too
+
+## MAJOR CHANGES
+
+- the escape and use.Rd2 arguments are removed in rab() since roxygen2 can handle these cases elegantly
+
+- roxygen.dir is the same as the package directory by default, so rab() will write all the documentations in the original package directory
+
+- the usage section is no longer reformatted by formatR; roxygen2 formats it nicely
+
+- the function rm_undocumented() is no longer needed, so it was removed from this package; use @noRd if you do not want the documentation of a certain object to be generated by roxygen2
+
