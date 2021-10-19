@@ -65,14 +65,22 @@ tidy_examples = function(rd, idx0, idx1, ..., path) {
   tmp[1] = sub('^\\\\examples\\{', '', tmp[1])
   nn = length(tmp)
   tmp[nn] = sub('\\}$', '', tmp[nn])
+  # does the example contain examplesIf?
+  ei = NULL
+  if (nn >= 4) {
+    ei = tmp[c(2, nn - 1)]
+    if (all(grepl(' # examplesIf}$', ei))) {
+      tmp[c(2, nn - 1)] = ''
+    } else ei = NULL
+  }
   txt = gsub('\\%', '%', tmp, fixed = TRUE) # will escape % later
   txt = sub('^\\\\+dont(run|test|show)', 'tag_name_dont\\1 <- function() ', txt)
   txt = tidy_code(txt, ...)
   if (!inherits(txt, 'try-error')) {
     txt = gsub('(^|[^\\])%', '\\1\\\\%', txt)
     txt = gsub('tag_name_dont(run|test|show) <- function\\(\\) \\{', '\\\\dont\\1{', txt)
-    txt[txt == ''] = '\n'
-    txt = unlist(strsplit(txt, '\n'))
+    txt = gsub('^\\s+|\\s+$', '', paste(txt, collapse = '\n'))
+    txt = xfun::split_lines(txt)
     # remove the four spaces introduced by disguising \\dontrun as a function
     if (length(idx2 <- grep('\\\\dont(run|test|show)\\{', txt))) {
       for (i in idx2) {
@@ -83,10 +91,9 @@ tidy_examples = function(rd, idx0, idx1, ..., path) {
         }
       }
     }
-    txt = paste(txt, rep(c('\n', ''), c(length(txt) - 1, 1)), sep = '', collapse = '')
-    txt[1] = paste('\\examples{', txt[1], sep = '')
-    nn0 = length(txt)
-    txt[nn0] = paste(txt[nn0], '}', sep = '')
+    # restore examplesIf
+    if (length(ei)) txt = c(ei[1], txt, ei[2])
+    txt = c('\\examples{', txt, '}')
     rd[idx0] = paste(txt, collapse = '\n')
     if (idx1 > idx0) rd = rd[-((idx0 + 1):idx1)]
   } else {

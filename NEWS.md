@@ -1,5 +1,7 @@
 # CHANGES IN Rd2roxygen VERSION 1.12
 
+- Supports the roxygen tag `@examplesIf`.
+
 # CHANGES IN Rd2roxygen VERSION 1.11
 
 ## MAJOR CHANGES
