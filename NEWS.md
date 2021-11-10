@@ -10,7 +10,7 @@
 
 ## MAJOR CHANGES
 
-- when writing out the Rd file to document re-exported objects, the links are changed from \link[pkg:name]{name} to \link[pkg:topic]{name}, due to the recent requirement of CRAN that links should point to the topic instead of name
+- when writing out the Rd file to document re-exported objects, the links are changed from `\link[pkg:name]{name}` to `\link[pkg:topic]{name}`, due to the recent requirement of CRAN that links should point to the topic instead of name
 
 # CHANGES IN Rd2roxygen VERSION 1.10
 
@@ -62,7 +62,7 @@
 
 - if the Examples section starts with a special token `# !formatR`, the example code will not be reformatted
 
-- spaces will be added after commas in \item{}, e.g. \item{x,y,z}{} will be converted to \item{x, y, z}{}
+- spaces will be added after commas in `\item{}`, e.g. `\item{x,y,z}{}` will be converted to `\item{x, y, z}{}`
 
 # CHANGES IN Rd2roxygen VERSION 1.5
 
@@ -104,9 +104,9 @@
 
 ## NEW FEATURES
 
-- \item{} in the \value{} section will be formatted as the @returnItem tag, which is a new tag in roxygen2 (> 2.2.2) (#8) (thanks, Andreas Alfons)
+- `\item{}` in the `\value{}` section will be formatted as the @returnItem tag, which is a new tag in roxygen2 (> 2.2.2) (#8) (thanks, Andreas Alfons)
 
-- R code in \dontrun{}, \dontshow{} and \donttest{} can be reformatted by formatR now
+- R code in `\dontrun{}`, `\dontshow{}` and `\donttest{}` can be reformatted by formatR now
 
 ## MINOR CHANGES
 
@@ -120,7 +120,7 @@
 
 ## NEW FEATURES
 
-- @section is supported now: \section{title}{content} will be converted to ##' @section title: content (thanks, Brian G. Peterson)
+- @section is supported now: `\section{title}{content}` will be converted to `##' @section title: content` (thanks, Brian G. Peterson)
 
 ## MINOR CHANGES
 
@@ -130,19 +130,19 @@
 
 ## BUG FIXES
 
-- \dontrun{} can be correctly reformatted now; there was a bug in the previous version when options(replace.assign = TRUE)
+- `\dontrun{}` can be correctly reformatted now; there was a bug in the previous version when options(replace.assign = TRUE)
 
 # CHANGES IN Rd2roxygen VERSION 1.0-5
 
 ## NEW FEATURES
 
-- usage for S3 methods like \method{generic}{class}(param = value) can be correctly reformatted now; in previous versions rab() will ignore such usage sections
+- usage for S3 methods like `\method{generic}{class}(param = value)` can be correctly reformatted now; in previous versions rab() will ignore such usage sections
 
 # CHANGES IN Rd2roxygen VERSION 1.0-4
 
 ## NEW FEATURES
 
-- Rd files that have \docType{data} or \docType{package} (for datasets and package documentation) are written into xxx-package.R directly; these names are not looked up in R scripts under the R directory of the source package
+- Rd files that have `\docType{data}` or `\docType{package}` (for datasets and package documentation) are written into xxx-package.R directly; these names are not looked up in R scripts under the R directory of the source package
 
 - Rd comments (following %) will be ignored when generating roxygen comments for arguments
 
@@ -172,7 +172,7 @@
 
 ## MINOR CHANGES
 
-- the percent symbols in the examples code will be unescaped (i.e. \% becomes %) before the code is reformatted, then escaped again; this can avoid errors when reformatting the code, since \% is an illegal character in R
+- the percent symbols in the examples code will be unescaped (i.e. `\%` becomes `%`) before the code is reformatted, then escaped again; this can avoid errors when reformatting the code, since `\%` is an illegal character in R
 
 # CHANGES IN Rd2roxygen VERSION 1.0-0
 
