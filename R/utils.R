@@ -94,6 +94,11 @@ tidy_examples = function(rd, idx0, idx1, ..., path) {
     # restore examplesIf
     if (length(ei)) txt = c(ei[1], txt, ei[2])
     txt = c('\\examples{', txt, '}')
+    # no line break before examplesIf
+    if (length(ei)) {
+      txt[2] = paste0(txt[1], txt[2])
+      txt = txt[-1]
+    }
     rd[idx0] = paste(txt, collapse = '\n')
     if (idx1 > idx0) rd = rd[-((idx0 + 1):idx1)]
   } else {
