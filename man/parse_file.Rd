@@ -21,5 +21,5 @@ rd.file = system.file("examples", "parse_and_save.Rd", package = "Rd2roxygen")
 parse_file(rd.file)
 }
 \author{
-Hadley Wickham; modified by Yihui Xie <\url{http://yihui.org}>
+Hadley Wickham; modified by Yihui Xie <\url{https://yihui.org}>
 }
