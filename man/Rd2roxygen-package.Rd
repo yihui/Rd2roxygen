@@ -30,6 +30,14 @@ There is no guarantee to generate perfect roxygen comments that can be
 \examples{
 ## see the package vignette: vignette('Rd2roxygen')
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/yihui/Rd2roxygen}
+  \item Report bugs at \url{https://github.com/yihui/Rd2roxygen/issues}
+}
+
+}
 \author{
 Hadley Wickham and Yihui Xie
 }
