@@ -22,11 +22,16 @@ reconstruct = function(rd) {
                      '}', sep = "", collapse = ""))
       } else if (length(rd) == 0) return(tag(rd))
     }
-    special = tag(rd) == toupper(tag(rd))
-    singles = tag(rd) %in% c('\\tab', '\\cr')
-    prefix = ifelse(special, "",
-                     paste(tag(rd), ifelse(singles, "", "{"), sep = ""))
-    suffix = ifelse(special, "", ifelse(singles, "", "}"))
+
+    special = tag(rd) == toupper(tag(rd)) && tag(rd) != '\\R'
+    if (is.null(tag(rd)) || special) {
+      prefix = ""
+      suffix = ""
+    } else {
+      singles = tag(rd) %in% c('\\tab', '\\cr', '\\R')
+      prefix = paste0(tag(rd), ifelse(singles, "", "{"))
+      suffix = ifelse(singles, "", "}")
+    }
     paste(prefix, paste(sapply(rd, reconstruct), collapse = ""), suffix,
           sep = "")
   } else {
