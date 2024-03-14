@@ -12,3 +12,5 @@ URL: https://github.com/yihui/Rd2roxygen
 Collate:
     'bar.R'
     'foo.R'
+    'tests.R'
+    'pkgDemo-package.R'
