@@ -13,7 +13,8 @@ reconstruct = function(rd) {
   if (is.null(rd)) return()
 
   if (is.list(rd)) {
-    if (length(tag(rd)) && tag(rd) %in% c('\\item', '\\tabular', '\\eqn', '\\deqn', '\\link')) {
+    multi = c('\\section', '\\subsection', '\\item', '\\tabular', '\\eqn', '\\deqn', '\\link')
+    if (length(tag(rd)) && tag(rd) %in% multi) {
       if (tag(rd) == '\\link')
         return(paste('\\link', sprintf('[%s]', attr(rd, 'Rd_option')), '{', rd, '}', sep = ""))
       if (length(rd) == 2) {

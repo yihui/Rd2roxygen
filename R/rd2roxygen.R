@@ -27,9 +27,13 @@ parse_file = function(path) {
   out$usage = reconstruct(untag(rd$usage))
   out$desc = gsub("$\n+|\n+^", "", reconstruct(untag(rd$description)))
   out$details = reconstruct(untag(rd$details))
-  out$section = paste(reconstruct(untag(rd$section[1])),
-                       reconstruct(untag(rd$section[-1])), sep = ': ')
-  if (length(out$section) == 0) out$section = NULL
+
+  # Process sections
+  out$section = lapply(rd[names(rd) == "section"], function(section) {
+    paste(reconstruct(untag(section[1])),
+          reconstruct(untag(section[-1])), sep = ': ')
+  })
+
   out$format = reconstruct(untag(rd$format))
   out$value = reconstruct(untag(rd$value))
   out$note = reconstruct(untag(rd$note))
