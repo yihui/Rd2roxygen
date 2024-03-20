@@ -29,7 +29,7 @@ reconstruct = function(rd) {
       prefix = ""
       suffix = ""
     } else {
-      singles = tag(rd) %in% c('\\tab', '\\cr', '\\R')
+      singles = tag(rd) %in% c('\\tab', '\\cr', '\\R', '\\dots', '\\ldots')
       prefix = paste0(tag(rd), ifelse(singles, "", "{"))
       suffix = ifelse(singles, "", "}")
     }
