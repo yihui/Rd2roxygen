@@ -13,7 +13,8 @@ reconstruct = function(rd) {
   if (is.null(rd)) return()
 
   if (is.list(rd)) {
-    if (length(tag(rd)) && tag(rd) %in% c('\\item', '\\tabular', '\\eqn', '\\deqn', '\\link')) {
+    multi = c('\\section', '\\subsection', '\\item', '\\tabular', '\\eqn', '\\deqn', '\\link', '\\href')
+    if (length(tag(rd)) && tag(rd) %in% multi) {
       if (tag(rd) == '\\link')
         return(paste('\\link', sprintf('[%s]', attr(rd, 'Rd_option')), '{', rd, '}', sep = ""))
       if (length(rd) == 2) {
@@ -28,7 +29,7 @@ reconstruct = function(rd) {
       prefix = ""
       suffix = ""
     } else {
-      singles = tag(rd) %in% c('\\tab', '\\cr', '\\R')
+      singles = tag(rd) %in% c('\\tab', '\\cr', '\\R', '\\dots', '\\ldots')
       prefix = paste0(tag(rd), ifelse(singles, "", "{"))
       suffix = ifelse(singles, "", "}")
     }
