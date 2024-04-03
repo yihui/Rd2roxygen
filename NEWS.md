@@ -1,5 +1,8 @@
 # CHANGES IN Rd2roxygen VERSION 1.16
 
+- Process all sections instead of only the first (#25, #36).
+
+- Fix `\href{}{}` macro and add `\dots` and `\ldots` to single-argument macros (#22, #36).
 
 # CHANGES IN Rd2roxygen VERSION 1.15
 
