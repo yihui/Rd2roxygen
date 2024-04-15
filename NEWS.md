@@ -1,3 +1,6 @@
+# CHANGES IN Rd2roxygen VERSION 1.17
+
+
 # CHANGES IN Rd2roxygen VERSION 1.16
 
 - Process all sections instead of only the first (#25, #36).
