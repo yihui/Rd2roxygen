@@ -77,6 +77,9 @@ tidy_examples = function(rd, idx0, idx1, ..., path) {
     ei = tmp[c(2, nn - 1)]
     if (all(grepl(' # examplesIf}$', ei))) {
       tmp[c(2, nn - 1)] = ''
+      # remove withAutoprint() since it requires R >= 3.4.0
+      ei[1] = sub('withAutoprint(\\{ # examplesIf', '\\{', ei[1], fixed = TRUE)
+      ei[2] = sub('\\}) # examplesIf', '\\}', ei[2], fixed = TRUE)
     } else ei = NULL
   }
   txt = gsub('\\%', '%', tmp, fixed = TRUE) # will escape % later

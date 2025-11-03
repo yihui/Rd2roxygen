@@ -25,4 +25,4 @@
 #'   other serious issues via \url{https://github.com/yihui/Rd2roxygen/issues}.
 #' @examples
 #' ## see the package vignette: vignette('Rd2roxygen')
-NULL
+'_PACKAGE'
