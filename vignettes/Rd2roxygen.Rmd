@@ -4,7 +4,6 @@ subtitle: Convert Rd to roxygen documentation
 author: "Yihui Xie"
 date: '`r Sys.Date()`'
 slug: rd2roxygen
-show_toc: true
 githubEditURL: https://github.com/yihui/Rd2roxygen/edit/master/vignettes/Rd2roxygen.Rmd
 output:
   markdown::html_format:
