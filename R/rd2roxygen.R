@@ -77,7 +77,7 @@ parse_file = function(path) {
 #'   usage section automatically)
 #' @export
 #' @return a character vector
-#' @author Hadley Wickham; modified by Yihui Xie <\url{http://yihui.org}>
+#' @author Hadley Wickham; modified by Yihui Xie <\url{https://yihui.org}>
 #' @examples
 #' rd.file = system.file('examples','parse_and_save.Rd',package='Rd2roxygen')
 #' options(roxygen.comment = "##' ")
@@ -125,7 +125,7 @@ create_roxygen = function(info, usage = FALSE) {
 #' @return a character vector if \code{file} is not specified, or write the
 #'   vector into a file
 #' @export
-#' @author Hadley Wickham; modified by Yihui Xie <\url{http://yihui.org}>
+#' @author Hadley Wickham; modified by Yihui Xie <\url{https://yihui.org}>
 parse_and_save = function(path, file, usage = FALSE) {
   parsed = parse_file(path)
   output = create_roxygen(parsed, usage = usage)
@@ -166,7 +166,7 @@ exported_names = function(pkg) {
 #'   Re-run this function on a package will remove the previous roxygen comments
 #'   before functions in R scripts.
 #' @export
-#' @author Yihui Xie <\url{http://yihui.org}>
+#' @author Yihui Xie <\url{https://yihui.org}>
 #' @examples
 #' ## a demo package
 #' pkg = system.file('examples', 'pkgDemo', package = 'Rd2roxygen')

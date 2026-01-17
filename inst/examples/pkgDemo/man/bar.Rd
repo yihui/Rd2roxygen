@@ -16,6 +16,6 @@
 bar(1, 2)
 }
 \author{
-  Yihui Xie <\url{http://yihui.org}>
+  Yihui Xie <\url{https://yihui.org}>
 }
 

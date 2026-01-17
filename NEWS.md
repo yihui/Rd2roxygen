@@ -1,4 +1,6 @@
-# CHANGES IN Rd2roxygen VERSION 1.17
+# CHANGES IN Rd2roxygen VERSION 1.18
+
+- Switched the package vignette engine from knitr to litedown.
 
 # CHANGES IN Rd2roxygen VERSION 1.17
 

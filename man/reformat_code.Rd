@@ -43,5 +43,5 @@ file.show(fmt.file)  ## the formatted Rd
 \code{\link[formatR]{tidy_source}}
 }
 \author{
-Yihui Xie <\url{http://yihui.org}>
+Yihui Xie <\url{https://yihui.org}>
 }

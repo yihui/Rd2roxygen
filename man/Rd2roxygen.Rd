@@ -50,5 +50,5 @@ file.show("pkgDemo/R/foo.R")  # what happened to foo.R and bar.R?
 setwd(od)  # restore working directory
 }
 \author{
-Yihui Xie <\url{http://yihui.org}>
+Yihui Xie <\url{https://yihui.org}>
 }

@@ -19,7 +19,7 @@
 #'   directory before the package is roxygenized and built
 #' @param ... other arguments passed to \code{\link[roxygen2]{roxygenize}}
 #' @return \code{NULL}
-#' @author Yihui Xie <\url{http://yihui.org}>
+#' @author Yihui Xie <\url{https://yihui.org}>
 #' @rdname roxygen_and_build
 #' @import utils
 #' @export
@@ -80,7 +80,7 @@ rab = roxygen_and_build
 #' @param ... other arguments passed to \code{tidy_source}
 #' @return \code{NULL}; as a side effect, the original Rd file will be updated
 #' @export
-#' @author Yihui Xie <\url{http://yihui.org}>
+#' @author Yihui Xie <\url{https://yihui.org}>
 #' @seealso \code{\link[formatR]{tidy_source}}
 #' @note If the usage or examples code is not syntactically correct, it will not
 #'   be reformatted and a message will be printed on screen. One possible

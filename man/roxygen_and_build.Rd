@@ -76,5 +76,5 @@ rab("Rd2roxygen", install = TRUE)
 }
 }
 \author{
-Yihui Xie <\url{http://yihui.org}>
+Yihui Xie <\url{https://yihui.org}>
 }
